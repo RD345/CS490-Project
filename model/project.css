@@ -1,0 +1,403 @@
+/*
+    This is the complete CSS file for Task-bit. Created by Ryan Doherty 27-Nov-2018
+
+        ***Naming conventions Rules***
+        When naming elements is css, a name is picked for the uppermost element that will define some object on the webpage. Use a class(.) if multiple are to be created, and an id (#) otherwise. If that top element is associated with an even greater object, use child or descendant selectors to highlight the scope of the class or id (e.g. [nav > 'classname'], where classname is to be used in a nav element). All names will begin with a capital, and if the name is more than one word, a '_' is used in place of a space. All sub-elements for that object will reference the specific name or class, then the element under it. (e.g. .Task_table table) if at least one but not all elements need to be unique, a newclass or id is created with the parent class/id name followed by a '-' then the new class/id name, following the aforementioned naming rules. Group allparents with their children below it in the file.
+*/
+
+body
+{
+    background-color: rgb(34,34,34);
+    background-image: url(data:image/png;base64,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);
+    color: white;
+    overflow-y: auto;
+    overflow-x: hidden;
+    margin-top: 150px;
+    font-family: trench100free, Times, sans-serif;
+}
+
+#njit-mess,
+#gp10-mess
+{
+    color: aqua;
+}
+
+#njit-val,
+#gp10-val
+{
+    color: red;
+}
+
+.selected
+{
+    background-color: yellow;
+}
+
+*::selection
+{
+    background-color: black;
+    color: aqua;
+}
+
+h1
+{
+    font-family: 'trench100free', 'Times New Roman';
+    margin: auto;
+}
+
+h2
+{
+    text-align: center;
+    font-family: "trebuchet ms", Helvetica;
+    margin: 0;
+    color: cyan;
+}
+
+h3
+{
+    color: cyan;
+    text-align: center;
+    font-family: "trebuchet ms", Helvetica;
+}
+
+#Page
+{
+    width: 90%;
+    background-color: rgba(34, 34, 34, 0.75);
+    margin: auto;
+    padding: 10px;
+    margin-bottom: 20px;
+    box-shadow: 0 0 12px rgba(0, 232, 255, 0.27);
+    font-size: 150%;
+    min-height: 500px;
+    border-radius: 10px;
+}
+
+    #Page table
+    {
+        width: 100%;
+    }
+
+    #Page > .Task_table
+    {
+        position: relative;
+        display: flex;
+        justify-content: center;
+        background-color: transparent;
+        box-shadow: 0 0 12px rgba(0, 232, 255, 0.27);
+        border-radius: 10px;
+        padding: 8px;
+        margin: 5px;
+    }
+
+    #Page button
+    {
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 20px;
+        padding: 5px;
+        white-space: nowrap;
+    }
+
+    #Page .btn_submit
+    {
+        background-color: rgba(0, 255, 255, 0.38);
+        border: none;
+        text-align: center;
+        margin: 30px;
+    }
+
+        #Page button:hover
+        {
+            background-color: #34dade;
+        }
+
+    #Page > .Task_table th
+    {
+        align-content: center;
+        resize: horizontal;
+        font-size: 1.2em;
+        white-space: nowrap;
+        font-weight: bold;
+        color: aqua;
+    }
+
+    #Page > .Task_table td
+    {
+        white-space: nowrap;
+    }
+
+    #Page > .Task_table .th_id
+    {
+        align-content: center;
+        width: auto;
+    }
+
+    #Page > .Task_table .th_name
+    {
+        align-content: center;
+        width: auto;
+        min-width: 150px;
+    }
+
+    #Page > .Task_table .th_details
+    {
+        align-content: center;
+        width: 100%;
+    }
+
+    #Page > .Task_table .th_due td
+    {
+        text-align: left;
+        width: auto;
+    }
+
+    #Page > .Task_table .th_done
+    {
+        align-content: center;
+        width: auto;
+    }
+
+    #Page > .Task_table tr
+    {
+        border-bottom: 2px groove cyan;
+        border-top: 2px groove cyan;
+    }
+
+        #Page > .Task_table tr:hover,
+        #Page > .Task_table tr:active,
+        #Page > .Task_table tr:focus
+        {
+            background: black;
+            outline-color: cyan;
+        }
+
+        tr input
+        {
+            background-color: rgba(0, 255, 255, 0.38);
+            border: none;
+            width: 90%;
+            text-align: center;
+        }
+
+    #Page > .Task_table td
+    {
+        align-content: center;
+        text-align: center;
+        width: auto;
+    }
+
+    #Page > .Task_table > td
+    {
+        border: 2px groove;
+        font-size: larger;
+    }
+
+nav
+{
+    background-color: transparent;
+    top: 0px;
+    position: fixed;
+    font-weight: bold;
+    z-index: 2;
+}
+
+    nav > a
+    {
+        text-decoration: none;
+    }
+
+        nav > a:visited,
+        nav > a:link,
+        nav > a:hover
+        {
+            color: inherit;
+        }
+
+    nav > #logout
+    {
+        position: inherit;
+        right: 20px;
+        top: 10px;
+        font-size: 200%;
+        color: aqua;
+        z-index: 2;
+    }
+
+        nav > #logout:hover
+        {
+            color: black;
+            text-shadow: 0 0 4px aqua;
+        }
+
+    nav > #user
+    {
+        position: inherit;
+        left: 20px;
+        top: 10px;
+        font-size: 200%;
+        margin: auto;
+        color: aqua;
+        z-index: 2;
+    }
+
+header
+{
+    font-family: Helvetica;
+    text-align: center;
+    margin-left: -20px;
+    margin-right: -10px;
+    padding: 10px;
+    padding-bottom: 0;
+    background-color: black;
+    color: white;
+    position: fixed;
+    width: 100%;
+    top: 0px;
+    min-width: 750px;
+    z-index: 1;
+}
+
+    header > #bar
+    {
+        height: 40px;
+        background-color: rgba(51, 51, 51, 1);
+    }
+
+footer
+{
+    color: white;
+    text-align: center;
+    width: 100%;
+    position: fixed;
+    bottom: 0px;
+    border-top: 1px solid gray;
+    margin: auto;
+    z-index: 2;
+}
+
+    footer > p
+    {
+        margin: 0;
+        color: #AAA;
+        font-family: trench100free, Times, sans-serif;
+        font-weight: bold;
+        font-size: 120%;
+        padding: 5px;
+    }
+
+@font-face
+{
+    font-family: trench100free;
+    src: url(../source/fonts/trench100free/trench100free.otf);
+    font-display: inherit;
+}
+
+/*Sofia's style*/
+.wrapper
+{
+    position: absolute;
+    left: 40%;
+    margin-left: -80px;
+    top: 50px;
+    width: 350px;
+    padding: 10px;
+}
+
+.heading
+{
+    font-size: 2.1em;
+    text-align: left;
+    font-weight: 900;
+    line-height: .8;
+    width: 100%;
+    margin: auto;
+    color: aqua;
+    font-family: 'trench100free', 'Times New Roman';
+}
+
+.form-group
+{
+    padding: 10px;
+}
+
+.form-control
+{
+    margin-top: 5px;
+    padding: 5px 10px;
+    font-size: 15px;
+    border-radius: 3px;
+    height: 25px;
+    position: relative;
+    z-index: 2;
+    width: 100%;
+}
+
+    .form-control:focus
+    {
+        border-color: aqua;
+    }
+
+.help-block
+{
+    display: block;
+    margin: auto;
+    color: #EA271D;
+}
+
+.btn-primary
+{
+    width: 90px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 20px;
+    padding: 5px;
+}
+
+    .btn-primary:hover
+    {
+        background-color: #34dade;
+    }
+
+a.btn-logout
+{
+    color: black;
+    background-color: #f0f0f0;
+    width: 90px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 20px;
+    padding: 7px;
+    text-decoration: none;
+}
+
+    a.btn-logout:hover
+    {
+        background-color: #34dade;
+        text-decoration: none;
+    }
+
+a:visited
+{
+    color: #058C92;
+}
+
+a:hover
+{
+    color: #35AAAF;
+}
+
+.center
+{
+    text-align: center;
+}
+
+.page-header
+{
+    padding-bottom: 9px;
+    margin: 40px 0 20px;
+    border-bottom: 1px solid #eee;
+    text-align: center;
+}

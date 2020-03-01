@@ -16,6 +16,85 @@ body
     font-family: trench100free, Times, sans-serif;
 }
 
+#li-nav1-active,
+#li-nav1-active a
+{
+	background-color: #555;
+	color: white !important;
+}
+#li-nav1-active a
+{
+	color: white;
+}
+#li-nav2-active a
+{
+	color: white !important;
+}
+#nav-nav
+{
+	margin-left: -10px;
+	margin-right: -10px;
+	padding: 0;
+	background-color: transparent;
+	color: #999999;
+	width: 100%;
+}
+#nav-nav a
+{
+	color: #999;
+}
+#div-nav1
+{
+	position: relative;
+	display: flex;
+	justify-content: center;
+	background-color: rgba(51, 51, 51, 1);
+}
+#div-nav1 ul
+{
+	list-style: none;
+	text-decoration: none;
+	list-style-type: none;
+	display: flex;
+	justify-content: center;
+	margin-top: 0;
+	margin-bottom: 0;
+	width: 100%;
+}
+#div-nav1 li
+{
+	display: inline;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	padding-left: 5%;
+	padding-right: 5%;
+	font-size: 120%;
+	font-family: "trebuchet ms", Helvetica;
+}
+#div-nav2
+{
+	position: relative;
+	display: flex;
+	justify-content: center;
+	background-color: rgba(34, 34, 34, 1);
+	color: #555;
+	min-height: 29px;
+}
+#div-nav2 ul
+{
+	list-style: none;
+	text-decoration: none;
+	list-style-type: none;
+	display: inline;
+}
+#div-nav2 li
+{
+	display: inline;
+	padding: 10px;
+	text-align: justify;
+	font-family: "trebuchet ms", Helvetica;
+	font-size: 100%;
+}
 
 #njit-mess,
 #gp10-mess

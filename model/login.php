@@ -8,12 +8,6 @@ error_reporting(E_ALL);
 // Define variables and initialize with empty values
 $username = $_POST["username"];
 $password = $_POST["password"];
-
-// Custom JSON encoding funciton:
-function jsonEncode($data)
-{
-	return "{\r\t".'"username": '."\"".$data['username']."\",".'"password": '."\"".$data['password']."\""."\r}";
-}
  
 // Sends the login request:
 function sendRequest($username, $password)

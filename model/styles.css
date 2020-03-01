@@ -281,26 +281,7 @@ h3
         font-size: larger;
     }
 
-nav
-{
-    background-color: transparent;
-    top: 0px;
-    position: fixed;
-    font-weight: bold;
-    z-index: 2;
-}
 
-    nav > a
-    {
-        text-decoration: none;
-    }
-
-        nav > a:visited,
-        nav > a:link,
-        nav > a:hover
-        {
-            color: inherit;
-        }
 
     nav > #logout
     {

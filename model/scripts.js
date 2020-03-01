@@ -40,3 +40,8 @@ function login()
     xml_request.send(data);
     return false;
 }
+
+function logout()
+{
+    location.href =  "model/logout.php";
+}

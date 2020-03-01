@@ -14,14 +14,6 @@ function jsonEncode($data)
 {
 	return "{\r\t".'"username": '."\"".$data['username']."\",".'"password": '."\"".$data['password']."\""."\r}";
 }
-
-// Custom JSON decoding funciton:
-function jsonDecode($data)
-{
-	// TODO Decode goes here:
-	preg_match('".*"', $data, $vals);
-	print_r($vals[0]);
-}
  
 // Sends the login request:
 function sendRequest($username, $password)
@@ -44,31 +36,30 @@ function sendRequest($username, $password)
 
 // Process response:
 $response = sendRequest($username, $password);
-//echo "\n\rresponse:".$response; // Debug echo
-/*
-jsonDecode('{
-	"njit": "0",
-	"back": "0"
-}');
-*/
-
 $response = json_decode($response);
 
 // END
 $njit_val = false;
 $gp10_val = false;
 
-if ($response->njit == 1)
+if ($response->njit == 1) // NJIT login will go to student_home
+{
 	$njit_val = true;
+	$user_type = "student";
+	session_start();
+}
 
-if ($response->back == 1)
+if ($response->back == 1) // GP10 login will go to instructor_home
+{
 	$gp10_val = true;
+	$user_type = "instructor";
+	session_start();
+}
 
 echo json_encode
 ([
 	"njit_val" => $njit_val,
 	"gp10_val" => $gp10_val,
+	"user_type" => $user_type
 ]);
-
-//header("location: login.html"); // Return to login
 ?>

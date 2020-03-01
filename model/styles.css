@@ -1,8 +1,16 @@
 /*
-    This is the complete CSS file for Task-bit. Created by Ryan Doherty 27-Nov-2018
+   Created by Ryan Doherty 27-Nov-2018
 
-        ***Naming conventions Rules***
-        When naming elements is css, a name is picked for the uppermost element that will define some object on the webpage. Use a class(.) if multiple are to be created, and an id (#) otherwise. If that top element is associated with an even greater object, use child or descendant selectors to highlight the scope of the class or id (e.g. [nav > 'classname'], where classname is to be used in a nav element). All names will begin with a capital, and if the name is more than one word, a '_' is used in place of a space. All sub-elements for that object will reference the specific name or class, then the element under it. (e.g. .Task_table table) if at least one but not all elements need to be unique, a newclass or id is created with the parent class/id name followed by a '-' then the new class/id name, following the aforementioned naming rules. Group allparents with their children below it in the file.
+    ***Naming conventions Rules***
+    When naming elements is css, a name is picked for the uppermost element that will define some object on the webpage. 
+    Use a class(.) if multiple are to be created, and an id (#) otherwise. If that top element is associated with an 
+    even greater object, use child or descendant selectors to highlight the scope of the class or id 
+    (e.g. [nav > 'classname'], where classname is to be used in a nav element). All names will begin with a capital, 
+    and if the name is more than one word, a '_' is used in place of a space. All sub-elements for that object will 
+    reference the specific name or class, then the element under it. (e.g. .Task_table table) if at least one but not 
+    all elements need to be unique, a newclass or id is created with the parent class/id name followed by a '-' then 
+    the new class/id name, following the aforementioned naming rules. Group allparents with their children below it 
+    in the file.
 */
 
 body

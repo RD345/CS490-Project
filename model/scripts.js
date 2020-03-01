@@ -22,19 +22,19 @@ function login()
                 // NJIT response:
                 document.getElementById("njit-mess").innerHTML = "NJIT Auth: ";
                 if (response.njit_val)
-                    document.getElementById("njit-val").outerHTML = "<p id=njit-val style='color:green'>True<\p>"
+                    document.getElementById("njit-val").outerHTML = "<p id=njit-val style='color:green'><\p>"
                 else
-                    document.getElementById("njit-val").outerHTML = "<p id=njit-val style='color:red'>False<\p>"
+                    document.getElementById("njit-val").outerHTML = "<p id=njit-val style='color:red'><\p>"
                 
                 document.getElementById("njit-val").innerHTML = response.njit_val;
 
                 // GP10 Response:
                 document.getElementById("gp10-mess").innerHTML = "Group 10 Auth: ";
                 if (response.gp10_val)
-                    document.getElementById("gp10-val").outerHTML = "<p id=gp10-val style='color:green'>True<\p>"
+                    document.getElementById("gp10-val").outerHTML = "<p id=gp10-val style='color:green'><\p>"
                 else
-                    document.getElementById("gp10-val").outerHTML = "<p id=gp10-val style='color:red'>False<\p>"
-                    
+                    document.getElementById("gp10-val").outerHTML = "<p id=gp10-val style='color:red'><\p>"
+
                 document.getElementById("gp10-val").innerHTML = response.gp10_val;
 
                 // Redirect:

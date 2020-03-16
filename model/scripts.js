@@ -11,14 +11,6 @@ function login()
         if (xml_request.status == 200) // If the response is good (HTML code 200)
         {
             var response = JSON.parse(this.response);
-            // NJIT response:
-            document.getElementById("njit-mess").innerHTML = "NJIT Auth: ";
-            if (response.njit_val)
-                document.getElementById("njit-val").outerHTML = "<p id=njit-val style='color:green'><\p>"
-            else
-                document.getElementById("njit-val").outerHTML = "<p id=njit-val style='color:red'><\p>"
-            
-            document.getElementById("njit-val").innerHTML = response.njit_val;
 
             // GP10 Response:
             document.getElementById("gp10-mess").innerHTML = "Group 10 Auth: ";

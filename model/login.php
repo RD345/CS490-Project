@@ -6,8 +6,8 @@ error_reporting(E_ALL);
 
  
 // Define variables and initialize with empty values
-$username = $_POST["username"];
-$password = $_POST["password"];
+$username = $_SESSION["username"] = $_POST["username"];
+$password = $_SESSION["password"] = $_POST["password"];
  
 // Sends the login request:
 function sendRequest($username, $password)

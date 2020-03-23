@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang=en>
-<head>
+<head onload="verifyUser()">
 	<title>CS490 Project 1</title>
 	<meta charset=utf-8>
 	<link rel=stylesheet href=model/styles.css>
@@ -11,20 +11,21 @@
 <nav id=nav-nav>
 	<div id=div-nav1>
 		<ul>
-			<li id=li-nav1-active><a href=instructor_home.html>Home</a></li>
-			<li><a href=create_exam.html>Create a test</a></li>
+			<li id=li-nav1-active>Home</li>
+			<li><a href=create_exam.html>Create an Exam</a></li>
 		</ul>
 	</div>
 	<div id=div-nav2>
 		<button onclick="logout()">Logout</button>
 	</div>
 </nav>
-<h2>Welcome!</h2>
+<h2>Welcome, Instructor</h2>
 <div class=div-page>
-	<h3>Introduction</h3>
+	<h4>Your Options:</h4>
 	<p class=p-1>
-		<li>create exam</li>
+		<li>Create an exam</li>
 		<li>view exams</li>
+		<li>Release scores</li>
 		<li>student list</li>
 	</p>
 	<h3></h3>

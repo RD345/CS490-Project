@@ -37,3 +37,38 @@ function logout()
 {
     location.href =  "model/logout.php";
 }
+
+function verifyUser()
+{
+    var username = '<%= Session["user_name"] %>';
+    alert(username);
+}
+
+function process($args) // Takes an array of values in, and returns a parsed JSON
+{
+    var data = new FormData();
+    for ($i = 0; i < $args.length; i++) {
+        data.append(element, document.getElementById("username").value);
+    }
+    var xml_request = new XMLHttpRequest();
+    xml_request.open('POST', "model/send_data.php", true);
+    
+    xml_request.onload = function() 
+    {
+        if (xml_request.status == 200) // If the response is good (HTML code 200)
+            var response = JSON.parse(this.response);              
+        else 
+            alert("Server error!");
+    };
+    xml_request.send(data);
+    return response;
+}
+
+function createExam() {
+
+    var username = '<%= Session["username"] %>';
+        alert(username );
+    alert(response);
+    var response = process(Array("username", "user_type", "message_type"));
+    alert(response);
+}

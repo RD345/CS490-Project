@@ -3,54 +3,54 @@
 <head>
 	<title>CS490 Project 1</title>
 	<meta charset=utf-8>
-	<link rel=stylesheet href=Stylesheet-1.css>
+	<link rel=stylesheet href=model/styles.css>
 	<link rel=icon href=source/icons/favicon.ico>
 	<header><h1>CS490 Project 1</h1></header>
 	<script type=text/javascript src=model/scripts.js></script>
 <nav id=nav-nav>
 	<div id=div-nav1>
 		<ul>
-			<li><a href=History.html>.</a></li>
-			<li><a href=Explore.html>.</a></li>
-			<li id=li-nav1-active><a href=Home.html>Home</a></li>
-			<li><a href=Stats.html>.</a></li>
-			<li><a href=About.html>.</a></li>
+			<li id=li-nav1-active>Create Exam</li>
+			<li><a href=instructor_home.html>Home</a></li>
 		</ul>
 	</div>
 	<div id=div-nav2>
 		<button onclick="logout()">Logout</button>
 	</div>
 </nav>
-<h2>Welcome!</h2>
+<h2>Create an Exam below</h2>
 <div class=div-page>
-	<h3>Introduction</h3>
-	<p class=p-1>
-		
-	</p>
-	<h3>H3</h3>
-	<p class=p-2>.
-	<ul id=ul-1>
-		<li><h4><a href=Home.html>1</a></h4>
-			<ul><li>
-					The current page.
-		</li></ul></li>
-		<li><h4><a href=History.html>2</a></h4>
-			<ul><li>
-					.
-		</li></ul></li>
-		<li><h4><a href=Explore.html>3</a></h4>
-			<ul><li>
-					.
-		</li></ul></li>
-		<li><h4><a href=Stats.html>4</a></h4>
-			<ul><li>
-					.
-		</li></ul></li>
-		<li><h4><a href=About.html>5</a></h4>
-			<ul><li>
-					.
-		</li></ul></li>
-	</ul>
+	<form method=post onsubmit="createExam()">
+		<h3>Edit exam</h3>
+		<label>Exam Number</label><br>
+		<input type="text" id="examTableID" name="examTableID"/><br>
+		<label>Exam Name</label><br>
+		<input type="text" name="eName" id="eName"><br>
+		<label>Please Enter question Numbers</label><br>
+		<input type="text" id="questionNO" name="questionNO"/><br>
+		<input type=submit value="Create Exam">
+		<input type=hidden value=""><br>
+
+		<label>Select Question</label><br>
+		<select>
+			<option>Question 1</option>
+			<option>Question 2</option>
+			<option>Question 3</option>
+		</select><br>
+
+		<label>Difficulty:</label><br>
+		<select>
+			<option>Easy</option>
+			<option>Medium</option>
+			<option>Hard</option>
+		</select><br>
+
+		<label>Points:</label><br>
+		<input type=text><br>
+
+		<label>Enter Question</label><br>
+		<input type=text><br>
+	</form>
 </div>
 <footer>
 	<p class=p-1>Created and designed by Ryan Doherty</p>

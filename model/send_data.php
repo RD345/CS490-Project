@@ -6,30 +6,41 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
+if (session_status() == PHP_SESSION_ACTIVE)
+        if ($_SESSION[$user_type] != "student")
+            header("Location: ../logout.html");
+        elseif ($_SESSION[$user_type] != "instructor")
+            header("Location: ../logout.html");
+
  
 // Get basic session variables:
-$username = $_SESSION["username"];
-$password = $_SESSION["password"];
+if (isset($_SESSION["username"]))
+    $username = $_SESSION["username"];
+if (isset($_SESSION["password"]))
+    $password = $_SESSION["password"];
 
 // Determine message type and construct response: 
-$data = array('username' => $username, 'password' => $password, 'message_type' => $_POST['message_type']);
+
 switch ($_POST["message_type"]) 
 {
     case "login":
-        array_push($data, 'username', $_POST['username'], 'password', $_POST['password']);
+        $data = array('username' => $username, 'password' => $password, 'message_type' => $_POST['message_type']);
     break;
     case "logout":
         logout();
     break;
     case "create_exam":
-        array_push($data, 'message_type', $_POST['message_type']);
+        $data = array('username' => $username, 'message_type' => $_POST['message_type']);
+    break;
+    case "list_exams":
+        $data = array('username' => $username, 'message_type' => 'list_exams');
     break;
 }
 
 $back_url = "https://web.njit.edu/~fw73/backend.php"; // url for backend server.
-$middle_url = "https://web.njit.edu/~mjs239/CS490/middle.php"; // url for middle server.
+$middle_url = "https://web.njit.edu/~mjs239/CS490/beta/middle.php"; // url for middle server.
 
-$data = array('username' => $_POST['username'], 'password' => $_POST['password']);
+// $data = array('username' => $_POST['username'], 'password' => $_POST['password']);
 
 // Sends the login request:
 function sendRequest($data, $url)
@@ -46,7 +57,7 @@ function sendRequest($data, $url)
 
 
 // Process response:
-$response = sendRequest($username, $password);
+$response = sendRequest($data, $middle_url);
 echo $response;
 $response = json_decode($response);
 

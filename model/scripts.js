@@ -10,21 +10,23 @@ function login()
     {
         if (xml_request.status == 200) // If the response is good (HTML code 200)
         {
+            alert(this.response);
             var response = JSON.parse(this.response);
 
+            /*
             // GP10 Response:
             document.getElementById("gp10-mess").innerHTML = "Group 10 Auth: ";
-            if (response.auth_val)
+            if (response.auth_val == true)
                 document.getElementById("gp10-val").outerHTML = "<p id=gp10-val style='color:green'><\p>"
             else
                 document.getElementById("gp10-val").outerHTML = "<p id=gp10-val style='color:red'><\p>"
 
             document.getElementById("gp10-val").innerHTML = response.auth_val;
-
+            */
             // Redirect:
-            if (response.user_type == "student")
+            if (response.role == "student")
                 location.href = 'student_home.html';
-            else if (response.user_type == "instructor")
+            else if (response.role == "teacher")
                 location.href = 'instructor_home.html';                
         } else 
             alert("Server error!");
@@ -48,6 +50,8 @@ function process(funct, args=null) // Takes an array of strings in, and returns 
 {
     var data = new FormData();
     var response;
+    // data.append('username', document.getElementById("username").value);
+    data.append('message_type', funct);
 
     if(args != null)
         for (var i = 0; i < args.length; i++) {
@@ -118,22 +122,19 @@ function createExam() {
 
 function addQuestion()
 {
-    var question = "<label>Select Topic</label><br><select id=topic><option>Topic 1</option><option>Topic 2</option><option>Topic 3</option></select><br><label>Select Question</label><br><select id=question_num><option>Question 1</option><option>Question 2</option><option>Question 3</option></select><br><label>Select Difficulty:</label><br><select id=difficulty><option>Easy</option><option>Medium</option><option>Hard</option></select><br><label>Enter Point Value:</label><br><input type=text id=point_val value=5><br><br>";
+    var question = "<label>Select Topic</label><br><select id=topic><option>Topic 1</option><option>Topic 2</option><option>Topic 3</option></select><br><label>Select Question</label><br><select id=question_num><option>Question 1</option><option>Question 2</option><option>Question 3</option></select><br><label>Select Difficulty:</label><br><input type=text id=difficulty readonly value='N/A'><br><label>Enter Point Value:</label><br><input type=text id=point_val value=5><br><br>";
     document.getElementById("questions").innerHTML += question;
 }
 
-function listExamsProcess()
-{
 
-}
 function listExams()
 {
     response = process("list_exams");
+    document.getElementById("exam_list").innerHTML += ("<li>" + "test" + "</li>");
     for(var prop in response) {
         if (response.hasOwnProperty(prop)) {
-            // handle prop as required
-            document.getElementById("exam_list").innerHTML += "<li>" + prop + "</li>";
+            // handle prop:
+            document.getElementById("exam_list").innerHTML += ("<li>" + prop + "</li>");
         }
     }
-        
 }

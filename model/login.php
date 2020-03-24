@@ -6,9 +6,12 @@ error_reporting(E_ALL);
 
  
 // Define variables and initialize with empty values
-$username = $_SESSION["username"] = $_POST["username"];
-$password = $_SESSION["password"] = $_POST["password"];
- 
+$vars = [];
+array_push($vars, $_POST["username"]); // username
+array_push($vars, $_POST["password"]); // password
+array_push($vars, false); // auth_val
+
+// echo($vars[0]);
 // Sends the login request:
 function sendRequest($username, $password)
 {
@@ -29,31 +32,33 @@ function sendRequest($username, $password)
 
 
 // Process response:
-$response = sendRequest($username, $password);
+// $response = sendRequest($username, $password);
+$response = sendRequest($vars[0], $vars[1]); // username, password
 $response = json_decode($response);
 
 // END
-$njit_val = false;
-$gp10_val = false;
+// $njit_val = false;
 
-if ($response->njit == 1) // NJIT login will go to student_home
-{
-	$njit_val = true;
-	$user_type = "student";
-	session_start();
-}
+
+// if ($response->njit == 1) // NJIT login will go to student_home
+// {
+// 	$njit_val = true;
+// 	$user_type = "student";
+// 	session_start();
+// }
 
 if ($response->back == 1) // GP10 login will go to instructor_home
 {
-	$gp10_val = true;
+	$auth_val = true;
 	$user_type = "instructor";
 	session_start();
+	$_SESSION["password"] = $vars[1];
+	$_SESSION["username"] = $vars[0];
 }
 
 echo json_encode
 ([
-	"njit_val" => $njit_val,
-	"gp10_val" => $gp10_val,
+	"auth_val" => $auth_val,
 	"user_type" => $user_type
 ]);
 ?>

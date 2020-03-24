@@ -10,15 +10,22 @@ error_reporting(E_ALL);
 // Get basic session variables:
 $username = $_SESSION["username"];
 $password = $_SESSION["password"];
-switch ($_POST["message_type"]) {
+
+// Determine message type and construct response: 
+$data = array('username' => $username, 'password' => $password, 'message_type' => $_POST['message_type']);
+switch ($_POST["message_type"]) 
+{
     case "login":
-        $data = array('username' => $_POST['username'], 'password' => $_POST['password']);
+        array_push($data, 'username', $_POST['username'], 'password', $_POST['password']);
     break;
     case "logout":
         logout();
-    }
+    break;
+    case "create_exam":
+        array_push($data, 'message_type', $_POST['message_type']);
+    break;
+}
 
- 
 $back_url = "https://web.njit.edu/~fw73/backend.php"; // url for backend server.
 $middle_url = "https://web.njit.edu/~mjs239/CS490/middle.php"; // url for middle server.
 
@@ -40,19 +47,20 @@ function sendRequest($data, $url)
 
 // Process response:
 $response = sendRequest($username, $password);
+echo $response;
 $response = json_decode($response);
 
 
-echo json_encode
-([
-	"njit_val" => $njit_val,
-	"gp10_val" => $gp10_val,
-	"user_type" => $user_type
-]);
+// echo json_encode
+// ([
+// 	"njit_val" => $njit_val,
+// 	"gp10_val" => $gp10_val,
+// 	"user_type" => $user_type
+// ]);
 
 function logout() 
 {
-    if(session_status() != PHP_SESSION_NONE)
+    // if(session_status() != PHP_SESSION_NONE)
 	session_unset();
 
     header("Location: ../logout.html");

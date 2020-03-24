@@ -20,38 +20,46 @@
 </nav>
 <h2>Create an Exam below</h2>
 <div class=div-page>
-	<form method=post onsubmit="createExam()">
+	
+	<form id=questions method=post onsubmit="createExam()">
+		<input type="hidden" id=message_type value="create_exam">
 		<h3>Edit exam</h3>
 		<label>Exam Number</label><br>
-		<input type="text" id="examTableID" name="examTableID"/><br>
+		<input type="text" id="exam_id" value=0 /><br>
+
 		<label>Exam Name</label><br>
-		<input type="text" name="eName" id="eName"><br>
-		<label>Please Enter question Numbers</label><br>
-		<input type="text" id="questionNO" name="questionNO"/><br>
-		<input type=submit value="Create Exam">
-		<input type=hidden value=""><br>
+		<input type="text" id="exam_name" value=name><br><br>
+
+		<button type=submit>Create/Edit Exam</button>
+		<input type=hidden value=""><br><br>
+
+		<h4>Add Question</h4>
+		<label>Select Topic</label><br>
+		<select id=topic>
+			<option>Topic 1</option>
+			<option>Topic 2</option>
+			<option>Topic 3</option>
+		</select><br>
 
 		<label>Select Question</label><br>
-		<select>
+		<select id=question_num>
 			<option>Question 1</option>
 			<option>Question 2</option>
 			<option>Question 3</option>
 		</select><br>
 
-		<label>Difficulty:</label><br>
-		<select>
+		<label>Select Difficulty:</label><br>
+		<select id=difficulty>
 			<option>Easy</option>
 			<option>Medium</option>
 			<option>Hard</option>
 		</select><br>
 
-		<label>Points:</label><br>
-		<input type=text><br>
-
-		<label>Enter Question</label><br>
-		<input type=text><br>
+		<label>Enter Point Value:</label><br>
+		<input type=text id=point_val value=5><br><br>
 	</form>
-</div>
+	<button type="button" onclick="addQuestion()">Add Question</button>
+</div><br>
 <footer>
 	<p class=p-1>Created and designed by Ryan Doherty</p>
 </footer>

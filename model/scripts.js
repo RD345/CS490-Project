@@ -44,31 +44,74 @@ function verifyUser()
     alert(username);
 }
 
-function process($args) // Takes an array of values in, and returns a parsed JSON
+function process(funct, args) // Takes an array of strings in, and returns a parsed JSON
 {
     var data = new FormData();
-    for ($i = 0; i < $args.length; i++) {
-        data.append(element, document.getElementById("username").value);
+    var response = "blank";
+
+    for (var i = 0; i < args.length; i++) {
+        data.append(args[i], document.getElementById(args[i]).value);
+        // alert($args[i]);
+        // alert(document.getElementById($args[i]).value);
     }
     var xml_request = new XMLHttpRequest();
     xml_request.open('POST', "model/send_data.php", true);
-    
+
     xml_request.onload = function() 
     {
         if (xml_request.status == 200) // If the response is good (HTML code 200)
-            var response = JSON.parse(this.response);              
-        else 
-            alert("Server error!");
-    };
+        {
+            switch (funct)
+            {
+                case "login":
+                    login(response);
+                break;
+                case "create_exam":
+                    createExam();
+                break;
+            }
+        } else 
+        alert("Server error!");
+    }
+    
+    
+    
+    // xml_request.onload = function() 
+    // {   
+    //     if (xml_request.status == 200) // If the response is good (HTML code 200)
+    //         response = JSON.parse(this.response);             
+    //     else 
+    //         alert("Server error!");
+
+    //     // alert(this.response); 
+    // };
     xml_request.send(data);
     return response;
 }
 
 function createExam() {
 
-    var username = '<%= Session["username"] %>';
-        alert(username );
-    alert(response);
-    var response = process(Array("username", "user_type", "message_type"));
-    alert(response);
+    // var username = '<%= Session["username"] %>';
+        // alert(username);
+    // alert(document.getElementById("exam_id").value);
+    /*
+    var exam_id = document.getElementById("exam_id").value;
+    var exam_name = document.getElementById("exam_name").value;
+
+    var topic = document.getElementById("exam_name").value;
+    var question_num = document.getElementById("question_num").value;
+    var question_id = document.getElementById("question_id").value;
+    var difficulty = document.getElementById("difficulty").value;
+    */
+
+    var response = process("create_exam", Array("message_type", "exam_id", "exam_name"));
+    alert(response.exam_id);
+
+    
+}
+
+function addQuestion()
+{
+    var question = "<label>Select Topic</label><br><select id=topic><option>Topic 1</option><option>Topic 2</option><option>Topic 3</option></select><br><label>Select Question</label><br><select id=question_num><option>Question 1</option><option>Question 2</option><option>Question 3</option></select><br><label>Select Difficulty:</label><br><select id=difficulty><option>Easy</option><option>Medium</option><option>Hard</option></select><br><label>Enter Point Value:</label><br><input type=text id=point_val value=5><br><br>";
+    document.getElementById("questions").innerHTML += question;
 }

@@ -471,3 +471,10 @@ a:hover
     border-bottom: 1px solid #eee;
     text-align: center;
 }
+
+#username_display
+{
+    margin-left: 10px;
+    display: inline;
+    text-align: center;
+}

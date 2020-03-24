@@ -9,6 +9,7 @@
 	<script type=text/javascript src=model/scripts.js></script>
 </head>
 <nav id=nav-nav>
+	<h4 id=username_display onload="return getUsername()""></h4>
 	<div id=div-nav1>
 		<ul>
 			<li id=li-nav1-active>Home</li>
@@ -19,19 +20,21 @@
 		<button onclick="logout()">Logout</button>
 	</div>
 </nav>
-<h2>Welcome, Instructor</h2>
-<div class=div-page>
-	<h4>Your Options:</h4>
-	<p class=p-1>
-		<li>Create an exam</li>
-		<li>Review submissions</li>
-		<li>Release scores</li>
-		<li>student list</li>
-	</p>
-	<h3></h3>
-	<p class=p-2></p>
-	<ul id=ul-1></ul>
-</div>
+<body onload="getUsername(), listExams()">
+	<h2>Welcome, Instructor</h2>
+	<div class=div-page>
+		<h4>Your Options:</h4>
+		<p class=p-1>
+			<li>Create an exam</li>
+			<li>Review submissions</li>
+			<li>Release scores</li>
+			<li>student list</li>
+		</p>
+		<h3></h3>
+		<h4>Exam(s) Available:</h4>
+		<ul id=exam_list onloadstart="listExams('teacher')"></ul>
+	</div>
+</body>
 <footer>
 	<p class=p-1>Created and designed by Ryan Doherty</p>
 </footer>

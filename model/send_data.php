@@ -3,17 +3,22 @@
 
 require('header.php');
 
+$back_url = "https://web.njit.edu/~fw73/backend.php"; // url for backend server.
+$middle_url = "https://web.njit.edu/~mjs239/CS490/beta/middle.php"; // url for middle server.
  
 // Get basic session variables:
-// if (isset($_SESSION["username"]))
+if (isset($_SESSION["username"]))
     $username = $_SESSION["username"];
 if (isset($_SESSION["password"]))
     $password = $_SESSION["password"];
 
 // Determine message type and construct response: 
-
 switch ($_POST["message_type"]) 
 {
+    case "get_username":
+        echo json_encode(array('username' => $username));
+        return;
+    break;
     case "login":
         $data = array('username' => $username, 'password' => $password, 'message_type' => $_POST['message_type']);
     break;
@@ -26,12 +31,10 @@ switch ($_POST["message_type"])
     case "list_exams":
         $data = array('username' => $username, 'message_type' => 'list_exams');
     break;
+    case "get_questions":
+        $data = array('message_type' => 'get_questions');
+    break;
 }
-
-$back_url = "https://web.njit.edu/~fw73/backend.php"; // url for backend server.
-$middle_url = "https://web.njit.edu/~mjs239/CS490/beta/middle.php"; // url for middle server.
-
-// $data = array('username' => $_POST['username'], 'password' => $_POST['password']);
 
 // Sends the login request:
 function sendRequest($data, $url)
@@ -49,23 +52,5 @@ function sendRequest($data, $url)
 
 // Process response:
 $response = sendRequest($data, $middle_url);
-echo $response;
-$response = json_decode($response);
-
-
-// echo json_encode
-// ([
-// 	"njit_val" => $njit_val,
-// 	"gp10_val" => $gp10_val,
-// 	"role" => $role
-// ]);
-
-function logout() 
-{
-    // if(session_status() != PHP_SESSION_NONE)
-	session_unset();
-
-    header("Location: ../logout.html");
-    die();
-}
+echo $response; // Echo the response back
 ?>

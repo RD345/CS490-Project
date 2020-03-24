@@ -13,16 +13,6 @@ function login()
             alert(this.response);
             var response = JSON.parse(this.response);
 
-            /*
-            // GP10 Response:
-            document.getElementById("gp10-mess").innerHTML = "Group 10 Auth: ";
-            if (response.auth_val == true)
-                document.getElementById("gp10-val").outerHTML = "<p id=gp10-val style='color:green'><\p>"
-            else
-                document.getElementById("gp10-val").outerHTML = "<p id=gp10-val style='color:red'><\p>"
-
-            document.getElementById("gp10-val").innerHTML = response.auth_val;
-            */
             // Redirect:
             if (response.role == "student")
                 location.href = 'student_home.html';
@@ -56,8 +46,8 @@ function process(funct, args=null) // Takes an array of strings in, and returns 
     if(args != null)
         for (var i = 0; i < args.length; i++) {
             data.append(args[i], document.getElementById(args[i]).value);
-        // alert($args[i]);
-        // alert(document.getElementById($args[i]).value);
+        // alert(args[i]);
+        // alert(document.getElementById(args[i]).value);
     }
     var xml_request = new XMLHttpRequest();
     xml_request.open('POST', "model/send_data.php", true);
@@ -77,7 +67,8 @@ function process(funct, args=null) // Takes an array of strings in, and returns 
                     createExam();
                 break;
                 case "list_exams":
-                    listExamsProcess();
+                    document.getElementById("exam_list").innerHTML += ("<li>" + "test" + "</li>");
+                    listExams();
                 break;
             }
         } else 
@@ -85,18 +76,8 @@ function process(funct, args=null) // Takes an array of strings in, and returns 
     }
     
     
-    
-    // xml_request.onload = function() 
-    // {   
-    //     if (xml_request.status == 200) // If the response is good (HTML code 200)
-    //         response = JSON.parse(this.response);             
-    //     else 
-    //         alert("Server error!");
-
-    //     // alert(this.response); 
-    // };
     xml_request.send(data);
-    return response;
+    return xml_request;
 }
 
 function createExam() {
@@ -129,12 +110,49 @@ function addQuestion()
 
 function listExams()
 {
-    response = process("list_exams");
-    document.getElementById("exam_list").innerHTML += ("<li>" + "test" + "</li>");
-    for(var prop in response) {
-        if (response.hasOwnProperty(prop)) {
-            // handle prop:
-            document.getElementById("exam_list").innerHTML += ("<li>" + prop + "</li>");
-        }
+    var data = new FormData();
+    data.append('message_type', 'list_exams');
+
+    var xml_request = new XMLHttpRequest();
+    xml_request.open('POST', "model/send_data.php", true);
+
+    // alert(data[message_type]);
+    xml_request.onload = function() 
+    {
+        if (xml_request.status == 200) // If the response is good (HTML code 200)
+        {
+            alert("list_exams response:" + this.response);
+            if (this.response)
+            {
+                response = JSON.parse(this.response);
+                    // document.getElementById("exam_list").innerHTML += ("<li>" + "test" + "</li>");
+
+                    for(var i = 0; i < response.length; i++) {
+                        var obj = response[i];
+                    
+                        document.getElementById("exam_list").innerHTML += ("<li>" + obj.Name + "</li>");
+                        // console.log(obj.id);
+                    }
+            
+                    /*
+                for(var prop in response) 
+                {
+                    if (response.hasOwnProperty(prop)) 
+                        // handle prop:
+                        for(var prop2 in prop) 
+                        {
+                            if (prop.hasOwnProperty(prop2)) 
+                                for(var prop3 in prop2) 
+                                {
+                                    // if (prop2.hasOwnProperty(prop3)) 
+                                    document.getElementById("exam_list").innerHTML += ("<li>" + prop + prop2 + prop3 + "</li>");
+                                }
+                        }
+                }
+                */
+            }
+        } else 
+        alert("Server error!");
     }
+    xml_request.send(data);
 }

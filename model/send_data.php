@@ -1,20 +1,11 @@
 <?php
 /*This is for sending and recieveing requests through the network.*/
 
-// Settup error reporting:
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
-
-if (session_status() == PHP_SESSION_ACTIVE)
-        if ($_SESSION[$user_type] != "student")
-            header("Location: ../logout.html");
-        elseif ($_SESSION[$user_type] != "instructor")
-            header("Location: ../logout.html");
+require('header.php');
 
  
 // Get basic session variables:
-if (isset($_SESSION["username"]))
+// if (isset($_SESSION["username"]))
     $username = $_SESSION["username"];
 if (isset($_SESSION["password"]))
     $password = $_SESSION["password"];
@@ -66,7 +57,7 @@ $response = json_decode($response);
 // ([
 // 	"njit_val" => $njit_val,
 // 	"gp10_val" => $gp10_val,
-// 	"user_type" => $user_type
+// 	"role" => $role
 // ]);
 
 function logout() 

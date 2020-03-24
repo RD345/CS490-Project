@@ -1,8 +1,5 @@
 <?php
-// Settup error reporting:
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
+require('header.php');
 
 // Define variables and initialize with empty values
 $vars = [];
@@ -42,7 +39,7 @@ $response = json_decode($response);
 // if ($response->njit == 1) // NJIT login will go to student_home
 // {
 // 	$njit_val = true;
-// 	$user_type = "student";
+// 	$role = "student";
 // 	session_start();
 // }
 if (!isset($_SESSION))
@@ -51,19 +48,19 @@ if (!isset($_SESSION))
 $_SESSION["test"] = true;
 $_SESSION["username"] = $_POST["username"];
 
-// $return_data = ['message_type' => 'login_request', 'auth_val' => $response->back, 'user_type' => $user_type];
+// $return_data = ['message_type' => 'login_request', 'auth_val' => $response->back, 'role' => $role];
 echo json_encode($response);
 
 /*
 if ($response->back == 0) // GP10 login will go to instructor_home
 {
 	$auth_val = true;
-	$user_type = "instructor";
+	$role = "instructor";
 	// session_start();
 	$_SESSION["password"] = $vars[1];
 	$_SESSION["username"] = $vars[0];
 
-	$return_data = ['message_type' => 'login', 'auth_val' => $auth_val, 'user_type' => $user_type];
+	$return_data = ['message_type' => 'login', 'auth_val' => $auth_val, 'role' => $role];
 	echo json_encode($return_data); 
 	// echo json_encode($response);
 } 

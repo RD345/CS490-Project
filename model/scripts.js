@@ -15,9 +15,9 @@ function login()
 
             // Redirect:
             if (response.role == "student")
-                location.href = 'student_home.html';
+                location.href = 'student/student_home.html';
             else if (response.role == "teacher")
-                location.href = 'instructor_home.html';                
+                location.href = 'instructor/instructor_home.html';                
         } else 
             alert("Server error!");
     };
@@ -27,7 +27,7 @@ function login()
 
 function logout()
 {
-    location.href =  "model/logout.php";
+    location.href = "../model/logout.php";
 }
 
 function getUsername()
@@ -38,7 +38,7 @@ function getUsername()
     data.append('message_type', 'get_username');
 
     var xml_request = new XMLHttpRequest();
-    xml_request.open('POST', "model/send_data.php", true);
+    xml_request.open('POST', "../model/send_data.php", true);
 
     // alert(data[message_type]);
     xml_request.onload = function() 
@@ -73,7 +73,7 @@ function createXMLRequest(data) // Takes an array of strings in, and returns a p
         // alert(document.getElementById(args[i]).value);
     // }
     var xml_request = new XMLHttpRequest();
-    xml_request.open('POST', "model/send_data.php", true);
+    xml_request.open('POST', "../model/send_data.php", true);
 
     // xml_request.onload = function() 
     // {
@@ -130,7 +130,7 @@ function addQuestion()
     {
         if (xml_request.status == 200) // If the response is good (HTML code 200)
         {
-            alert("list_exams response:" + this.response);
+            // alert("list_exams response:" + this.response);
             if (this.response)
             {
                 question_list = JSON.parse(this.response); // array of all questions
@@ -161,8 +161,6 @@ function addQuestion()
                     add_question += ("<option>" + question.QuestionID + "</option>");
 
                 }
-                
-                
                 
                 add_question += "</select><br><label>Difficulty:</label><br><input type=text id=difficulty readonly value='" +  question_list[0].Level + "'><br><label>Enter Point Value:</label><br><input type=text id=point_val value=5><br>";
 

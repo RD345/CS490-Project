@@ -1,1 +1,2 @@
-# CS490-Project
+# CS490-Project Front End
+# By Ryan Doherty

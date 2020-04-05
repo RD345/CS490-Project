@@ -17,27 +17,17 @@
 			<li id=li-nav1-active>Home</li>
 			<li><a href=review_submissions.html>Review submissions</a></li>
 			<li><a href=release_scores.html>Release scores</a></li>
-			<li><a href=student_list.html>student list</a></li>
+			<li><a href=student_list.html>Student list</a></li>
 		</ul>
 	</div>
 	<div id=div-nav2>
 		<button onclick="logout()">Logout</button>
 	</div>
 </nav>
-<body onload="getUsername(), listExams()">
+<body onload="getUsername()">
 	<h2>Welcome, Instructor</h2>
 	<div class=div-page>
-		<h4>Your Options:</h4>
-		<p class=p-1>
-			<li><a href=create_question.html>Create an exam</a></li>
-			<li>Create a question</li>
-			<li>Review submissions</li>
-			<li>Release scores</li>
-			<li>student list</li>
-		</p>
-		<h3></h3>
-		<h4>Exam(s) Available:</h4>
-		<ul id=exam_list onloadstart="listExams('teacher')"></ul>
+		<h3>Use the navigation bar at the top of the page to perform an action.</h4>
 	</div>
 </body>
 <footer>

@@ -231,4 +231,5 @@ function listExams(role)
 function takeExam($exam_id) 
 {
     alert("You are now taking the exam");
+    
 }

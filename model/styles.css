@@ -448,3 +448,17 @@ a:hover
     display: inline;
     text-align: center;
 }
+
+.div-page
+{
+    margin-bottom: 3em;
+}
+
+button
+{
+    background-color: rgba(0, 0, 0, 0.534);
+    color: aqua;
+    border-style: groove;
+    padding: .5%;
+    margin: .4%;
+}

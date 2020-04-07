@@ -34,6 +34,9 @@ switch ($_POST["message_type"])
     case "get_questions":
         $data = array('message_type' => 'get_questions');
     break;
+    case "release_scores":
+        $data = array('message_type' => 'release_scores', 'exam_name' => $_POST['exam_name']);
+    break;
 }
 
 // Sends the login request:

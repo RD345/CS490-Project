@@ -204,23 +204,6 @@ function listExams(role)
                     else
                         document.getElementById("exam_list").innerHTML += ("<li>" + obj.Name + "</li>");
                 }
-            
-                    /*
-                for(var prop in response) 
-                {
-                    if (response.hasOwnProperty(prop)) 
-                        // handle prop:
-                        for(var prop2 in prop) 
-                        {
-                            if (prop.hasOwnProperty(prop2)) 
-                                for(var prop3 in prop2) 
-                                {
-                                    // if (prop2.hasOwnProperty(prop3)) 
-                                    document.getElementById("exam_list").innerHTML += ("<li>" + prop + prop2 + prop3 + "</li>");
-                                }
-                        }
-                }
-                */
             }
         } else 
         alert("Server error!");
@@ -268,3 +251,21 @@ function listExamsToRelease()
     }
     xml_request.send(data);
 }
+
+
+                    /*
+                for(var prop in response) 
+                {
+                    if (response.hasOwnProperty(prop)) 
+                        // handle prop:
+                        for(var prop2 in prop) 
+                        {
+                            if (prop.hasOwnProperty(prop2)) 
+                                for(var prop3 in prop2) 
+                                {
+                                    // if (prop2.hasOwnProperty(prop3)) 
+                                    document.getElementById("exam_list").innerHTML += ("<li>" + prop + prop2 + prop3 + "</li>");
+                                }
+                        }
+                }
+                */

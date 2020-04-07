@@ -7,27 +7,27 @@
 	<link rel=icon href=../source/icons/favicon.ico>
 	<header><h1>CS490 Project 1</h1></header>
 	<script type=text/javascript src=../model/scripts.js></script>
-<nav id=nav-nav>
-	<h4 id=username_display onload="return getUsername()""></h4>
-	<div id=div-nav1>
+<nav id='nav-nav'>
+	<h4 id='username_display' onload="return getUsername()"></h4>
+	<div id='div-nav1'>
 		<ul>
 			<li><a href=create_exam.html>Create an Exam</a></li>
-			<li id=li-nav1-active>Create a question</li>
+			<li id='li-nav1-active'>Create a question</li>
 			<li><a href=instructor_home.html>Home</a></li>
 			<li><a href=review_submissions.html>Review submissions</a></li>
 			<li><a href=release_scores.html>Release scores</a></li>
 			<li><a href=student_list.html>Student List</a></li>
 		</ul>
 	</div>
-	<div id=div-nav2>
+	<div id='div-nav2'>
 		<button onclick="logout()">Logout</button>
 	</div>
 </nav>
 <body onload="getUsername()">
 	<h2>Create an Exam below</h2>
-	<div class=div-page>
+	<div class='div-page'>
 		
-		<form id=questions method=post onsubmit="createExam()">
+		<form id='questions' method=post onsubmit="createExam()">
 			<input type="hidden" id=message_type value="create_exam">
 			<h4>Create Exam</h4>
 			<label>Exam Name</label><br>
@@ -42,6 +42,6 @@
 	</div><br><br>
 </body>
 <footer>
-	<p class=p-1>Created and designed by Ryan Doherty</p>
+	<p class='p-1'>Created by Group 10: Ryan Doherty, Matt and Feiyang Wang</p>
 </footer>
 </html>

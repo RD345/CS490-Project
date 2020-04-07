@@ -8,11 +8,11 @@
 	<header><h1>CS490 Project 1</h1></header>
 	<script type=text/javascript src=../model/scripts.js></script>
 </head>
-<nav id=nav-nav>
-	<h4 id=username_display onload="return getUsername()""></h4>
-	<div id=div-nav1>
+<nav id='nav-nav'>
+	<h4 id='username_display' onload="return getUsername()"></h4>
+	<div id='div-nav1'>
 		<ul>
-			<li id=li-nav1-active>Create an Exam</li>
+			<li id='li-nav1-active'>Create an Exam</li>
 			<li><a href=create_question.html>Create a question</a></li>
 			<li><a href=instructor_home.html>Home</a></li>
 			<li><a href=review_submissions.html>Review submissions</a></li>
@@ -20,21 +20,20 @@
 			<li><a href=student_list.html>Student List</a></li>
 		</ul>
 	</div>
-	<div id=div-nav2>
+	<div id='div-nav2'>
 		<button onclick="logout()">Logout</button>
 	</div>
 </nav>
 <body onload="getUsername(), listExams()">
 	<h4>Exam(s) Available:</h4>
-		<ul id=exam_list onloadstart="listExams('teacher')"></ul>
+		<ul id='exam_list' onloadstart="listExams('teacher')"></ul>
 	<h2>Create an Exam below</h2>
-	<div class=div-page>
-		
-		<form id=questions method=post onsubmit="createExam()">
+	<div class='div-page'>
+		<form id='questions' method=post onsubmit="createExam()">
 			<input type="hidden" id=message_type value="create_exam">
 			<h4>Create Exam</h4>
 			<label>Exam Name</label><br>
-			<input type="text" id="exam_name" value=name><br><br>
+			<input type='text' id='exam_name' value=name><br><br>
 
 			<button type=submit>Create/Edit Exam</button>
 			<input type=hidden value=""><br><br>
@@ -44,7 +43,7 @@
 		<button type="button" onclick="addQuestion()">Add Question</button>
 	</div><br><br>
 </body>
-<footer>
-	<p class=p-1>Created and designed by Ryan Doherty</p>
+<footer id='credits'>
+	<p class='p-1'>Created by Group 10: Ryan Doherty, Matt and Feiyang Wang</p>
 </footer>
 </html>

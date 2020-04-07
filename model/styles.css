@@ -34,10 +34,6 @@ body
 {
 	color: white;
 }
-#li-nav2-active a
-{
-	color: white !important;
-}
 #nav-nav
 {
     margin-top: -108px;
@@ -50,7 +46,7 @@ body
 }
 #nav-nav a
 {
-    color: #999;
+    text-decoration: none;
 }
 #div-nav1
 {
@@ -79,30 +75,6 @@ body
 	padding-right: 5%;
 	font-size: 120%;
 	font-family: "trebuchet ms", Helvetica;
-}
-#div-nav2
-{
-	position: relative;
-	display: flex;
-	justify-content: right;
-	background-color: rgba(34, 34, 34, 1);
-	color: #555;
-	min-height: 29px;
-}
-#div-nav2 ul
-{
-	list-style: none;
-	text-decoration: none;
-	list-style-type: none;
-	display: inline;
-}
-#div-nav2 li
-{
-	display: inline;
-	padding: 10px;
-	text-align: justify;
-	font-family: "trebuchet ms", Helvetica;
-	font-size: 100%;
 }
 
 #njit-mess,
@@ -281,8 +253,6 @@ h3
         border: 2px groove;
         font-size: larger;
     }
-
-
 
     nav > #logout
     {

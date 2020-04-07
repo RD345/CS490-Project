@@ -106,7 +106,7 @@ function createExam() {
     // var username = '<%= Session["username"] %>';
         // alert(username);
     // alert(document.getElementById("exam_id").value);
-    /*
+    
     var exam_id = document.getElementById("exam_id").value;
     var exam_name = document.getElementById("exam_name").value;
 
@@ -114,7 +114,7 @@ function createExam() {
     var question_num = document.getElementById("question_num").value;
     var question_id = document.getElementById("question_id").value;
     var difficulty = document.getElementById("difficulty").value;
-    */
+    
 
     var response = process("create_exam", Array("message_type", "exam_id", "exam_name"));
     alert(response.exam_id);
@@ -231,5 +231,11 @@ function listExams(role)
 function takeExam($exam_id) 
 {
     alert("You are now taking the exam");
-    
+}
+
+function getFooter()
+{
+    document.getElementById("credits").innerHTML = "<p class=p-1>Created by Group 10: Ryan Doherty, Matt and Feiyang Wang</p>";
+    // document.getElementById("username_display").innerHTML = username;
+    alert("test")
 }

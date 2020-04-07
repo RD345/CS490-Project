@@ -9,14 +9,14 @@
 	<script type=text/javascript src=../model/scripts.js></script>
 </head>
 <nav id='nav-nav'>
-	<h4 id='username_display' onload="return getUsername()"></h4>
 	<div id='div-nav1'>
 		<ul>
 			<li id='li-nav1-active'>Quit</li>
 		</ul>
-	</div>
-	<div id='div-nav2'>
-		<button onclick="logout()">Logout</button>
+		<div id='div-nav2'>
+			<h4 id='username_display' onload="return getUsername()"></h4>
+			<button id='logout' onclick="logout()">Logout</button>
+		</div>
 	</div>
 </nav>
 <body onload="getUsername()">

@@ -239,3 +239,32 @@ function getFooter()
     // document.getElementById("username_display").innerHTML = username;
     alert("test")
 }
+
+function listExamsToRelease()
+{
+    var data = new FormData();
+    data.append('message_type', 'list_exams');
+    var xml_request = createXMLRequest(data);
+
+    // alert(data[message_type]);
+    xml_request.onload = function() 
+    {
+        if (xml_request.status == 200) // If the response is good (HTML code 200)
+        {
+            alert("list_exams response:" + this.response);
+            if (this.response)
+            {
+                response = JSON.parse(this.response);
+
+                for(var i = 0; i < response.length; i++) 
+                {
+                    var obj = response[i];
+                    document.getElementById("exam_list").innerHTML += ("<li>" + obj.Name + "</li>");
+                    document.getElementById("exam_list").innerHTML += ("<button value='" + obj.Name + "'>Release Scores</button>");
+                }
+            }
+        } else 
+            alert("Server error!");
+    }
+    xml_request.send(data);
+}

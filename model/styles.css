@@ -262,7 +262,7 @@ h3
         font-size: larger;
     }
 
-    nav #logout
+    #logout
     {
         position: inherit;
         /* right: 10px;
@@ -272,11 +272,11 @@ h3
         z-index: 2;
     }
 
-        nav #logout:hover
-        {
-            color: black;
-            text-shadow: 0 0 4px aqua;
-        }
+    #logout:hover
+    {
+        color: black;
+        text-shadow: 0 0 4px aqua;
+    }
 
     nav #username_display
     {

@@ -25,10 +25,7 @@ function login()
     return false;
 }
 
-function logout()
-{
-    location.href = "../model/logout.php";
-}
+function logout() {location.href = "../model/logout.php";}
 
 function getUsername()
 {
@@ -151,7 +148,7 @@ function addQuestion()
                 add_question += "</select><br>";
 
                 // Add questions to drop-down:
-                add_question += "<label>Select Question</label><br><select id=question_num>";
+                add_question += "<label>Select Question</label><br><select id=question_num onchange='changeQuestion()')>";
                 for(var i = 0; i < question_list.length; i++) 
                 {
                     var question = question_list[i];
@@ -176,6 +173,11 @@ function addQuestion()
     xml_request.send(data);
 }
 
+function changeQuestion()
+{
+
+}
+
 
 function listExams(role)
 {
@@ -188,7 +190,7 @@ function listExams(role)
     {
         if (xml_request.status == 200) // If the response is good (HTML code 200)
         {
-            alert("list_exams response:" + this.response);
+            document.getElementById("debug").value = this.response;
             if (this.response)
             {
                 response = JSON.parse(this.response);
@@ -213,12 +215,12 @@ function takeExam($exam_id)
     alert("You are now taking the exam");
 }
 
-function getFooter()
-{
-    document.getElementById("credits").innerHTML = "<p class=p-1>Created by Group 10: Ryan Doherty, Matt and Feiyang Wang</p>";
-    // document.getElementById("username_display").innerHTML = username;
-    alert("test")
-}
+// function getFooter()
+// {
+//     document.getElementById("credits").innerHTML = "<p class=p-1>Created by Group 10: Ryan Doherty, Matt and Feiyang Wang</p>";
+//     // document.getElementById("username_display").innerHTML = username;
+//     alert("test")
+// }
 
 function listExamsToRelease()
 {
@@ -231,7 +233,7 @@ function listExamsToRelease()
     {
         if (xml_request.status == 200) // If the response is good (HTML code 200)
         {
-            alert("list_exams response:" + this.response);
+            document.getElementById("debug").value = this.response;
             if (this.response)
             {
                 response = JSON.parse(this.response);

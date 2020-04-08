@@ -10,7 +10,7 @@ function login()
     {
         if (xml_request.status == 200) // If the response is good (HTML code 200)
         {
-            alert(this.response);
+            // alert(this.response);
             var response = JSON.parse(this.response);
 
             // Redirect:
@@ -46,7 +46,6 @@ function getUsername()
             if (this.response)
             {
                 username = JSON.parse(this.response).username;
-                // alert(username);
                 document.getElementById("username_display").innerHTML = username;
                 // console.log(obj.id);
             }
@@ -57,61 +56,23 @@ function getUsername()
     return username;
 }
 
-function createXMLRequest(data) // Takes an array of strings in, and returns a parsed JSON
+function createXMLRequest(data, url) // Takes an array of strings in, and returns a parsed JSON
 {
-    // var data = new FormData();
     var response;
-    // data.append('username', document.getElementById("username").value);
-
-    // if(args != null)
-    //     for (var i = 0; i < args.length; i++) {
-    //         data.append(args[i], document.getElementById(args[i]).value);
-        // alert(args[i]);
-        // alert(document.getElementById(args[i]).value);
-    // }
     var xml_request = new XMLHttpRequest();
     xml_request.open('POST', "../model/send_data.php", true);
-
-    // xml_request.onload = function() 
-    // {
-    //     if (xml_request.status == 200) // If the response is good (HTML code 200)
-    //     {
-    //         alert(this.response);
-    //         response = JSON.parse(this.response);
-    //         switch (funct)
-    //         {
-    //             case "login":
-    //                 login(response);
-    //             break;
-    //             case "create_exam":
-    //                 createExam();
-    //             break;
-    //             case "list_exams":
-    //                 document.getElementById("exam_list").innerHTML += ("<li>" + "test" + "</li>");
-    //                 listExams();
-    //             break;
-    //         }
-    //     } else 
-    //     alert("Server error!");
-    // }
-    // xml_request.send(data);
     return xml_request;
 }
 
 function createExam() {
 
-    // var username = '<%= Session["username"] %>';
-        // alert(username);
-    // alert(document.getElementById("exam_id").value);
-    
+    var username = document.getElementById('username_display').value;
     var exam_id = document.getElementById("exam_id").value;
     var exam_name = document.getElementById("exam_name").value;
-
     var topic = document.getElementById("exam_name").value;
     var question_num = document.getElementById("question_num").value;
     var question_id = document.getElementById("question_id").value;
     var difficulty = document.getElementById("difficulty").value;
-    
 
     var response = process("create_exam", Array("message_type", "exam_id", "exam_name"));
     alert(response.exam_id);
@@ -190,7 +151,7 @@ function listExams(role)
     {
         if (xml_request.status == 200) // If the response is good (HTML code 200)
         {
-            document.getElementById("debug").value = this.response;
+            debug(this.response);
             if (this.response)
             {
                 response = JSON.parse(this.response);
@@ -210,17 +171,11 @@ function listExams(role)
     xml_request.send(data);
 }
 
-function takeExam($exam_id) 
+function takeExam(exam_id) 
 {
     alert("You are now taking the exam");
 }
 
-// function getFooter()
-// {
-//     document.getElementById("credits").innerHTML = "<p class=p-1>Created by Group 10: Ryan Doherty, Matt and Feiyang Wang</p>";
-//     // document.getElementById("username_display").innerHTML = username;
-//     alert("test")
-// }
 
 function listExamsToRelease()
 {
@@ -228,12 +183,11 @@ function listExamsToRelease()
     data.append('message_type', 'list_exams');
     var xml_request = createXMLRequest(data);
 
-    // alert(data[message_type]);
     xml_request.onload = function() 
     {
         if (xml_request.status == 200) // If the response is good (HTML code 200)
         {
-            document.getElementById("debug").value = this.response;
+            debug(this.response);
             if (this.response)
             {
                 response = JSON.parse(this.response);
@@ -251,20 +205,42 @@ function listExamsToRelease()
     xml_request.send(data);
 }
 
+function debug(text) {document.getElementById("debug").value = text;}
 
-                    /*
-                for(var prop in response) 
-                {
-                    if (response.hasOwnProperty(prop)) 
-                        // handle prop:
-                        for(var prop2 in prop) 
-                        {
-                            if (prop.hasOwnProperty(prop2)) 
-                                for(var prop3 in prop2) 
-                                {
-                                    // if (prop2.hasOwnProperty(prop3)) 
-                                    document.getElementById("exam_list").innerHTML += ("<li>" + prop + prop2 + prop3 + "</li>");
-                                }
-                        }
-                }
-                */
+// TODO
+function addTestCase()
+{
+    // Add cases:
+    var add_case = "<label>Number of Inputs:</label><br><input type='number' id='input_num'><button onclick='addTestCase2()'>Go</button><br>"
+    // add_case += "<label>Input 1</label><br><input class='input'><br>";
+    
+    document.getElementById("question").innerHTML += add_case; 
+}
+
+function addTestCase2()
+{
+    inputs = document.getElementById('input_num').value
+    var add_case;
+    for(i = 0; i < inputs; i++)
+        add_case += "<label>Input " + (i + 1) + "</label><br><input class='input'><br>";
+
+    add_case += "<label>Output:</label><br><input id='output'><br>"
+    document.getElementById("question").innerHTML += add_case; 
+}
+
+        /*
+    for(var prop in response) 
+    {
+        if (response.hasOwnProperty(prop)) 
+            // handle prop:
+            for(var prop2 in prop) 
+            {
+                if (prop.hasOwnProperty(prop2)) 
+                    for(var prop3 in prop2) 
+                    {
+                        // if (prop2.hasOwnProperty(prop3)) 
+                        document.getElementById("exam_list").innerHTML += ("<li>" + prop + prop2 + prop3 + "</li>");
+                    }
+            }
+    }
+    */

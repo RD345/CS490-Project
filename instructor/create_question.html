@@ -27,20 +27,25 @@
 <body onload="getUsername()">
 	<input type='hidden' id='debug'>
 	<div class='div-page'>
-		<h2>Create an Exam below</h2>
-		<form id='questions' method=post onsubmit="createExam()">
-			<input type="hidden" id=message_type value="create_exam">
-			<h4>Create Exam</h4>
-			<label>Exam Name</label><br>
-			<input type="text" id="exam_name" value=name><br><br>
+		<h2>Create a New Question</h2>
+		<form id='question' method=post onsubmit="createExam()">
+			<input type="hidden" id='message_type' value="create_exam">
+			<button type='submit'>Create Question</button><br>
+			<label>Question:</label><br>
+			<textarea id='description'></textarea><br>
 
-			<button type=submit>Create/Edit Exam</button>
-			<input type=hidden value=""><br><br>
+			<label>Difficulty:</label><br>
+			<select id='difficulty'>
+				<option>Easy</option>
+				<option>Medium</option>
+				<option>Hard</option>
+			</select><br>
 
-			<h4>Add Question</h4>
+			<label>Topic</label><br>
+			<input id='topic'><br><br>
 		</form>
-		<button type="button" onclick="addQuestion()">Add Question</button>
-	</div><br><br>
+		<button type="button" onclick="addTestCase()">Add Test Case</button>
+	</div><br>
 </body>
 <footer>
 	<p class='p-1'>Created by Group 10: Ryan Doherty, Matt and Feiyang Wang</p>

@@ -25,19 +25,16 @@
 	</div>
 </nav>
 <body onload="getUsername(), listExams()">
-	<h4>Exam(s) Available:</h4>
-		<ul id='exam_list' onloadstart="listExams('teacher')"></ul>
-	<h2>Create an Exam below</h2>
 	<div class='div-page'>
+		<h3>Exam(s) Available:</h3>
+		<ul id='exam_list' onloadstart="listExams('teacher')"></ul>
+		<h2>Create an Exam below</h2>
 		<form id='questions' method=post onsubmit="createExam()">
 			<input type="hidden" id=message_type value="create_exam">
-			<h4>Create Exam</h4>
-			<label>Exam Name</label><br>
-			<input type='text' id='exam_name' value=name><br><br>
-
+			<label><h4>Exam Name</h4></label>
+			<input type='text' id='exam_name' required>
 			<button type=submit>Create/Edit Exam</button>
 			<input type=hidden value=""><br><br>
-
 			<h4>Add Question</h4>
 		</form>
 		<button type="button" onclick="addQuestion()">Add Question</button>

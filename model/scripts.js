@@ -136,10 +136,7 @@ function addQuestion()
                 question_list = JSON.parse(this.response); // array of all questions
                 var topics = [];
                 
-                function findTopic(find)
-                {
-                    return topics == find;
-                }
+                function findTopic(find) {return topics == find;}
                 // Get topics:
                 for(var i = 0; i < question_list.length; i++) 
                 {

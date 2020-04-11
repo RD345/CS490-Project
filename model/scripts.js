@@ -66,7 +66,7 @@ function createXMLRequest(data, url) // Takes an array of strings in, and return
 
 function createExam() {
 
-    var username = document.getElementById('username_display').value;
+    var username = document.getElementById("username_display").value;
     var exam_id = document.getElementById("exam_id").value;
     var exam_name = document.getElementById("exam_name").value;
     var topic = document.getElementById("exam_name").value;
@@ -207,25 +207,78 @@ function listExamsToRelease()
 
 function debug(text) {document.getElementById("debug").value = text;}
 
-// TODO
+// Start the addtion of test cases by asking for input: 
 function addTestCase()
 {
-    // Add cases:
-    var add_case = "<label>Number of Inputs:</label><br><input type='number' id='input_num'><button onclick='addTestCase2()'>Go</button><br>"
-    // add_case += "<label>Input 1</label><br><input class='input'><br>";
+    var question = document.getElementById("question");
+    var input_name = document.createElement("h4")
+    input_name.innerHTML = "Test Case:";
+
+    var label = document.createElement("label")
+    label.textContent = "Number of Inputs:"
+    label.id = 'input_label';
+
+    var input = document.createElement("input");
+    input.type = 'number';
+    input.id = 'input_num';
+    input.value = 2;
+    input.required = true;
     
-    document.getElementById("question").innerHTML += add_case; 
+    var button = document.createElement("button");
+
+    button.onclick = function() {addTestCase2()};
+    button.type = 'button';
+    button.id = 'arg_btn'
+    button.innerHTML = 'Go';
+
+    question.appendChild(input_name);
+    question.appendChild(label); 
+    question.appendChild(document.createElement("br"));
+    question.appendChild(input); 
+    question.appendChild(button);
+    question.appendChild(document.createElement("br"));
 }
 
+// Add the test case input based off of the requested number of args:
 function addTestCase2()
 {
-    inputs = document.getElementById('input_num').value
-    var add_case;
-    for(i = 0; i < inputs; i++)
-        add_case += "<label>Input " + (i + 1) + "</label><br><input class='input'><br>";
+    var question = document.getElementById("question");
+    var inputs = document.getElementById("input_num").value;
 
-    add_case += "<label>Output:</label><br><input id='output'><br>"
-    document.getElementById("question").innerHTML += add_case; 
+    // Remove the buttons from the previous test case, if applicable:
+    document.getElementById("arg_btn").remove();
+    document.getElementById("input_num").remove();
+    document.getElementById("input_label").remove();
+    
+    for(i = 0; i < inputs; i++)
+    {
+        // Create a new input:
+        var input = document.createElement("input");
+        input.id = 'input' + i;
+        input.className = 'args'
+        input.required = true;
+
+        // Label the input:
+        var label = document.createElement("label")
+        label.textContent = String("Input " + (i + 1));
+
+        // Apend the label and input to the form:
+        question.appendChild(label);
+        question.appendChild(document.createElement("br"));
+        question.appendChild(input); 
+        question.appendChild(document.createElement("br"));
+    }
+    // Create the label for the expected output:
+    var label = document.createElement("label")
+    label.textContent = 'Expected output';
+
+    // 
+    var output = document.createElement("input");
+    output.name = 'output'
+    output.id = 'output'; // TODO add counter
+    question.appendChild(label);
+    question.appendChild(document.createElement("br"));
+    question.appendChild(output);
 }
 
         /*

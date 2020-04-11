@@ -210,9 +210,18 @@ function debug(text) {document.getElementById("debug").value = text;}
 // Start the addtion of test cases by asking for input: 
 function addTestCase()
 {
+    if (document.getElementById('input_num') != null)
+    {
+        alert("Please fill out the current test case before adding another!");
+        return;
+    }
+    document.getElementById('case_num').innerHTML += 1; // Increments the test case number.
+    var case_num = parseInt(document.getElementById('case_num').value) + 1; // Sets the variable for test case number.
+    document.getElementById('case_num').value = case_num; // Updates the display.
+
     var question = document.getElementById("question");
     var input_name = document.createElement("h4")
-    input_name.innerHTML = "Test Case:";
+    input_name.innerHTML = "Test Case " + parseInt(case_num++) + ':';
 
     var label = document.createElement("label")
     label.textContent = "Number of Inputs:"
@@ -244,6 +253,7 @@ function addTestCase2()
 {
     var question = document.getElementById("question");
     var inputs = document.getElementById("input_num").value;
+    var case_num = document.getElementById('case_num').value; // Sets the variable for test case number.
 
     // Remove the buttons from the previous test case, if applicable:
     document.getElementById("arg_btn").remove();
@@ -254,7 +264,7 @@ function addTestCase2()
     {
         // Create a new input:
         var input = document.createElement("input");
-        input.id = 'input' + i;
+        input.id = 'input' + i + 'case' + case_num;
         input.className = 'args'
         input.required = true;
 
@@ -274,26 +284,56 @@ function addTestCase2()
 
     // 
     var output = document.createElement("input");
+    output.required = true;
     output.name = 'output'
-    output.id = 'output'; // TODO add counter
+    output.id = 'output' + case_num; // TODO add counter
     question.appendChild(label);
     question.appendChild(document.createElement("br"));
     question.appendChild(output);
 }
 
-        /*
-    for(var prop in response) 
+// Submit a new question to the database:
+function createQuestion() {
+    // Get fields form the form:
+    var username = document.getElementById("username_display").value;
+    var topic = document.getElementById("topic").value;
+    var description = document.getElementById("description").value;
+    var difficulty = document.getElementById("difficulty").value;
+
+    // TODO Build the data set:
+    var data = new FormData();
+    data.append('message_type', 'create_question');
+    data.append('username', username);
+    data.append('topic', topic);
+    data.append('description', description);
+    data.append('difficulty', difficulty);
+    data.append(document.getElementsByName('args'));
+    data.append(document.getElementsByName('output'));
+    var xml_request = createXMLRequest(data);
+
+    alert(data); // Debug
+
+    xml_request.onload = function() 
     {
-        if (response.hasOwnProperty(prop)) 
-            // handle prop:
-            for(var prop2 in prop) 
-            {
-                if (prop.hasOwnProperty(prop2)) 
-                    for(var prop3 in prop2) 
-                    {
-                        // if (prop2.hasOwnProperty(prop3)) 
-                        document.getElementById("exam_list").innerHTML += ("<li>" + prop + prop2 + prop3 + "</li>");
-                    }
-            }
+        if (xml_request.status == 200) // If the response is good (HTML code 200)
+        {
+            alert(this.response); // Debug
+            // if (this.response)
+            // {
+            //     response = JSON.parse(this.response); // Parses the response.
+
+            //     for(var i = 0; i < response.length; i++) 
+            //     {
+            //         var obj = response[i];
+            //         if(role == 'student')
+            //             document.getElementById("exam_list").innerHTML += ("<li>" + "<a onclick=takeExam(" + obj.ExamID + ")>" + obj.Name + "</a>" + "</li>");
+            //         else
+            //             document.getElementById("exam_list").innerHTML += ("<li>" + obj.Name + "</li>");
+            //     }
+            // }
+        } else 
+        alert("Server error!");
     }
-    */
+    xml_request.send(data);
+}
+    

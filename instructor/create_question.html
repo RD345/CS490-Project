@@ -29,11 +29,11 @@
 	<input type='hidden' id='debug'>
 	<div class='div-page'>
 		<h2>Create a New Question</h2>
-		<form id='question' method=post onsubmit="createExam()">
-			<input type="hidden" id='message_type' value="create_exam">
+		<form id='question' method='post' onsubmit='createQuestion()'>
+			<input type='hidden' id='message_type' value="create_exam">
 			<button type='submit'>Create Question</button><br>
 			<label>Question:</label><br>
-			<textarea id='description'></textarea><br>
+			<textarea id='description' required></textarea><br>
 
 			<label>Difficulty:</label><br>
 			<select id='difficulty'>
@@ -43,7 +43,8 @@
 			</select><br>
 
 			<label>Topic</label><br>
-			<input id='topic'><br><br>
+			<input id='topic' required><br><br>
+			<h4>Test Cases: <input id='case_num' type='number' readonly value=0 style="width: 1.5em"></h4>
 		</form>
 		<button type="button" onclick="addTestCase()">Add Test Case</button>
 	</div><br>

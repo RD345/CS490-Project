@@ -265,7 +265,7 @@ function addTestCase2()
         // Create a new input:
         var input = document.createElement("input");
         input.id = 'input' + i + 'case' + case_num;
-        input.className = 'args'
+        input.name = 'args'
         input.required = true;
 
         // Label the input:
@@ -287,6 +287,7 @@ function addTestCase2()
     output.required = true;
     output.name = 'output'
     output.id = 'output' + case_num; // TODO add counter
+    output.name = 'output'
     question.appendChild(label);
     question.appendChild(document.createElement("br"));
     question.appendChild(output);
@@ -295,29 +296,42 @@ function addTestCase2()
 // Submit a new question to the database:
 function createQuestion() {
     // Get fields form the form:
+    // alert("test");
     var username = document.getElementById("username_display").value;
     var topic = document.getElementById("topic").value;
     var description = document.getElementById("description").value;
     var difficulty = document.getElementById("difficulty").value;
 
+    // alert(document.getElementsByClassName("form").serializeArray());
     // TODO Build the data set:
     var data = new FormData();
     data.append('message_type', 'create_question');
     data.append('username', username);
     data.append('topic', topic);
     data.append('description', description);
+    // args = []; 
+    // document.getElementsByClassName('form').forEach(addArgs())
+    // var forms = document.getElementsByTagName('form');
+    arr = Array.from(document.forms["question"].getElementsByTagName("input"));
+    alert(arr);
+    arr.forEach(addArgs);
+    function addArgs(item)
+    {
+        data.append(item.id, item.value);
+    }
+    // data.append(args);
     data.append('difficulty', difficulty);
-    data.append(document.getElementsByName('args'));
-    data.append(document.getElementsByName('output'));
+    // data.append('args', arr);
+    data.append('output', Array.from(document.getElementsByName('output').values));
     var xml_request = createXMLRequest(data);
 
-    alert(data); // Debug
+    // alert(data); // Debug
 
     xml_request.onload = function() 
     {
         if (xml_request.status == 200) // If the response is good (HTML code 200)
         {
-            alert(this.response); // Debug
+            alert(JSON.parse(this.response)); // Debug
             // if (this.response)
             // {
             //     response = JSON.parse(this.response); // Parses the response.

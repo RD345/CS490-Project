@@ -5,6 +5,12 @@
     error_reporting(E_ALL);
 
     session_start(); // Starts or maintains the session
+
+    // Get basic session variables:
+    if (isset($_SESSION["username"]))
+    $username = $_SESSION["username"];
+    if (isset($_SESSION["password"]))
+    $password = $_SESSION["password"];
     
     // Redirect if on invalid page for role:
         

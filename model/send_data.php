@@ -1,16 +1,10 @@
 <?php
 /*This is for sending and recieveing requests through the network.*/
-
 require('header.php');
 
 $back_url = "https://web.njit.edu/~fw73/backend.php"; // url for backend server.
 $middle_url = "https://web.njit.edu/~mjs239/CS490/beta/middle.php"; // url for middle server.
  
-// Get basic session variables:
-if (isset($_SESSION["username"]))
-    $username = $_SESSION["username"];
-if (isset($_SESSION["password"]))
-    $password = $_SESSION["password"];
 
 $data = array();
 // Add data to the request:
@@ -33,5 +27,8 @@ function sendRequest($data, $url)
 
 // Process response:
 $response = sendRequest($data, $middle_url);
-echo $response; // Echo the response back
+if ($response != null)
+    echo $response; // Echo the response back
+else
+    echo json_encode("{'message_type': 'fail'");
 ?>

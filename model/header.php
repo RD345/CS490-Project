@@ -1,31 +1,28 @@
 <?php
-    // Setup Error Reporting:
-    ini_set('display_errors', 1);
-    ini_set('display_startup_errors', 1);
-    error_reporting(E_ALL);
+// Setup Error Reporting:
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+session_start(); // Starts or maintains the session
 
-    session_start(); // Starts or maintains the session
+// Direct to correct page:
+// if(isset($_SESSION['username']) == false)
+// {
+//     header("Location:../login.html");
+//     die();
+// }
+// elseif (isset($_SESSION['role']))
+// {
+//     if ($_SESSION['role'] != "student" && $_SESSION['role'] != "teacher")
+//     header("Location:../login.html");
+//         // header("Location: logout.php");
+//     // elseif ($_SESSION[$role] != "teacher")
+//     //     header("Location: logout.php");
+// }
 
-    // Get basic session variables:
-    if (isset($_SESSION["username"]))
-    $username = $_SESSION["username"];
-    if (isset($_SESSION["password"]))
-    $password = $_SESSION["password"];
-    
-    // Redirect if on invalid page for role:
-        
-        /*
-    if ($_SESSION[$role] != "student")
-        header("Location: logout.php");
-    elseif ($_SESSION[$role] != "instructor")
-        header("Location: logout.php");
-    
-    die();
-    */
 
 function logout() 
 {
-    // if(session_status() != PHP_SESSION_NONE)
     session_unset();
     session_destroy();
 

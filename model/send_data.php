@@ -1,15 +1,38 @@
 <?php
 /*This is for sending and recieveing requests through the network.*/
-require('header.php');
+require_once 'header.php';
 
 $back_url = "https://web.njit.edu/~fw73/backend.php"; // url for backend server.
 $middle_url = "https://web.njit.edu/~mjs239/CS490/beta/middle.php"; // url for middle server.
- 
+$middle_url = "https://web.njit.edu/~mjs239/CS490/rc/middle.php"; // url for middle server.
 
+ 
 $data = array();
+$data2 = array();
 // Add data to the request:
-foreach($_POST as $key => $value)
-    $data[$key] = $value;
+switch ($_POST["message_type"]) 
+{
+    case "get_username":
+        echo json_encode(array('username' => $_SESSION['username']));
+        return;
+    break;
+    case "logout":
+        logout();
+    break;
+    case "get_questions":
+        $data = array('message_type' => 'get_questions');
+    break;
+    case "release_scores":
+        $data = array('message_type' => 'release_scores', 'exam_name' => $_POST['exam_name']);
+    break;
+    default:
+        foreach($_SESSION as $key => $value)
+            $data2[$key] = $value;
+        foreach($_POST as $key => $value)
+            $data[$key] = $value;
+    break;
+}
+
 
 // Sends the login request:
 function sendRequest($data, $url)
@@ -24,11 +47,12 @@ function sendRequest($data, $url)
     return $res;
 }
 
-
+$data = array_merge($data, $data2);
 // Process response:
 $response = sendRequest($data, $middle_url);
 if ($response != null)
     echo $response; // Echo the response back
-else
-    echo json_encode("{'message_type': 'fail'");
+// else
+//     $msg = "[{\"message_type\": \"fail\"}]";
+//     echo json_encode($msg);
 ?>

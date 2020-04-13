@@ -19,15 +19,9 @@ switch ($_POST["message_type"])
     case "logout":
         logout();
     break;
-    case "get_questions":
-        $data = array('message_type' => 'get_questions');
-    break;
-    case "release_scores":
-        $data = array('message_type' => 'release_scores', 'exam_name' => $_POST['exam_name']);
-    break;
     default:
         foreach($_SESSION as $key => $value)
-            $data2[$key] = $value;
+            $data[$key] = $value;
         foreach($_POST as $key => $value)
             $data[$key] = $value;
     break;
@@ -47,7 +41,7 @@ function sendRequest($data, $url)
     return $res;
 }
 
-$data = array_merge($data, $data2);
+// $data = array_merge($data, $data2);
 // Process response:
 $response = sendRequest($data, $middle_url);
 if ($response != null)

@@ -14,9 +14,9 @@ function login()
             var response = JSON.parse(this.response);
 
             // Redirect:
-            if (response.role == "student")
+            if (response.role == 'student')
                 location.href = 'student/student_home.html';
-            else if (response.role == "teacher")
+            else if (response.role == 'teacher')
                 location.href = 'instructor/instructor_home.html';                
         } else 
             alert("Server error!");
@@ -63,6 +63,7 @@ function getUsername()
 function createXMLRequest(data, url) // Takes an array of strings in, and returns a parsed JSON
 {
     var response;
+    data.append('username', document.getElementById("username_display").innerHTML);
     var xml_request = new XMLHttpRequest();
     xml_request.open('POST', "../model/send_data.php", true);
     return xml_request;
@@ -292,17 +293,17 @@ function addTestCase2()
     document.getElementById("input_num").remove();
     document.getElementById("input_label").remove();
     
-    for(i = 0; i < inputs; i++)
+    for(i = 1; i <= inputs; i++)
     {
         // Create a new input:
         var input = document.createElement("input");
-        input.id = 'input' + i + 'case' + case_num;
+        input.id = 'arg' + case_num + '-' + i;
         input.name = 'args'
         input.required = true;
 
         // Label the input:
         var label = document.createElement("label")
-        label.textContent = String("Input " + (i + 1));
+        label.textContent = String("Input " + i);
 
         // Apend the label and input to the form:
         question.appendChild(label);
@@ -326,35 +327,52 @@ function addTestCase2()
 }
 
 // Submit a new question to the database:
+// "add_question" - takes ($questionID, $questionName, $questionLevel, $questionDescription,$testcase1,$testcase2,$testcase1Answer,$testcase2Answer,$keyword)
+// {This will add a question to the question bank}
 function createQuestion() {
-    // Get fields form the form:
-    // alert("test");
-    var username = document.getElementById("username_display").value;
-    var topic = document.getElementById("topic").value;
-    var description = document.getElementById("description").value;
-    var difficulty = document.getElementById("difficulty").value;
-
-    // alert(document.getElementsByClassName("form").serializeArray());
     // TODO Build the data set:
     var data = new FormData();
-    data.append('message_type', 'create_question');
-    data.append('username', username);
-    data.append('topic', topic);
-    data.append('description', description);
-    // args = []; 
-    // document.getElementsByClassName('form').forEach(addArgs())
-    // var forms = document.getElementsByTagName('form');
-    arr = Array.from(document.forms["question"].getElementsByTagName("input"));
-    alert(arr);
-    arr.forEach(addArgs);
+    data.append('message_type', 'add_question');
+    // data.append('username', document.getElementById("username_display").value);
+    data.append('topic', document.getElementById("topic").value);
+    data.append('questionDescription', document.getElementById("description").value);
+    data.append('questionLevel', document.getElementById("difficulty").value);
+
+    var testcases_amount = document.getElementById('case_num').value;
+    var testcases = new Array(testcases_amount); // Holds each test case.
+    for (i = 0; i < testcases_amount; i++)
+    {
+        testcases[i] = new Array();
+    }
+    
+    form = Array.from(document.forms["question"].getElementsByTagName("input"));
+    form.forEach(addArgs);
+    
+    var html_args = Array();
+    
+    
     function addArgs(item)
     {
-        data.append(item.id, item.value);
+        // data.append(item.name + ',' + item.id, testcases);
+        if (item.name == 'args' || item.name == 'output')
+        {
+            data.append(item.id, item.value);
+            // str = String(item.id).slice(3); // Removes the 'arg' from the beginning of the id.
+            // var parsed_name = str.split('-'); // Splits parsed_name into 2 integers, one for the test case num and the other for the input num
+        //     // alert(parsed_name);
+        //     var testcase_num = parsed_name[0];
+        //     var input_num = parsed_name[1];
+        //     // if (testcases[testcase_num] == null)
+        //     // {
+        //         // testcases[testcase_num] = new Array();
+        //     testcases[testcase_num - 1] += item.value + ', ';
+        //     // }
+        //     // testcases[testcase_num][input_num] = item.value;
+        }
+        
+        // if (item.name == 'output')
+        //     html_args.push(item);
     }
-    // data.append(args);
-    data.append('difficulty', difficulty);
-    // data.append('args', arr);
-    data.append('output', Array.from(document.getElementsByName('output').values));
     var xml_request = createXMLRequest(data);
 
     // alert(data); // Debug
@@ -364,19 +382,7 @@ function createQuestion() {
         if (xml_request.status == 200) // If the response is good (HTML code 200)
         {
             alert(JSON.parse(this.response)); // Debug
-            // if (this.response)
-            // {
-            //     response = JSON.parse(this.response); // Parses the response.
-
-            //     for(var i = 0; i < response.length; i++) 
-            //     {
-            //         var obj = response[i];
-            //         if(role == 'student')
-            //             document.getElementById("exam_list").innerHTML += ("<li>" + "<a onclick=takeExam(" + obj.ExamID + ")>" + obj.Name + "</a>" + "</li>");
-            //         else
-            //             document.getElementById("exam_list").innerHTML += ("<li>" + obj.Name + "</li>");
-            //     }
-            // }
+            alert("Question Created.");
         } else 
         alert("Server error!");
     }

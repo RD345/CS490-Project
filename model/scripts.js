@@ -137,6 +137,7 @@ function addQuestion()
         alert("Server error!");
     }
     xml_request.send(data);
+
 }
 
 function changeQuestion()
@@ -220,7 +221,7 @@ function listExamsToRelease()
     {
         if (xml_request.status == 200) // If the response is good (HTML code 200)
         {
-            debug(this.response);
+            // debug(this.response);
             if (this.response)
             {
                 response = JSON.parse(this.response);
@@ -229,11 +230,34 @@ function listExamsToRelease()
                 {
                     var obj = response[i];
                     document.getElementById("exam_list").innerHTML += ("<li>" + obj.Name + "</li>");
-                    document.getElementById("exam_list").innerHTML += ("<button value='" + obj.Name + "'>Release Scores</button>");
+                    document.getElementById("exam_list").innerHTML += ("<button type='button' value='" + obj.Name + "' onclick='releaseScores(" + obj.ExamID + ")'>Release Scores</button>");
                 }
             }
         } else 
             alert("Server error!");
+    }
+    xml_request.send(data);
+}
+
+function releaseScores(exam_id)
+{
+    var data = new FormData();
+    data.append('message_type', 'release_scores');
+    data.append('examID', exam_id)
+    var xml_request = createXMLRequest(data);
+
+    xml_request.onload = function() 
+    {
+        if (xml_request.status == 200) // If the response is good (HTML code 200)
+        {
+            if (this.response)
+            {
+                debug(this.response);
+                alert("Scores released!");
+                // alert(JSON.parse(this.response));
+            }
+        } else 
+            alert("Server error!"); 
     }
     xml_request.send(data);
 }
@@ -337,13 +361,14 @@ function createQuestion() {
     data.append('topic', document.getElementById("topic").value);
     data.append('questionDescription', document.getElementById("description").value);
     data.append('questionLevel', document.getElementById("difficulty").value);
+    data.append('testcaseNum', document.getElementById("case_num").value);
 
-    var testcases_amount = document.getElementById('case_num').value;
-    var testcases = new Array(testcases_amount); // Holds each test case.
-    for (i = 0; i < testcases_amount; i++)
-    {
-        testcases[i] = new Array();
-    }
+    // var testcases_amount = document.getElementById('case_num').value;
+    // var testcases = new Array(testcases_amount); // Holds each test case.
+    // for (i = 0; i < testcases_amount; i++)
+    // {
+    //     testcases[i] = new Array();
+    // }
     
     form = Array.from(document.forms["question"].getElementsByTagName("input"));
     form.forEach(addArgs);

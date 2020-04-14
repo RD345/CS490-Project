@@ -17,7 +17,9 @@ function login()
             if (response.role == 'student')
                 location.href = 'student/student_home.html';
             else if (response.role == 'teacher')
-                location.href = 'instructor/instructor_home.html';                
+                location.href = 'instructor/instructor_home.html';
+            else if (response.output == 0)
+                alert("Incorrect Credentials");                
         } else 
             alert("Server error!");
     };
@@ -72,15 +74,48 @@ function createXMLRequest(data, url) // Takes an array of strings in, and return
 function createExam() {
 
     var username = document.getElementById("username_display").value;
-    var exam_id = document.getElementById("exam_id").value;
+    // var exam_id = document.getElementById("exam_id").value;
     var exam_name = document.getElementById("exam_name").value;
     var topic = document.getElementById("exam_name").value;
     var question_num = document.getElementById("question_num").value;
-    var question_id = document.getElementById("question_id").value;
+    // var question_id = document.getElementById("question_id").value;
     var difficulty = document.getElementById("difficulty").value;
 
-    var response = process("create_exam", Array("message_type", "exam_id", "exam_name"));
-    alert(response.exam_id);
+    var data = new FormData();
+    data.append('message_type', 'create_exam');
+    data.append('username', document.getElementById("username_display").value);
+    data.append('topic', document.getElementById("topic").value);
+    data.append('questionDescription', document.getElementById("description").value);
+    data.append('questionLevel', document.getElementById("difficulty").value);
+    // data.append('testcaseNum', document.getElementById("case_num").value);
+    
+    form = Array.from(document.forms["questions"].getElementsByTagName("input"));
+    form.forEach(addArgs);
+    
+    var html_args = Array();
+    
+    
+    function addArgs(item)
+    {
+        // data.append(item.name + ',' + item.id, testcases);
+        // if (item.name == 'args' || item.name == 'output')
+        // {
+            data.append(item.id, item.value);
+        // }
+    }
+    var xml_request = createXMLRequest(data);
+    // alert(data); // Debug
+
+    xml_request.onload = function() 
+    {
+        if (xml_request.status == 200) // If the response is good (HTML code 200)
+        {
+            alert(JSON.parse(this.response)); // Debug
+            alert("Exam Created.");
+        } else 
+        alert("Server error!");
+    }
+    xml_request.send(data);
 }
 
 function addQuestion()
@@ -107,11 +142,41 @@ function addQuestion()
                         topics.push(question_list[i].Topic);
                 }
 
+                var question = document.getElementById("questions");
+                
+
+                var label = document.createElement("label")
+                label.textContent = "Number of Inputs:"
+                label.id = 'input_label';
+
+                var input = document.createElement("input");
+                input.type = 'number';
+                input.id = 'input_num';
+                input.value = 2;
+                input.required = true;
+                
+                var button = document.createElement("button");
+                var add_question = "";
+
                 // Add topics to selection:
-                var add_question = "<label>Select Topic</label><br><select id=topic>"
+                var label = document.createElement("label");
+                label.innerHTML = "Select Topic";
+                question.appendChild(label);
+                question.appendChild(document.createElement("br"));
+                var select = document.createElement("select");
+                select.id = "topic";
+                
+                // var add_question = "<label>Select Topic</label><br><select id=topic>"
+
                 for(var i = 0; i < topics.length; i++) 
-                    add_question += ("<option>" + topics[i] + "</option>");
-                add_question += "</select><br>";
+                {
+                    var option = document.createElement("option");
+                    option.innerHTML = topics[i]
+                    select.appendChild(option);
+                    select.appendChild(document.createElement("br"));
+                }
+                question.appendChild(select);
+                question.appendChild(document.createElement("option"));
 
                 // Add questions to drop-down:
                 add_question += "<label>Select Question</label><br><select id=question_num onchange='changeQuestion()')>";

@@ -99,3 +99,34 @@ function listExams(role)
 
 
 function debug(text) {document.getElementById("debug").value = text;}
+
+function getStudents()
+{
+    var data = new FormData();
+    data.append('message_type', 'list_students'); //list_students_that_took_exam
+    // data.append('examID', '1');
+    var xml_request = createXMLRequest(data);
+
+    xml_request.onload = function() 
+    {
+        if (xml_request.status == 200) // If the response is good (HTML code 200)
+        {
+            debug(this.response);
+            // document.getElementById("exam_list").innerHTML = "";
+            if (this.response)
+            {
+                response = JSON.parse(this.response);
+
+                for(var i = 0; i < response.length; i++) 
+                {
+                    var obj = response[i];
+                    const itemizeUser = user => "<li>" + user.username + "</li>";
+                    var listLocation = document.querySelector('#user-list');
+                    listLocation.innerHTML = response.map(itemizeUser).join('');
+                }        
+            }
+        } else 
+        alert("Server error!");
+    }
+    xml_request.send(data);
+}

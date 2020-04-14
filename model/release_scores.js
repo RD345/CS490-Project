@@ -17,8 +17,8 @@ function listExamsToRelease()
                 for(var i = 0; i < response.length; i++) 
                 {
                     var obj = response[i];
-                    document.getElementById("exam_list").innerHTML += ("<li>" + obj.Name + "</li>");
-                    document.getElementById("exam_list").innerHTML += ("<button type='button' value='" + obj.Name + "' onclick='releaseScores(" + obj.ExamID + ")'>Release Scores</button>");
+                    document.getElementById("exam_list").innerHTML += ("<li>" + obj.examName + "</li>");
+                    document.getElementById("exam_list").innerHTML += ("<button type='button' value='" + obj.examName + "' onclick='releaseScores(" + obj.examID + ")'>Release Scores</button>");
                 }
             }
         } else 

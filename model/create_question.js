@@ -13,7 +13,7 @@ function addTestCase()
     var question = document.getElementById("question");
     var input_name = document.createElement("h4")
     input_name.innerHTML = "Test Case " + parseInt(case_num++) + ':';
-    
+
     // Create a label for 'Number of Inputs':
     var label = document.createElement("label")
     label.textContent = "Number of Inputs:"
@@ -47,6 +47,8 @@ function addTestCase2()
     var question = document.getElementById("question");
     var inputs = document.getElementById("input_num").value;
     var case_num = document.getElementById('case_num').value; // Sets the variable for test case number.
+    var test_case = document.createElement("div");
+    test_case.className = "test_case";
 
     // Remove the buttons from the previous test case, if applicable:
     document.getElementById("arg_btn").remove();
@@ -66,10 +68,10 @@ function addTestCase2()
         label.textContent = String("Input " + i);
 
         // Apend the label and input to the form:
-        question.appendChild(label);
-        question.appendChild(document.createElement("br"));
-        question.appendChild(input); 
-        question.appendChild(document.createElement("br"));
+        test_case.appendChild(label);
+        test_case.appendChild(document.createElement("br"));
+        test_case.appendChild(input); 
+        test_case.appendChild(document.createElement("br"));
     }
     // Create the label for the expected output:
     var label = document.createElement("label")
@@ -81,9 +83,10 @@ function addTestCase2()
     output.name = 'output'
     output.id = 'output' + case_num; // TODO add counter
     output.name = 'output'
-    question.appendChild(label);
-    question.appendChild(document.createElement("br"));
-    question.appendChild(output);
+    test_case.appendChild(label);
+    test_case.appendChild(document.createElement("br"));
+    test_case.appendChild(output);
+    question.appendChild(test_case);
 }
 
 // Submit a new question to the database:
@@ -93,20 +96,12 @@ function createQuestion() {
     // TODO Build the data set:
     var data = new FormData();
     data.append('message_type', 'add_question');
-    // data.append('username', document.getElementById("username_display").value);
     data.append('topic', document.getElementById("topic").value);
     data.append('questionDescription', document.getElementById("description").value);
     data.append('questionLevel', document.getElementById("difficulty").value);
     data.append('testcaseNum', document.getElementById("case_num").value);
 
-    // var testcases_amount = document.getElementById('case_num').value;
-    // var testcases = new Array(testcases_amount); // Holds each test case.
-    // for (i = 0; i < testcases_amount; i++)
-    // {
-    //     testcases[i] = new Array();
-    // }
-    
-    form = Array.from(document.forms["question"].getElementsByTagName("input"));
+    form = Array.from(document.forms["question"].getElementsByTagName("div")); // Gets the test case div.
     form.forEach(addArgs);
     
     var html_args = Array();
@@ -114,29 +109,15 @@ function createQuestion() {
     
     function addArgs(item)
     {
-        // data.append(item.name + ',' + item.id, testcases);
-        if (item.name == 'args' || item.name == 'output')
-        {
-            data.append(item.id, item.value);
-            // str = String(item.id).slice(3); // Removes the 'arg' from the beginning of the id.
-            // var parsed_name = str.split('-'); // Splits parsed_name into 2 integers, one for the test case num and the other for the input num
-        //     // alert(parsed_name);
-        //     var testcase_num = parsed_name[0];
-        //     var input_num = parsed_name[1];
-        //     // if (testcases[testcase_num] == null)
-        //     // {
-        //         // testcases[testcase_num] = new Array();
-        //     testcases[testcase_num - 1] += item.value + ', ';
-        //     // }
-        //     // testcases[testcase_num][input_num] = item.value;
-        }
-        
-        // if (item.name == 'output')
-        //     html_args.push(item);
+        var test_case = item.getElementsByTagName("input"); // Holds the inputs and output for each test case.
+
+        // for (i = 0; i < item.length; i++)
+        //     test_case.push()
+
+        data.append(item.id, test_case);
     }
     var xml_request = createXMLRequest(data);
 
-    // alert(data); // Debug
 
     xml_request.onload = function() 
     {

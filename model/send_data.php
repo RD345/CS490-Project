@@ -4,7 +4,8 @@ require_once 'header.php';
 
 $back_url = "https://web.njit.edu/~fw73/backend.php"; // url for backend server.
 // $middle_url = "https://web.njit.edu/~mjs239/CS490/beta/middle.php"; // url for middle server.
-$middle_url = "https://web.njit.edu/~mjs239/CS490/rc/middle.php"; // url for middle server.
+// $middle_url = "https://web.njit.edu/~mjs239/CS490/rc/middle.php"; // url for middle server.
+$middle_url = "https://web.njit.edu/~mjs239/CS490/rc/newMiddle.php";
 
  
 $data = array();
@@ -39,16 +40,13 @@ function sendRequest($data, $url)
     curl_close ($curl); // Close the connection
     return $res;
 }
-// echo json_encode($data); 
 
-// $data = array_merge($data, $data2);
 // Process response:
+array_merge($data, array('username' => $_SESSION['username'])); // Adds username
 $response = sendRequest($data, $middle_url);
-// $response = array_merge($data, array('username' => $_SESSION['username']));
 if ($response != null)
     echo $response; // Echo the response back
 else
-    echo json_encode(array('username' => $_SESSION['username']));
+    echo json_encode(array('message_type' => 'no_response'));
 
-// echo json_encode(array('fail' => 'fail'));
 ?>

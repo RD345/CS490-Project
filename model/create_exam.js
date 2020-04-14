@@ -60,7 +60,7 @@ function addQuestion()
                 // Add questions to drop-down:
                 var question_select = document.createElement("select");
                 question_select.id = "question_num";
-                question_select.onchange = 'changeQuestion()';
+                question_select.onchange = function() {changeQuestion()};
                 question.appendChild(document.createElement("br"));
 
                 // Add the questions as options:

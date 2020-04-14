@@ -312,7 +312,8 @@ select
     margin: 2px;
 }
 
-#description
+#description,
+.answer
 {
     min-width: 80%;
     /* min-height: 8em; */
@@ -351,4 +352,11 @@ button:hover
         margin-bottom: 0.5em;
         padding-top: 8px;
         font-weight: bold;
+  }
+
+  .exam_question
+  {
+      border: groove 3px whitesmoke;
+      padding: 1em;
+      margin-bottom: 2em;
   }

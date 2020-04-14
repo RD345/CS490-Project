@@ -7,10 +7,11 @@
     <link rel="shortcut icon" href='../source/favicon.ico'>
 	<input type='hidden' id='debug'>
 	<script type='text/javascript' src='../model/scripts.js'></script>
+	<script type='text/javascript' src='../model/take_exam.js'></script>
 </head>
-<body onload="getUsername(), listExams('student')">
+<body onload="getUsername(), getExams()">
 	<header><h1>CS490 Project 1</h1></header>
-	<nav id='nav-nav'>
+	<nav>
 		<div id='div-nav1'>
 			<ul>
 				<li><a href='view_grades.html'>View Grades</a></li>

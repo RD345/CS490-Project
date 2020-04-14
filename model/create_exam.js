@@ -13,14 +13,15 @@ function addQuestion()
             // alert("list_exams response:" + this.response);
             if (this.response)
             {
+                debug(this.response);
                 question_list = JSON.parse(this.response); // array of all questions
                 var topics = [];
                 
-                function findTopic(find) {return topics == find;}
+                function findTopic(find) {return topics == find};
                 // Get topics:
                 for(var i = 0; i < question_list.length; i++) 
                     if(!topics.find(findTopic))
-                        topics.push(question_list[i].Topic);
+                        topics.push(question_list[i].topic);
                 
                 var questions = document.getElementById("questions"); // Gets the form.
 
@@ -99,20 +100,13 @@ function addQuestion()
 }
 
 function changeQuestion()
-{
-
-}
+{}
 
 function createExam() 
 {
-
-    var username = document.getElementById("username_display").value;
     var exam_id = document.getElementById("exam_id").value;
     var exam_name = document.getElementById("exam_name").value;
     var topic = document.getElementById("exam_name").value;
-    var question_num = document.getElementById("question_num").value;
-    var question_id = document.getElementById("question_id").value;
-    var difficulty = document.getElementById("difficulty").value;
 
     var response = process("create_exam", Array("message_type", "exam_id", "exam_name"));
     alert(response.exam_id);

@@ -17,6 +17,15 @@ switch ($_POST["message_type"])
         logout();
         return;
     break;
+    case "goto_exam":
+        $_SESSION['current_exam'] = $_POST["examID"];
+        return;
+    break;
+    case "take_exam":
+        foreach($_POST as $key => $value)
+            $data[$key] = $value;
+        $data = array_merge($data, array('examID' => $_SESSION['current_exam']));
+    break;
     default: // Default handler, add the post variables to the request:
         foreach($_POST as $key => $value)
             $data[$key] = $value;
@@ -33,22 +42,20 @@ function sendRequest($data, $url)
     curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
     $res = curl_exec($curl); // Recieve the JSON response
     curl_close ($curl); // Close the connection
-    return $res;
+    
+    if ($res != null)
+        echo $res; // Echo the response back
+    else
+        echo json_encode(array('message_type' => 'no_response'));
+
+    // Write log:
+    $log = fopen("log.txt", "a") or die("Unable to open Log File");
+    fwrite($log,$res.PHP_EOL);
+    fclose($log);
 }
-
-// Process response:
-array_merge($data, array('username' => $_SESSION['username'])); // Adds username
-$response = sendRequest($data, $middle_url);
-
-// Write log:
-$log = fopen("log.txt", "a") or die("Unable to open Log File");
-fwrite($log,$response.PHP_EOL);
-fclose($log);
-
-
-if ($response != null)
-    echo $response; // Echo the response back
-else
-    echo json_encode(array('message_type' => 'no_response'));
-
+if ($data != null)
+{
+    $data = array_merge($data, array('username' => $_SESSION['username'])); // Adds username
+    sendRequest($data, $middle_url);
+}
 ?>

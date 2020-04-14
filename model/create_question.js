@@ -112,16 +112,12 @@ function createQuestion() {
     function addArgs(item)
     {
         if (item.name == "args")
-        {
             testCasesInputs += item.value + ',';
-            // alert(item.id, item.value);
-        }
         else if (item.name == "output")
-        {
             testCasesOutputs += item.value + ',';
-            // alert(item.id, item.value);
-        }
     }
+    testCasesInputs = testCasesInputs.slice(0, testCasesInputs.length-1); // Removes last comma
+    testCasesOutputs = testCasesOutputs.slice(0, testCasesOutputs.length-1); // Removes last comma
     data.append("testCasesInputs", testCasesInputs);
     data.append("testCasesOutputs", testCasesOutputs);
 
@@ -131,8 +127,11 @@ function createQuestion() {
     {
         if (xml_request.status == 200) // If the response is good (HTML code 200)
         {
-            alert(JSON.parse(this.response)); // Debug
-            alert("Question Created.");
+            res = JSON.parse(this.response)
+            if (res.message_type == "New question created successfully")
+                alert("Question Created.");
+            else
+                alert("Question Creation failed, please check your input and try again.");
         } else 
         alert("Server error!");
     }

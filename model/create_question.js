@@ -1,3 +1,4 @@
+// Scripts for creating questions.
 function addTestCase()
 {
     if (document.getElementById('input_num') != null)

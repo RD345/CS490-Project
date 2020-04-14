@@ -1,3 +1,4 @@
+// Scripts for creating exams.
 function addQuestion()
 {
     var data = new FormData();
@@ -58,4 +59,19 @@ function addQuestion()
 function changeQuestion()
 {
 
+}
+
+function createExam() 
+{
+
+    var username = document.getElementById("username_display").value;
+    var exam_id = document.getElementById("exam_id").value;
+    var exam_name = document.getElementById("exam_name").value;
+    var topic = document.getElementById("exam_name").value;
+    var question_num = document.getElementById("question_num").value;
+    var question_id = document.getElementById("question_id").value;
+    var difficulty = document.getElementById("difficulty").value;
+
+    var response = process("create_exam", Array("message_type", "exam_id", "exam_name"));
+    alert(response.exam_id);
 }

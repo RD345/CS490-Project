@@ -1,31 +1,33 @@
 <!DOCTYPE html>
-<html lang=en>
-<head onload="verifyUser()">
+<html lang='en'>
+<head>
 	<title>CS490 Project 1</title>
-	<meta charset=utf-8>
-	<link rel=stylesheet href=../model/styles.css>
-	<link rel=icon href=../source/icons/favicon.ico>
-	<header><h1>CS490 Project 1</h1></header>
+	<meta charset='utf-8'>
+	<link rel='stylesheet' href='../model/styles.css'>
+    <link rel="shortcut icon" href='../source/favicon.ico'>
+	<input type='hidden' id='debug'>
 	<script type='text/javascript' src='../model/scripts.js'></script>
 </head>
-<nav id='nav-nav'>
-	<div id='div-nav1'>
-		<ul>
-			<li><a href=create_exam.html>Create an Exam</a></li>
-			<li><a href=create_question.html>Create a question</a></li>
-			<li><a href=instructor_home.html>Home</a></li>
-			<li id='li-nav1-active'>Review submissions</li>
-			<li><a href=release_scores.html>Release scores</a></li>
-			<li><a href=student_list.html>Student List</a></li>
-		</ul>
-		<div id='div-nav2'>
-			<h4 id='username_display' onload="return getUsername()"></h4>
-			<button id='logout' onclick="logout()">Logout</button>
+<body onload="getUsername(), listExamsToRelease()">
+	<header><h1>CS490 Project 1</h1></header>
+	<nav>
+		<div id='div-nav1'>
+			<ul>
+				<li><a href=create_exam.html>Create an Exam</a></li>
+				<li><a href=create_question.html>Create a question</a></li>
+				<li><a href=instructor_home.html>Home</a></li>
+				<li id='li-nav1-active'>Review submissions</li>
+				<li><a href=release_scores.html>Release scores</a></li>
+				<li><a href=student_list.html>Student List</a></li>
+			</ul>
+			<div id='div-nav2'>
+				<h4 id='username_display' onload="return getUsername()"></h4>
+				<button id='logout' onclick="logout()">Logout</button>
+			</div>
 		</div>
-	</div>
-</nav>
-
-<input type='hidden' id='debug'>
-<footer id='credits'>
-	<p class='p-1'>Created by Group 10: Ryan Doherty, Matt and Feiyang Wang</p>
-</footer>
+	</nav>
+	<footer id='credits'>
+		<p class='p-1'>Created by Group 10: Ryan Doherty, Matt and Feiyang Wang</p>
+	</footer>
+</body>
+</html>

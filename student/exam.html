@@ -1,26 +1,26 @@
 <!DOCTYPE html>
-<html lang=en>
-<head onload="verifyUser()">
+<html lang='en'>
+<head>
 	<title>CS490 Project 1</title>
-	<meta charset=utf-8>
-	<link rel=stylesheet href=../model/styles.css>
-	<link rel=icon href=../source/icons/favicon.ico>
-	<header><h1>CS490 Project 1</h1></header>
+	<meta charset='utf-8'>
+	<link rel='stylesheet' href='../model/styles.css'>
+    <link rel="shortcut icon" href='../source/favicon.ico'>
+	<input type='hidden' id='debug'>
 	<script type='text/javascript' src='../model/scripts.js'></script>
 </head>
-<nav id='nav-nav'>
-	<div id='div-nav1'>
-		<ul>
-			<li id='li-nav1-active'>Quit</li>
-		</ul>
-		<div id='div-nav2'>
-			<h4 id='username_display' onload="return getUsername()"></h4>
-			<button id='logout' onclick="logout()">Logout</button>
-		</div>
-	</div>
-</nav>
 <body onload="getUsername()">
-	<input type='hidden' id='debug'>
+	<header><h1>CS490 Project 1</h1></header>
+	<nav id='nav-nav'>
+		<div id='div-nav1'>
+			<ul>
+				<li id='li-nav1-active'>Quit</li>
+			</ul>
+			<div id='div-nav2'>
+				<h4 id='username_display' onload="return getUsername()"></h4>
+				<button id='logout' onclick="logout()">Logout</button>
+			</div>
+		</div>
+	</nav>
 	<h2>Welcome!</h2>
 	<div class='div-page'>
 		<h3>Introduction</h3>
@@ -45,8 +45,8 @@
 			<th>29 April 2010</th>
 		</tr>
 	</table>
+	<footer id='credits'>
+		<p class='p-1'>Created by Group 10: Ryan Doherty, Matt and Feiyang Wang</p>
+	</footer>
 </body>
-<footer id='credits'>
-	<p class='p-1'>Created by Group 10: Ryan Doherty, Matt and Feiyang Wang</p>
-</footer>
 </html>

@@ -1,4 +1,5 @@
 // Scripts for creating exams.
+
 function addQuestion()
 {
     var data = new FormData();
@@ -18,42 +19,83 @@ function addQuestion()
                 function findTopic(find) {return topics == find;}
                 // Get topics:
                 for(var i = 0; i < question_list.length; i++) 
-                {
                     if(!topics.find(findTopic))
                         topics.push(question_list[i].Topic);
-                }
+                
+                var questions = document.getElementById("questions"); // Gets the form.
 
-                // Add topics to selection:
-                var add_question = "<label>Select Topic</label><br><select id=topic>"
+                // Create a question div:
+                var question = document.createElement("div");
+                question.className = "question-div";
+        
+                // Create the button
+                var button = document.createElement("button");
+                var add_question = ""; // TODO Delete
+
+                // Create the label:
+                var label = document.createElement("label");
+                label.innerHTML = "Select Topic";
+                question.appendChild(label);
+                question.appendChild(document.createElement("br"));
+
+                // Create the question selecter:
+                var select = document.createElement("select");
+                select.id = "topic";
                 for(var i = 0; i < topics.length; i++) 
-                    add_question += ("<option>" + topics[i] + "</option>");
-                add_question += "</select><br>";
+                {
+                    // Add the current topic as an option:
+                    var option = document.createElement("option");
+                    option.innerHTML = topics[i]
+                    select.appendChild(option);
+                    select.appendChild(document.createElement("br"));
+                }
+                question.appendChild(select); // Adds the select to the question.
+                question.appendChild(document.createElement("br"));
+
+                // Create the label:
+                var label = document.createElement("label");
+                label.innerHTML = "Select Question";
+                question.appendChild(label);
 
                 // Add questions to drop-down:
-                add_question += "<label>Select Question</label><br><select id=question_num onchange='changeQuestion()')>";
+                var question_select = document.createElement("select");
+                question_select.id = "question_num";
+                question_select.onchange = 'changeQuestion()';
+                question.appendChild(document.createElement("br"));
+
+                // Add the questions as options:
                 for(var i = 0; i < question_list.length; i++) 
                 {
-                    var question = question_list[i];
-                    add_question += ("<option>" + question.QuestionID + "</option>");
-
+                    var question_option = document.createElement("option");
+                    question_option.innerText = question_list[i].QuestionID;
+                    question_select.appendChild(question_option);
                 }
-                
-                add_question += "</select><br><label>Difficulty:</label><br><input type=text id=difficulty readonly value='" +  question_list[0].Level + "'><br><label>Enter Point Value:</label><br><input type=text id=point_val value=5><br>";
+                question.appendChild(question_select);
+                question.appendChild(document.createElement("br"));
 
-                add_question += "<label>Description:</label><br><textarea type=text id=description readonly>" +  question_list[0].Description + "</textarea><br><br>"
-                document.getElementById("questions").innerHTML += add_question;
+                // Create the label for the question description:
+                var label = document.createElement("label");
+                label.innerHTML = "Description:";
+                question.appendChild(label);
+                question.appendChild(document.createElement("br"));
 
-                for(var i = 0; i < question_list.length; i++) 
-                {
-                    var question = question_list[i];
+                // Create the description textarea:
+                var description = document.createElement("textarea");
+                description.id = "description";
+                description.readOnly = true;
+                description.innerText = question_list[0].Description
+                question.appendChild(description);
+                question.appendChild(document.createElement("br"));
 
-                }
+                questions.appendChild(question);
+                // for(var i = 0; i < question_list.length; i++) 
+                //     var question = question_list[i];
+
             }
         } else 
         alert("Server error!");
     }
-    xml_request.send(data);
-
+    xml_request.send(data); // Sends the request for the questions.
 }
 
 function changeQuestion()

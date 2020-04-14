@@ -13,11 +13,13 @@ function addTestCase()
     var question = document.getElementById("question");
     var input_name = document.createElement("h4")
     input_name.innerHTML = "Test Case " + parseInt(case_num++) + ':';
-
+    
+    // Create a label for 'Number of Inputs':
     var label = document.createElement("label")
     label.textContent = "Number of Inputs:"
     label.id = 'input_label';
 
+    // Create an input for the number of inputs for the test case:
     var input = document.createElement("input");
     input.type = 'number';
     input.id = 'input_num';

@@ -6,7 +6,8 @@
 	<link rel=stylesheet href=../model/styles.css>
 	<link rel=icon href=../source/icons/favicon.ico>
 	<header><h1>CS490 Project 1</h1></header>
-	<script type=text/javascript src=../model/scripts.js></script>
+	<script type='text/javascript' src='../model/scripts.js'></script>
+	<script type='text/javascript' src='../model/create_exam.js'></script>
 </head>
 <nav id='nav-nav'>
 	<div id='div-nav1'>
@@ -31,7 +32,6 @@
 		<ul id='exam_list' onloadstart="listExams('teacher')"></ul>
 		<h2>Create an Exam below</h2>
 		<form id='questions' method='post' onsubmit="createExam()">
-			<input type="hidden" id=message_type value="create_exam">
 			<label><h4>Exam Name</h4></label>
 			<input type='text' id='exam_name' required>
 			<button type='submit'>Create/Edit Exam</button>

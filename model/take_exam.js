@@ -32,3 +32,8 @@ function takeExam(exam_id)
     }
     xml_request.send(data);
 }
+
+function buildExam()
+{
+    
+}

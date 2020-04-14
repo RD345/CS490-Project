@@ -6,6 +6,7 @@ $middle_url = "https://web.njit.edu/~mjs239/CS490/rc/newMiddle.php";
 $data = array();
 
 // Add data to the request:
+if (isset($_POST["message_type"]))
 switch ($_POST["message_type"]) 
 {
     case "get_username": // Send back username -- no need to pass along the request:
@@ -38,6 +39,13 @@ function sendRequest($data, $url)
 // Process response:
 array_merge($data, array('username' => $_SESSION['username'])); // Adds username
 $response = sendRequest($data, $middle_url);
+
+// Write log:
+$log = fopen("log.txt", "a") or die("Unable to open Log File");
+fwrite($log,$response.PHP_EOL);
+fclose($log);
+
+
 if ($response != null)
     echo $response; // Echo the response back
 else

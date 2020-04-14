@@ -11,12 +11,12 @@ function addTestCase()
     document.getElementById('case_num').value = case_num; // Updates the display.
 
     var question = document.getElementById("question");
-    var input_name = document.createElement("h4")
+    var input_name = document.createElement("h4");
     input_name.innerHTML = "Test Case " + parseInt(case_num++) + ':';
 
     // Create a label for 'Number of Inputs':
-    var label = document.createElement("label")
-    label.textContent = "Number of Inputs:"
+    var label = document.createElement("label");
+    label.textContent = "Number of Inputs:";
     label.id = 'input_label';
 
     // Create an input for the number of inputs for the test case:
@@ -30,7 +30,7 @@ function addTestCase()
 
     button.onclick = function() {addTestCase2()};
     button.type = 'button';
-    button.id = 'arg_btn'
+    button.id = 'arg_btn';
     button.innerHTML = 'Go';
 
     question.appendChild(input_name);
@@ -60,11 +60,12 @@ function addTestCase2()
         // Create a new input:
         var input = document.createElement("input");
         input.id = 'arg' + case_num + '-' + i;
-        input.name = 'args'
+        input.name = 'args';
+        input.className = 'args';
         input.required = true;
 
         // Label the input:
-        var label = document.createElement("label")
+        var label = document.createElement("label");
         label.textContent = String("Input " + i);
 
         // Apend the label and input to the form:
@@ -74,15 +75,16 @@ function addTestCase2()
         test_case.appendChild(document.createElement("br"));
     }
     // Create the label for the expected output:
-    var label = document.createElement("label")
+    var label = document.createElement("label");
     label.textContent = 'Expected output';
 
     // 
     var output = document.createElement("input");
     output.required = true;
-    output.name = 'output'
+    output.name = 'output';
     output.id = 'output' + case_num; // TODO add counter
-    output.name = 'output'
+    output.className = 'output';
+    output.name = 'output';
     test_case.appendChild(label);
     test_case.appendChild(document.createElement("br"));
     test_case.appendChild(output);
@@ -95,29 +97,35 @@ function addTestCase2()
 function createQuestion() {
     // TODO Build the data set:
     var data = new FormData();
-    data.append('message_type', 'add_question');
-    data.append('topic', document.getElementById("topic").value);
+    data.append('message_type', 'create_question');
+    data.append('questionTopic', document.getElementById("topic").value);
     data.append('questionDescription', document.getElementById("description").value);
     data.append('questionLevel', document.getElementById("difficulty").value);
     data.append('testcaseNum', document.getElementById("case_num").value);
 
-    form = Array.from(document.forms["question"].getElementsByTagName("div")); // Gets the test case div.
+    var testCasesInputs = "";
+    var testCasesOutputs = "";
+    form = Array.from(document.forms["question"].getElementsByTagName("input")); // Gets the questions
     form.forEach(addArgs);
-    
-    var html_args = Array();
     
     
     function addArgs(item)
     {
-        var test_case = item.getElementsByTagName("input"); // Holds the inputs and output for each test case.
-
-        // for (i = 0; i < item.length; i++)
-        //     test_case.push()
-
-        data.append(item.id, test_case);
+        if (item.name == "args")
+        {
+            testCasesInputs += item.value + ',';
+            // alert(item.id, item.value);
+        }
+        else if (item.name == "output")
+        {
+            testCasesOutputs += item.value + ',';
+            // alert(item.id, item.value);
+        }
     }
-    var xml_request = createXMLRequest(data);
+    data.append("testCasesInputs", testCasesInputs);
+    data.append("testCasesOutputs", testCasesOutputs);
 
+    var xml_request = createXMLRequest(data);
 
     xml_request.onload = function() 
     {

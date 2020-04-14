@@ -100,6 +100,7 @@ function listExams(role)
 
 function debug(text) {document.getElementById("debug").value = text;}
 
+
 function getStudents()
 {
     var data = new FormData();

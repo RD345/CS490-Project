@@ -2,26 +2,21 @@
 /*This is for sending and recieveing requests through the network.*/
 require_once 'header.php';
 
-$back_url = "https://web.njit.edu/~fw73/backend.php"; // url for backend server.
-// $middle_url = "https://web.njit.edu/~mjs239/CS490/beta/middle.php"; // url for middle server.
-// $middle_url = "https://web.njit.edu/~mjs239/CS490/rc/middle.php"; // url for middle server.
 $middle_url = "https://web.njit.edu/~mjs239/CS490/rc/newMiddle.php";
-
- 
 $data = array();
+
 // Add data to the request:
 switch ($_POST["message_type"]) 
 {
-    case "get_username":
-        echo json_encode(array('username' => $_SESSION['username']));
+    case "get_username": // Send back username -- no need to pass along the request:
+        echo json_encode(array('username' => $_SESSION['username'])); 
         return;
     break;
-    case "logout":
+    case "logout": // 
         logout();
+        return;
     break;
-    default:
-        foreach($_SESSION as $key => $value)
-            $data[$key] = $value;
+    default: // Default handler, add the post variables to the request:
         foreach($_POST as $key => $value)
             $data[$key] = $value;
     break;
@@ -32,7 +27,6 @@ switch ($_POST["message_type"])
 function sendRequest($data, $url)
 {
     $curl = curl_init(); // Create the curl object
-	// echo "encoded data:".json_encode($data)."\r\n"; // Debug
     curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
     curl_setopt($curl, CURLOPT_URL, $url);
     curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);

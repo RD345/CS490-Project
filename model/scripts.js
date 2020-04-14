@@ -86,9 +86,9 @@ function listExams(role)
                 {
                     var obj = response[i];
                     if(role == 'student')
-                        document.getElementById("exam_list").innerHTML += ("<li>" + "<a onclick=takeExam(" + obj.ExamID + ") href='exam.html'>" + obj.Name + "</a>" + "</li>");
+                        document.getElementById("exam_list").innerHTML += ("<li>" + "<a onclick=takeExam(" + obj.examID + ") href='exam.html'>" + obj.examName + "</a>" + "</li>");
                     else
-                        document.getElementById("exam_list").innerHTML += ("<li>" + obj.Name + "</li>");
+                        document.getElementById("exam_list").innerHTML += ("<li>" + obj.examName + "</li>");
                 }
             }
         } else 

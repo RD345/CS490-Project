@@ -67,7 +67,7 @@ function addQuestion()
                 for(var i = 0; i < question_list.length; i++) 
                 {
                     var question_option = document.createElement("option");
-                    question_option.innerText = question_list[i].QuestionID;
+                    question_option.innerText = question_list[i].questionID;
                     question_select.appendChild(question_option);
                 }
                 question.appendChild(question_select);
@@ -83,7 +83,7 @@ function addQuestion()
                 var description = document.createElement("textarea");
                 description.id = "description";
                 description.readOnly = true;
-                description.innerText = question_list[0].Description
+                description.innerText = question_list[0].description
                 question.appendChild(description);
                 question.appendChild(document.createElement("br"));
 

@@ -8,7 +8,7 @@
 	<input type='hidden' id='debug'>
 	<script type='text/javascript' src='../model/scripts.js'></script>
 </head>
-<body onload="getUsername(), getFooter()">
+<body onload="getUsername(), getStudents()">
 	<header><h1>CS490 Project 1</h1></header>
 	<nav>
 		<div id='div-nav1'>
@@ -18,7 +18,6 @@
 				<li id='li-nav1-active'>Home</li>
 				<li><a href=review_submissions.html>Review submissions</a></li>
 				<li><a href=release_scores.html>Release scores</a></li>
-				<li><a href=student_list.html>Student list</a></li>
 			</ul>
 			<div id='div-nav2'>
 				<h4 id='username_display' onload="return getUsername()"></h4>
@@ -26,9 +25,11 @@
 			</div>
 		</div>
 	</nav>
-	<h2>Welcome, Instructor</h2>
+	<h2>Welcome, Teacher</h2>
 	<div class='div-page'>
 		<h3>Use the navigation bar at the top of the page to perform an action.</h4>
+		<h5 style="text-align: center">Here are your students:</h5>
+		<ul id='user-list'></ul>
 	</div>
 	<footer id='credits'>
 		<p class='p-1'>Created by Group 10: Ryan Doherty, Matt and Feiyang Wang</p>

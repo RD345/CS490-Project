@@ -9,7 +9,7 @@
 	<script type='text/javascript' src='../model/scripts.js'></script>
 	<script type='text/javascript' src='../model/create_exam.js'></script>
 </head>
-<body onload="getUsername(), listExams()">
+<body onload="getUsername(), listExams()" id='split'>
 	<header><h1>CS490 Project 1</h1></header>
 	<nav>
 		<div id='div-nav1'>
@@ -19,7 +19,6 @@
 				<li><a href=instructor_home.html>Home</a></li>
 				<li><a href=review_submissions.html>Review submissions</a></li>
 				<li><a href=release_scores.html>Release scores</a></li>
-				<li><a href=student_list.html>Student List</a></li>
 			</ul>
 			<div id='div-nav2'>
 				<h4 id='username_display' onload="return getUsername()"></h4>
@@ -30,16 +29,40 @@
 	<input type='hidden' id='debug'>
 	<div class='div-page'>
 		<h3>Exam(s) Available:</h3>
-		<ul id='exam_list' onloadstart="listExams('teacher')"></ul>
+		<ul id='exam_list'></ul>
 		<h2>Create an Exam below</h2>
 		<form id='questions' method='post' onsubmit="createExam()">
 			<label><h4>Exam Name</h4></label>
 			<input type='text' id='exam_name' required>
-			<button type='submit'>Create/Edit Exam</button>
+			<button type='submit'>Create Exam</button>
 			<input type=hidden value=""><br><br>
 			<h4>Add Question</h4>
 		</form>
 		<button type="button" onclick="addQuestion()">Add Question</button>
+	</div>
+	<div class='div-page' id='question_bank'>
+	<h2>Question Bank</h2><br>
+		<div id='filter'>
+		<div class='container' onload="getQuestions(this)">
+			<form id='question' method='post' onsubmit='createQuestion()'>
+			<label>Topic:</label>
+				<select type='select'>
+					<option></option>
+				</select>
+			<label>Difficulty:</label>
+				<select type='select'>\
+					<option></option>
+				</select>
+			<label>Constraint:</label>
+				<select type='select'>
+					<option></option>
+				</select>
+			<label>Keyword:</label>
+				<select type='select'>
+					<option></option>
+				</select>
+			<div>
+		</form>
 	</div>
 	<footer id='credits'>
 		<p class='p-1'>Created by Group 10: Ryan Doherty, Matt and Feiyang Wang</p>

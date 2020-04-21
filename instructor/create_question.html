@@ -9,7 +9,7 @@
 	<script type='text/javascript' src='../model/scripts.js'></script>
 	<script type='text/javascript' src='../model/create_question.js'></script>
 </head>
-<body onload="getUsername()">
+<body onload="getUsername()" id='split'>
 	<header><h1>CS490 Project 1</h1></header>
 	<nav>
 		<div id='div-nav1'>
@@ -19,7 +19,6 @@
 				<li><a href=instructor_home.html>Home</a></li>
 				<li><a href=review_submissions.html>Review submissions</a></li>
 				<li><a href=release_scores.html>Release scores</a></li>
-				<li><a href=student_list.html>Student List</a></li>
 			</ul>
 			<div id='div-nav2'>
 				<h4 id='username_display' onload="return getUsername()"></h4>
@@ -28,11 +27,17 @@
 		</div>
 	</nav>
 	<div class='div-page'>
-		<h2>Create a New Question</h2>
+		<h2>Create a New Question</h2><br>
 		<form id='question' method='post' onsubmit='createQuestion()'>
 			<button type='submit'>Create Question</button><br>
-			<label>Question:</label><br>
-			<textarea id='description' required></textarea><br>
+			<label>Question:</label>
+			<p>Write a function named: 
+				<input id='questionName' placeholder='doubleIt' required></input><br>
+				That takes
+				<span id='argnum' type='number' value='1' required contenteditable='true' style="min-width: 10px"></span>
+				argument(s), and then: 
+			</p>
+			<textarea id='description' required placeholder="returns twice the value."></textarea><br>
 
 			<label>Difficulty:</label><br>
 			<select id='difficulty'>
@@ -47,6 +52,30 @@
 		</form>
 		<button type="button" onclick="addTestCase()">Add Test Case</button>
 	</div><br>
+	<div class='div-page' id='question_bank'>
+	<h2>Question Bank</h2><br>
+		<div id='filter'>
+		<div class='container'>
+			<form id='question' method='post' onsubmit='createQuestion()'>
+			<label>Topic:</label>
+				<select type='select'>
+					<option></option>
+				</select>
+			<label>Difficulty:</label>
+				<select type='select'>\
+					<option></option>
+				</select>
+			<label>Constraint:</label>
+				<select type='select'>
+					<option></option>
+				</select>
+			<label>Keyword:</label>
+				<select type='select'>
+					<option></option>
+				</select>
+			<div>
+		</form>
+	</div>
 	<footer id='credits'>
 		<p class='p-1'>Created by Group 10: Ryan Doherty, Matt and Feiyang Wang</p>
 	</footer>

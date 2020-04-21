@@ -138,3 +138,22 @@ function getFooter()
     footer.innerHTML = "<p class='p-1'>Created by Group 10: Ryan Doherty, Matt and Feiyang Wang</p>";
     document.getElementsByTagName("body").appendChild(footer);
 }
+
+function playSound(src)
+{
+    // this.sound = document.createElement("audio");
+    mySound = new sound("../sounds/bleat.wav");
+    this.sound = document.createElement("audio");
+    this.sound.src = src;
+    this.sound.setAttribute("preload", "auto");
+    this.sound.setAttribute("controls", "none");
+    this.sound.style.display = "none";
+    document.body.appendChild(this.sound);
+    this.play = function(){
+        this.sound.play();
+    }
+    this.stop = function(){
+        this.sound.pause();
+    } 
+}
+

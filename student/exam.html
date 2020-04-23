@@ -11,15 +11,15 @@
 </head>
 <body onload="getUsername(), takeExam()">
 	<header><h1>CS490 Project 1</h1></header>
+	<div id='div-nav2'>
+		<h4 id='username_display' onload="return getUsername()"></h4>
+		<button id='logout' onclick="logout()">Logout</button>
+	</div>
 	<nav>
 		<div id='div-nav1'>
 			<ul>
 				<li><a href='student_home.html'>Quit</a></li>
 			</ul>
-			<div id='div-nav2'>
-				<h4 id='username_display' onload="return getUsername()"></h4>
-				<button id='logout' onclick="logout()">Logout</button>
-			</div>
 		</div>
 	</nav>
 	<h2>Exam</h2>

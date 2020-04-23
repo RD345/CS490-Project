@@ -66,10 +66,21 @@ nav a
 }
 #div-nav2
 {
-    display: flex;
+    position: absolute;
+    right: 78px;
+    object-fit: contain;
+    top: 1px;
+    z-index: 4;
+    display: inline-flexbox;
+    font-size: x-large;
     justify-content: center;
     margin-right: 16px;
 }
+    #div-nav2 > h4
+    {
+        font-size: xx-large;
+        justify-content: center;
+    }
 
 *::selection
 {

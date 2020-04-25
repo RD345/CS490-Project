@@ -421,6 +421,8 @@ nav a:visited
     padding: 5px;
     border: ridge 3px rgba(245, 245, 245, 0.329);
     margin-bottom: 1em;
+    padding-left: 1em;
+    padding-right: 1em;
 }
     .question-div textarea
     {
@@ -441,4 +443,6 @@ nav a:visited
     border-spacing: 5px;
     margin: 2px;
     padding-top: 6em;
+    padding-left: .2em;
+    padding-right: .2em;
 }

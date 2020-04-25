@@ -142,21 +142,25 @@ function getQuestions(src)
                     question.draggable = true;
                     question.id = item.questionID;
                     question.ondragstart = drag;
-                    // question.ondrop 
+
+                    // QuestionID:
+                    var p = document.createElement("p");
+                    p.innerText = "ID: " + item.questionID;
+                    question.appendChild(p);
 
                     // Contraint:
-                    var top = document.createElement("p");
+                    var p = document.createElement("p");
                     var constraint = "None";
                     if (item.questionConstraint != 0)
                         constraint = item.questionConstraint;
 
-                    top.innerText = "Constraint: " + constraint;
-                    question.appendChild(top);
+                    p.innerText = "Constraint: " + constraint;
+                    question.appendChild(p);
 
                     // Topic:
-                    var top = document.createElement("p");
-                    top.innerText = "Topic: " + item.topic;
-                    question.appendChild(top);
+                    var p = document.createElement("p");
+                    p.innerText = "Topic: " + item.topic;
+                    question.appendChild(p);
 
                     // Description:
                     var label = document.createElement("label");

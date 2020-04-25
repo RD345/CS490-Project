@@ -181,5 +181,7 @@ function drop(ev)
     ev.preventDefault();
     
     var data = ev.dataTransfer.getData("text");
-    ev.target.appendChild(document.getElementById(data));
+    dragged = document.getElementById(data);
+    if (ev.target.className == "question_list")
+        ev.target.appendChild(dragged);
 }

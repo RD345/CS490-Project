@@ -16,9 +16,9 @@ function login()
 
             // Redirect:
             if (response.role == 'student')
-                location.href = 'student/student_home.html';
+                location.href = "student/student_home.html";
             else if (response.role == 'teacher')
-                location.href = 'instructor/instructor_home.html';                
+                location.href = "instructor/instructor_home.html";                
         } else 
             alert("Server error!");
     };
@@ -26,7 +26,9 @@ function login()
     return false;
 }
 
+
 function logout() {location.href = "../model/logout.php";}
+
 
 function getUsername()
 {
@@ -105,15 +107,14 @@ function getStudents()
 {
     var data = new FormData();
     data.append('message_type', 'list_students'); //list_students_that_took_exam
-    // data.append('examID', '1');
-    var xml_request = createXMLRequest(data);
 
+    // Create and handle the xml request:
+    var xml_request = createXMLRequest(data);
     xml_request.onload = function() 
     {
         if (xml_request.status == 200) // If the response is good (HTML code 200)
         {
             debug(this.response);
-            // document.getElementById("exam_list").innerHTML = "";
             if (this.response)
             {
                 response = JSON.parse(this.response);
@@ -132,12 +133,6 @@ function getStudents()
     xml_request.send(data);
 }
 
-function getFooter()
-{
-    var footer = document.createElement("foooter");
-    footer.innerHTML = "<p class='p-1'>Created by Group 10: Ryan Doherty, Matt and Feiyang Wang</p>";
-    document.getElementsByTagName("body").appendChild(footer);
-}
 
 function playSound(src)
 {
@@ -152,7 +147,10 @@ function playSound(src)
     this.play = function(){
         this.sound.play();
     }
-    this.stop = function(){
+
+
+    this.stop = function()
+    {
         this.sound.pause();
     } 
 }

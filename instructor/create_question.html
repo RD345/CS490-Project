@@ -30,14 +30,13 @@
 		<h2>Create a New Question</h2><br>
 		<form id='question' method='post' onsubmit='createQuestion()'>
 			<button type='submit'>Create Question</button><br>
-			<label>Question:</label>
 			<p>Write a function named: 
-				<input id='questionName' placeholder='doubleIt' required></input><br>
+				<input id='questionName' placeholder='"doubleIt"' required></input><br>
 				That takes
-				<span id='argnum' type='number' value='1' required contenteditable='true' style="min-width: 10px"></span>
+				<input id='argnum' type='number' value='1' required contenteditable='true' style="min-width: 10px"></input>
 				argument(s), and then: 
 			</p>
-			<textarea id='description' required placeholder="returns twice the value."></textarea><br>
+			<textarea id='description' required placeholder='"returns twice the value." or "prints x"'></textarea><br>
 
 			<label>Difficulty:</label><br>
 			<select id='difficulty'>
@@ -47,7 +46,7 @@
 			</select><br>
 
 			<label>Topic</label><br>
-			<input id='topic' required><br><br>
+			<input id='topic' required><br>
 			<h4>Test Cases: <input id='case_num' type='number' readonly value=0 style="width: 1.5em"></h4>
 		</form>
 		<button type="button" onclick="addTestCase()">Add Test Case</button>

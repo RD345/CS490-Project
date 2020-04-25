@@ -35,34 +35,36 @@
 			<label><h4>Exam Name</h4></label>
 			<input type='text' id='exam_name' required>
 			<button type='submit'>Create Exam</button>
-			<input type=hidden value=""><br><br>
-			<h4>Add Question</h4>
+			<br>
+			<h4>Add Question(s):</h4>
+			<div class='question_list' ondrop="drop(event)" ondragover="allowDrop(event)"></div>
 		</form>
-		<button type="button" onclick="addQuestion()">Add Question</button>
+		<button type="button" onclick="addQuestion()">Add Question(s):</button>
 	</div>
-	<div class='div-page' id='question_bank'>
-	<h2>Question Bank</h2><br>
+	<div class='div-page' id='question_bank' onload="getQuestions(this)">
+		<h2>Question Bank</h2>
+		<br>
 		<div id='filter'>
-		<div class='container' onload="getQuestions(this)">
-			<form id='question' method='post' onsubmit='createQuestion()'>
 			<label>Topic:</label>
-				<select type='select'>
-					<option></option>
-				</select>
+			<select type='select' onchange='getQuestions()'>
+				<option></option>
+			</select>
 			<label>Difficulty:</label>
-				<select type='select'>\
-					<option></option>
-				</select>
+			<select type='select' onchange='getQuestions()'>
+				<option>Easy</option>
+				<option>Medium</option>
+				<option>Hard</option>
+			</select>
 			<label>Constraint:</label>
-				<select type='select'>
-					<option></option>
-				</select>
+			<select type='select' onchange='getQuestions()'>
+				<option></option>
+			</select>
 			<label>Keyword:</label>
-				<select type='select'>
-					<option></option>
-				</select>
-			<div>
-		</form>
+			<select type='select' onchange='getQuestions()'>
+				<option></option>
+			</select>
+		</div>
+		<div id='bank' class='question_list'></div>
 	</div>
 	<footer id='credits'>
 		<p class='p-1'>Created by Group 10: Ryan Doherty, Matt and Feiyang Wang</p>

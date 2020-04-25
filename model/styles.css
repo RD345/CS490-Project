@@ -1,5 +1,8 @@
 /* CSS for the site */
-
+*
+{
+    scrollbar-color: black !important;
+}
 body
 {
     background-color: rgb(34,34,34);
@@ -412,3 +415,30 @@ nav a:visited
     {
         width: 95%;
     }
+
+.question-div
+{
+    padding: 5px;
+    border: ridge 3px rgba(245, 245, 245, 0.329);
+    margin-bottom: 1em;
+}
+    .question-div textarea
+    {
+        width: 95%;
+        height: 3.5em;
+        overflow: hidden;
+    }
+    .question-div > p
+    {
+        margin-top: auto;
+        margin-bottom: auto;
+    }
+
+.question_list
+{
+    background-color: rgba(0, 0, 0, 0.274);
+    border: solid 1px rgba(245, 245, 245, 0.329);
+    border-spacing: 5px;
+    margin: 2px;
+    padding-top: 6em;
+}

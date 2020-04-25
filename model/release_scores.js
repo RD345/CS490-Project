@@ -40,7 +40,7 @@ function releaseScores(exam_id)
         {
             if (this.response)
             {
-                debug(this.response);
+                // debug(this.response);
                 alert("Scores released!");
                 // alert(JSON.parse(this.response));
             }

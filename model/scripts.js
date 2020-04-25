@@ -47,7 +47,7 @@ function getUsername()
             {
                 try {
                     username = JSON.parse(this.response).username;
-                    document.getElementById("username_display").innerHTML = username;
+                    document.getElementById("username_display").innerText = username;
                 }
                 catch (e) {location.href = "../model/logout.php"}
             }
@@ -78,8 +78,9 @@ function listExams(role)
     {
         if (xml_request.status == 200) // If the response is good (HTML code 200)
         {
-            debug(this.response);
-            document.getElementById("exam_list").innerHTML = "";
+            // debug(this.response);
+            var exam_list = document.getElementById("exam_list");
+
             if (this.response)
             {
                 response = JSON.parse(this.response);
@@ -87,10 +88,26 @@ function listExams(role)
                 for(var i = 0; i < response.length; i++) 
                 {
                     var obj = response[i];
+                    var list = document.createElement("li")
+                    
                     if(role == 'student')
-                        document.getElementById("exam_list").innerHTML += ("<li>" + "<a onclick=takeExam(" + obj.examID + ") href='exam.html'>" + obj.examName + "</a>" + "</li>");
+                    {
+                        link = document.createElement("a");
+                        link.href = "exam.html";
+                        link.onclick = takeExam(obj.examID);
+                        link.innerHTML = obj.examName;
+                        list.appendChild(link);
+
+                        // list.innerHTML += ("<li>" + "<a onclick=takeExam(" + obj.examID + ") href='exam.html'>" +  + "</a>" + "</li>");
+
+                        exam_list.appendChild(list);
+                    }
                     else
-                        document.getElementById("exam_list").innerHTML += ("<li>" + obj.examName + "</li>");
+                    {
+                        list.innerHTML = obj.examName;
+                        exam_list.appendChild(list);
+                    }
+                        
                 }
             }
         } else 
@@ -114,7 +131,7 @@ function getStudents()
     {
         if (xml_request.status == 200) // If the response is good (HTML code 200)
         {
-            debug(this.response);
+            // debug(this.response);
             if (this.response)
             {
                 response = JSON.parse(this.response);
@@ -155,3 +172,14 @@ function playSound(src)
     } 
 }
 
+function allowDrop(ev) {ev.preventDefault();}
+  
+function drag(ev) {ev.dataTransfer.setData("text", ev.target.id);}
+
+function drop(ev) 
+{
+    ev.preventDefault();
+    
+    var data = ev.dataTransfer.getData("text");
+    ev.target.appendChild(document.getElementById(data));
+}

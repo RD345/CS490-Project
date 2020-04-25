@@ -13,7 +13,7 @@ function takeExam()
     {
         if (xml_request.status == 200) // If the response is good (HTML code 200)
         {
-            debug(this.response);
+            // debug(this.response);
             // document.getElementById("exam_list").innerHTML = "";
             if (this.response)
             {
@@ -43,7 +43,7 @@ function gotoExam(examID)
     {
         if (xml_request.status == 200) // If the response is good (HTML code 200)
         {
-            debug(this.response);
+            // debug(this.response);
             // document.getElementById("exam_list").innerHTML = "";
             if (this.response)
             {
@@ -106,7 +106,7 @@ function getExams(role)
     {
         if (xml_request.status == 200) // If the response is good (HTML code 200)
         {
-            debug(this.response);
+            // debug(this.response);
             document.getElementById("exam_list").innerHTML = "";
             if (this.response)
             {

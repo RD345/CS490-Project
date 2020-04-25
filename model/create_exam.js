@@ -10,24 +10,24 @@ function addQuestion()
     {
         if (xml_request.status == 200) // If the response is good (HTML code 200)
         {
-            // alert("list_exams response:" + this.response);
             if (this.response)
             {
-                debug(this.response);
+                // debug(this.response);
                 question_list = JSON.parse(this.response); // array of all questions
                 var topics = [];
-                
-                function findTopic(find) {return topics == find};
+                var questions = document.getElementsByClassName("question_list")[0]; // Gets the first question list div.
+
                 // Get topics:
+                function findTopic(find) {return topics == find};
                 for(var i = 0; i < question_list.length; i++) 
                     if(!topics.find(findTopic))
                         topics.push(question_list[i].topic);
                 
-                var questions = document.getElementById("questions"); // Gets the form.
-
+               
                 // Create a question div:
                 var question = document.createElement("div");
                 question.className = "question-div";
+                question.draggable = true;
         
                 // Create the button
                 var button = document.createElement("button");
@@ -43,8 +43,7 @@ function addQuestion()
                 var select = document.createElement("select");
                 select.id = "topic";
                 for(var i = 0; i < topics.length; i++) 
-                {
-                    // Add the current topic as an option:
+                {   // Add the current topic as an option:
                     var option = document.createElement("option");
                     option.innerHTML = topics[i]
                     select.appendChild(option);
@@ -53,7 +52,7 @@ function addQuestion()
                 question.appendChild(select); // Adds the select to the question.
                 question.appendChild(document.createElement("br"));
 
-                // Create the label:
+                // Create the 'Select Question' label:
                 var label = document.createElement("label");
                 label.innerHTML = "Select Question";
                 question.appendChild(label);
@@ -88,10 +87,7 @@ function addQuestion()
                 question.appendChild(description);
                 question.appendChild(document.createElement("br"));
 
-                questions.appendChild(question);
-                // for(var i = 0; i < question_list.length; i++) 
-                //     var question = question_list[i];
-
+                questions.appendChild(question); // Adds the question to the form.
             }
         } else 
         alert("Server error!");
@@ -99,7 +95,8 @@ function addQuestion()
     xml_request.send(data); // Sends the request for the questions.
 }
 
-function changeQuestion()
+// Removes the current question:
+function removeQuestion(src)
 {}
 
 function createExam() 
@@ -116,17 +113,18 @@ function getQuestions(src)
 {
     var data = new FormData();
     data.append('message_type', 'get_questions');
+
     var xml_request = createXMLRequest(data);
-    alert("test");
     xml_request.onload = function() 
     {
         if (xml_request.status == 200) // If the response is good (HTML code 200)
         {
             if (this.response)
-            {
-                debug(this.response); // Sends to debug hidden.
-                
+            {                
                 question_list = JSON.parse(this.response); // array of all questions
+                var question_bank = document.getElementById("bank"); // Gets the form.
+                question_bank.innerText = null; // Empties the current bank.
+                
                 var topics = [];
                 
                 function findTopic(find) {return topics == find};
@@ -134,79 +132,51 @@ function getQuestions(src)
                 for(var i = 0; i < question_list.length; i++) 
                     if(!topics.find(findTopic))
                         topics.push(question_list[i].topic);
-                
-                var questions = src; // Gets the form.
 
-                // Create a question div:
-                var question = document.createElement("div");
-                question.className = "question-div";
-        
-                // Create the button
-                var button = document.createElement("button");
-                var add_question = ""; // TODO Delete
 
-                // Create the label:
-                var label = document.createElement("label");
-                label.innerHTML = "Select Topic";
-                question.appendChild(label);
-                question.appendChild(document.createElement("br"));
+                question_list.forEach(blockifyQuestion);
+                function blockifyQuestion(item)
+                {   // Create a question div:
+                    var question = document.createElement("div");
+                    question.className = "question-div";
+                    question.draggable = true;
+                    question.id = item.questionID;
+                    question.ondragstart = drag;
+                    // question.ondrop 
 
-                // Create the question selecter:
-                var select = document.createElement("select");
-                select.id = "topic";
-                for(var i = 0; i < topics.length; i++) 
-                {
-                    // Add the current topic as an option:
-                    var option = document.createElement("option");
-                    option.innerHTML = topics[i]
-                    select.appendChild(option);
-                    select.appendChild(document.createElement("br"));
+                    // Contraint:
+                    var top = document.createElement("p");
+                    var constraint = "None";
+                    if (item.questionConstraint != 0)
+                        constraint = item.questionConstraint;
+
+                    top.innerText = "Constraint: " + constraint;
+                    question.appendChild(top);
+
+                    // Topic:
+                    var top = document.createElement("p");
+                    top.innerText = "Topic: " + item.topic;
+                    question.appendChild(top);
+
+                    // Description:
+                    var label = document.createElement("label");
+                    label.innerHTML = "Description:";
+                    question.appendChild(label);
+                    question.appendChild(document.createElement("br"));
+                    // Create the description textarea:
+                    var description = document.createElement("textarea");
+                    description.id = "description";
+                    description.readOnly = true;
+                    description.innerText = item.description
+                    question.appendChild(description);
+                    question.appendChild(document.createElement("br"));
+
+                    // Add the question to the bank:
+                    question_bank.appendChild(question);
                 }
-                question.appendChild(select); // Adds the select to the question.
-                question.appendChild(document.createElement("br"));
-
-                // Create the label:
-                var label = document.createElement("label");
-                label.innerHTML = "Select Question";
-                question.appendChild(label);
-
-                // Add questions to drop-down:
-                var question_select = document.createElement("select");
-                question_select.id = "question_num";
-                question_select.onchange = function() {changeQuestion()};
-                question.appendChild(document.createElement("br"));
-
-                // Add the questions as options:
-                for(var i = 0; i < question_list.length; i++) 
-                {
-                    var question_option = document.createElement("option");
-                    question_option.innerText = question_list[i].questionID;
-                    question_select.appendChild(question_option);
-                }
-                question.appendChild(question_select);
-                question.appendChild(document.createElement("br"));
-
-                // Create the label for the question description:
-                var label = document.createElement("label");
-                label.innerHTML = "Description:";
-                question.appendChild(label);
-                question.appendChild(document.createElement("br"));
-
-                // Create the description textarea:
-                var description = document.createElement("textarea");
-                description.id = "description";
-                description.readOnly = true;
-                description.innerText = question_list[0].description
-                question.appendChild(description);
-                question.appendChild(document.createElement("br"));
-
-                questions.appendChild(question);
-                // for(var i = 0; i < question_list.length; i++) 
-                //     var question = question_list[i];
-
             }
         } else 
-        alert("Server error!");
+            alert("Server error!");
     }
     xml_request.send(data); // Sends the request for the questions.
 }

@@ -401,10 +401,14 @@ nav a:visited
 .test_case
 {
     padding: 5px;
-    border: groove 3px whitesmoke;
+    border: ridge 3px rgba(245, 245, 245, 0.329);
     margin-bottom: 1em;
 }
     .test_case > h4
     {
         margin-top: 0;
+    }
+    .test_case > input
+    {
+        width: 95%;
     }

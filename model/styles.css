@@ -70,7 +70,7 @@ nav a
 }
 #div-nav2
 {
-    position: absolute;
+    position: fixed;
     right: 78px;
     object-fit: contain;
     top: 1px;

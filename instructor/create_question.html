@@ -9,7 +9,7 @@
 	<script type='text/javascript' src='../model/scripts.js'></script>
 	<script type='text/javascript' src='../model/create_question.js'></script>
 </head>
-<body onload="getUsername()" id='split'>
+<body onload="getUsername()">
 	<header><h1>CS490 Project 1</h1></header>
 	<div id='div-nav2'>
 		<h4 id='username_display' onload="return getUsername()"></h4>
@@ -26,58 +26,72 @@
 			</ul>
 		</div>
 	</nav>
-	<div class='div-page'>
-		<h2>Create a New Question</h2>
-		<br>
-		<form id='question' method='post' onsubmit='createQuestion()'>
-			<button type='submit'>Create Question</button>
+	<input type='hidden' id='debug'>
+	<div id='div-split'>
+		<div class='div-page'>
+			<h2>Create a New Question</h2>
 			<br>
-			<p>Write a function named: 
-				<input id='questionName' placeholder='"doubleIt"' required></input>
+			<form id='question' method='post' onsubmit='createQuestion()'>
+				<button type='submit'>Create Question</button>
 				<br>
-				That takes
-				<input id='argnum' type='number' value='1' required contenteditable='true' style="min-width: 10px"></input>
-				argument(s), and then: 
-			</p>
-			<textarea id='description' required placeholder='"returns twice the value." or "prints x"'></textarea>
-			<br>
-			<label>Difficulty:</label>
-			<br>
-			<select id='difficulty'>
-				<option>Easy</option>
-				<option>Medium</option>
-				<option>Hard</option>
-			</select>
-			<br>
-			<label>Topic</label>
-			<br>
-			<input id='topic' required>
-			<br>
-			<h4>Test Cases: <input id='case_num' type='number' readonly value=0 style="width: 1.5em"></h4>
-		</form>
-		<button type="button" onclick="addTestCase()">Add Test Case</button>
-	</div>
-	<br>
-	<div class='div-page' id='question_bank'>
-		<h2>Question Bank</h2>
+				<p>
+					Write a function named: 
+					<input id='questionName' placeholder='"doubleIt"' required></input>
+					<br>
+					That takes
+					<input id='argnum' type='number' value='1' required contenteditable='true' style="min-width: 10px"></input>
+					argument(s), and then: 
+				</p>
+				<textarea id='description' required placeholder='"returns twice the value." or "prints x"'></textarea>
+				<br>
+				<label>Difficulty:</label>
+				<br>
+				<select id='difficulty'>
+					<option>Easy</option>
+					<option>Medium</option>
+					<option>Hard</option>
+				</select>
+				<br>
+				<label>Topic</label>
+				<br>
+				<input id='topic' type='select' required>
+				<br>
+				<h4>Test Cases: <input id='case_num' type='number' readonly value=0 style="width: 1.5em"></h4>
+			</form>
+			<button type="button" onclick="addTestCase()">Add Test Case</button>
+		</div>
 		<br>
-		<div id='filter'>
-			<label>Topic:</label>
-			<select type='select'>
-				<option></option>
-			</select>
-			<label>Difficulty:</label>
-			<select type='select'>\
-				<option></option>
-			</select>
-			<label>Constraint:</label>
-			<select type='select'>
-				<option></option>
-			</select>
-			<label>Keyword:</label>
-			<select type='select'>
-				<option></option>
-			</select>
+		<div class='div-page' id='question_bank' onload="getQuestions(this)">
+			<h2>Question Bank</h2>
+			<br>
+			<div id='filter'>
+				<span>
+					<label>Topic</label>
+					<select id='filter_topic' onchange='getQuestions()'>
+						<option>Any</option>
+					</select>
+				</span>
+				<span>
+					<label>Difficulty</label>
+					<select id='filter_difficulty' onchange='getQuestions()'>
+						<option>Any</option>
+						<option>Easy</option>
+						<option>Medium</option>
+						<option>Hard</option>
+					</select>
+				</span>
+				<span>
+					<label>Constraint</label>
+					<select id='filter_constraint' onchange='getQuestions()'>
+						<option>Any</option>
+					</select>
+				</span>
+				<span>
+					<label>Keyword</label>
+					<input id='filter_keyword' onchange='getQuestions()' placeholder='Any'></input>
+				</span>
+			</div>
+			<div id='bank' class='question_list' ondrop="drop(event)" ondragover="allowDrop(event)"></div>
 		</div>
 	</div>
 	<footer id='credits'>

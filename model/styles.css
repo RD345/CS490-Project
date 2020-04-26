@@ -12,6 +12,7 @@ body
     overflow-x: hidden;
     margin-top: 150px;
     font-family: trench100free, Times, sans-serif;
+    width: 100%;
 }
 
 #li-nav1-active,
@@ -305,9 +306,10 @@ a:hover
     text-size-adjust: auto;
     /* display: flex;
     justify-content: center; */
-    width: auto;
+    /* width: auto; */
     padding-left: 2em;
     padding-right: 2em;
+    flex: 1;
 }
 
 button
@@ -383,10 +385,22 @@ nav a:visited
     color: aqua
 }
 
-#split
+#div-split
 {
     display: flex;
+    /* width: 100%; */
+    padding-left: 2em;
+    padding-right: 2em;
 }
+    #div-split *
+    {
+        font-size: large;
+    }
+    #div-split #div-page
+    {
+        padding-left: 0;
+        padding-right: 0;
+    }
 #question_bank
 {
     justify-content: right;
@@ -396,6 +410,14 @@ nav a:visited
     display: flex;
     justify-content: center;
 }
+    #filter > span
+    {
+        display: inline;
+        justify-content: center;
+        text-align: center;
+        flex: 1;
+    }
+   
 #argnum
 {
     width: 2em;
@@ -419,7 +441,7 @@ nav a:visited
 .question-div
 {
     padding: 5px;
-    border: ridge 3px rgba(245, 245, 245, 0.329);
+    border: ridge 2px rgba(245, 245, 245, 0.329);
     margin-bottom: 1em;
     padding-left: 1em;
     padding-right: 1em;

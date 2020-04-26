@@ -9,7 +9,7 @@
 	<script type='text/javascript' src='../model/scripts.js'></script>
 	<script type='text/javascript' src='../model/create_exam.js'></script>
 </head>
-<body onload="getUsername(), listExams()" id='split'>
+<body onload="getUsername(), listExams()">
 	<header><h1>CS490 Project 1</h1></header>
 	<div id='div-nav2'>
 		<h4 id='username_display' onload="return getUsername()"></h4>
@@ -27,44 +27,54 @@
 		</div>
 	</nav>
 	<input type='hidden' id='debug'>
-	<div class='div-page'>
-		<h3>Exam(s) Available:</h3>
+	<div style="padding-left: 3em">
+		<h4>Exam(s) Available:</h4>
 		<ul id='exam_list'></ul>
-		<h2>Create an Exam below</h2>
-		<form id='questions' method='post' onsubmit="createExam()">
-			<label><h4>Exam Name</h4></label>
-			<input type='text' id='exam_name' required>
-			<button type='submit'>Create Exam</button>
-			<br>
-			<h4>Add Question(s):</h4>
-			<div class='question_list' ondrop="drop(event)" ondragover="allowDrop(event)"></div>
-		</form>
-		
 	</div>
-	<div class='div-page' id='question_bank' onload="getQuestions(this)">
-		<h2>Question Bank</h2>
-		<br>
-		<div id='filter'>
-			<label>Topic:</label>
-			<select type='select' onchange='getQuestions()'>
-				<option></option>
-			</select>
-			<label>Difficulty:</label>
-			<select type='select' onchange='getQuestions()'>
-				<option>Easy</option>
-				<option>Medium</option>
-				<option>Hard</option>
-			</select>
-			<label>Constraint:</label>
-			<select type='select' onchange='getQuestions()'>
-				<option></option>
-			</select>
-			<label>Keyword:</label>
-			<select type='select' onchange='getQuestions()'>
-				<option></option>
-			</select>
+	<div id='div-split'>
+		<div class='div-page'>
+			<h2>Create an Exam below</h2>
+			<form id='questions' method='post' onsubmit="createExam()">
+				<label><h4>Exam Name</h4></label>
+				<input type='text' id='exam_name' required>
+				<button type='submit'>Create Exam</button>
+				<br>
+				<h4>Add Questions (Drag and drop below):</h4>
+				<div class='question_list' ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+			</form>
 		</div>
-		<div id='bank' class='question_list' ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+		<div class='div-page' id='question_bank' onload="getQuestions(this)">
+			<h2>Question Bank</h2>
+			<br>
+			<div id='filter'>
+				<span>
+					<label>Topic</label>
+					<select id='topic' onchange='getQuestions()'>
+						<option>Any</option>
+					</select>
+				</span>
+				<span>
+					<label>Difficulty</label>
+					<select id='difficulty' onchange='getQuestions()'>
+						<option>Any</option>
+						<option>Easy</option>
+						<option>Medium</option>
+						<option>Hard</option>
+					</select>
+				</span>
+				<span>
+					<label>Constraint</label>
+					<select id='constraint' onchange='getQuestions()'>
+						<option>Any</option>
+					</select>
+				</span>
+				<span>
+					<label>Keyword</label>
+					<input id='keyword' onchange='getQuestions()' placeholder='Any'></input>
+				</span>
+			</div>
+			<div id='bank' class='question_list' ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+		</div>
 	</div>
 	<footer id='credits'>
 		<p class='p-1'>Created by Group 10: Ryan Doherty, Matt Stepnowski and Feiyang Wang</p>

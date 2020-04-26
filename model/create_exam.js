@@ -124,19 +124,80 @@ function getQuestions(src)
                 question_list = JSON.parse(this.response); // array of all questions
                 var question_bank = document.getElementById("bank"); // Gets the form.
                 question_bank.innerText = null; // Empties the current bank.
-                
                 var topics = [];
-                
+                var levels = [];
+                var cons = [];
+
+                // Get filters:
+                topic = document.getElementById("topic");
+                difficulty = document.getElementById("difficulty");
+                keyword = document.getElementById("keyword");
+                constraint = document.getElementById("constraint");
+
+                // Get topics and update filter:
                 function findTopic(find) {return topics == find};
-                // Get topics:
                 for(var i = 0; i < question_list.length; i++) 
                     if(!topics.find(findTopic))
                         topics.push(question_list[i].topic);
 
+                if (topic.childElementCount < topics.length + 1)
+                    topics.forEach(addTopic);
+                function addTopic(item)
+                {
+                    option = document.createElement("option");
+                    option.innerHTML = item;
+                    topic.appendChild(option);
+                }
+
+                // Get difficulties and update filter:
+                function findDiff(find) {return levels == find};
+                for(var i = 0; i < question_list.length; i++) 
+                    if(!levels.find(findDiff))
+                        levels.push(question_list[i].level);
+
+                if (difficulty.childElementCount < levels.length + 1)
+                    levels.forEach(addLevels);
+                function addLevels(item)
+                {
+                    option = document.createElement("option");
+                    option.innerHTML = item;
+                    difficulty.appendChild(option);
+                }
+
+                // Get Constraints and update filter:
+                function findCons(find) {return cons == find};
+                for(var i = 0; i < question_list.length; i++) 
+                    if(!cons.find(findCons))
+                        cons.push(question_list[i].questionConstraint);
+
+                if (constraint.childElementCount < cons.length + 1)
+                    cons.forEach(addCons);
+                function addCons(item)
+                {
+                    option = document.createElement("option");
+                    option.innerHTML = item;
+                    constraint.appendChild(option);
+                }
 
                 question_list.forEach(blockifyQuestion);
                 function blockifyQuestion(item)
-                {   // Create a question div:
+                {   // Check if the question matches the filters:
+                    topic = document.getElementById("topic").value;
+                    difficulty = document.getElementById("difficulty").value;
+                    keyword = document.getElementById("keyword").value;
+                    constraint = document.getElementById("constraint").value;
+
+                    if (topic != "Any" && item.topic != topic) 
+                        return;
+                    if (difficulty != "Any" && item.level != difficulty) 
+                        return;
+                    if (constraint != "Any" && item.questionConstraint != constraint)
+                        return;
+                    if (keyword && item.description.search(keyword) == -1) 
+                        return;
+
+
+                    // Create a question div:
                     var question = document.createElement("div");
                     question.className = "question-div";
                     question.draggable = true;
@@ -148,18 +209,25 @@ function getQuestions(src)
                     p.innerText = "ID: " + item.questionID;
                     question.appendChild(p);
 
-                    // Contraint:
-                    var p = document.createElement("p");
-                    var constraint = "None";
-                    if (item.questionConstraint != 0)
-                        constraint = item.questionConstraint;
-
-                    p.innerText = "Constraint: " + constraint;
-                    question.appendChild(p);
-
                     // Topic:
                     var p = document.createElement("p");
                     p.innerText = "Topic: " + item.topic;
+                    question.appendChild(p);
+
+                    // Difficulty:
+                    var p = document.createElement("p");
+                    p.innerText = "Difficulty: " + item.level;
+                    question.appendChild(p);
+
+                    // Contraint:
+                    var p = document.createElement("p");
+                    var cons = "None";
+                    if (item.questionConstraint == 0)
+                        cons = "None";
+                    else
+                        cons = item.questionConstraint;
+
+                    p.innerText = "Constraint: " + cons;
                     question.appendChild(p);
 
                     // Description:

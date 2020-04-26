@@ -457,7 +457,15 @@ nav a:visited
         margin-top: auto;
         margin-bottom: auto;
     }
-
+    .question-div strong
+    {
+        color: aqua;
+    }
+    .question-div .points
+    {
+        color: aqua;
+        width: 2.5em;
+    }
 .question_list
 {
     background-color: rgba(0, 0, 0, 0.274);
@@ -467,4 +475,9 @@ nav a:visited
     padding-top: 6em;
     padding-left: .2em;
     padding-right: .2em;
+}
+#point_count
+{
+    color: aqua;
+    width: 2.5em;
 }

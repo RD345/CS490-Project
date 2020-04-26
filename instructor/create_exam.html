@@ -39,7 +39,11 @@
 				<input type='text' id='exam_name' required>
 				<button type='submit'>Create Exam</button>
 				<br>
-				<h4>Add Questions (Drag and drop below):</h4>
+				<span>
+					<strong>Total Points: </strong>
+					<input id="point_count" type="number"></input>
+				</span>
+				<h4>Drop Questions below</h4>
 				<div class='question_list' ondrop="drop(event)" ondragover="allowDrop(event)"></div>
 			</form>
 		</div>

@@ -29,10 +29,6 @@ function addQuestion()
                 question.className = "question-div";
                 question.draggable = true;
         
-                // Create the button
-                var button = document.createElement("button");
-                var add_question = ""; // TODO Delete
-
                 // Create the label:
                 var label = document.createElement("label");
                 label.innerHTML = "Select Topic";
@@ -205,36 +201,41 @@ function getQuestions(src)
                     question.ondragstart = drag;
 
                     // QuestionID:
-                    var p = document.createElement("p");
-                    p.innerText = "ID: " + item.questionID;
-                    question.appendChild(p);
+                    var spn = document.createElement("span");
+                    spn.innerHTML = "ID: <strong>" + item.questionID + "</strong> ";
+                    question.appendChild(spn);
 
                     // Topic:
-                    var p = document.createElement("p");
-                    p.innerText = "Topic: " + item.topic;
-                    question.appendChild(p);
+                    var spn = document.createElement("span");
+                    spn.innerHTML = "Topic: <strong>" + item.topic + "</strong> ";
+                    question.appendChild(spn);
 
                     // Difficulty:
-                    var p = document.createElement("p");
-                    p.innerText = "Difficulty: " + item.level;
-                    question.appendChild(p);
+                    var spn = document.createElement("span");
+                    spn.innerHTML = "Difficulty: <strong>" + item.level + "</strong> ";
+                    question.appendChild(spn);
 
                     // Contraint:
-                    var p = document.createElement("p");
+                    var spn = document.createElement("span");
                     var cons = "None";
-                    if (item.questionConstraint == 0)
-                        cons = "None";
-                    else
+                    if (item.questionConstraint != 0)
                         cons = item.questionConstraint;
 
-                    p.innerText = "Constraint: " + cons;
-                    question.appendChild(p);
+                    spn.innerHTML = "Constraint: <strong>" + cons + "</strong> ";
+                    question.appendChild(spn);
 
-                    // Description:
-                    var label = document.createElement("label");
-                    label.innerHTML = "Description:";
-                    question.appendChild(label);
+                    // Points:
+                    var spn = document.createElement("span");
+                    spn.innerHTML = "Points:";
+                    var points = document.createElement("input");
+                    points.setAttribute("type", "number");
+                    points.className = "points"
+                    points.onchange = calculatePoints;
+                    spn.appendChild(points);
                     question.appendChild(document.createElement("br"));
+                    question.appendChild(spn);
+                    question.appendChild(document.createElement("br"));
+
                     // Create the description textarea:
                     var description = document.createElement("textarea");
                     description.id = "description";
@@ -251,4 +252,28 @@ function getQuestions(src)
             alert("Server error!");
     }
     xml_request.send(data); // Sends the request for the questions.
+}
+
+
+function calculatePoints()
+{
+    point_count = document.getElementById("point_count"); 
+    var num = 0; 
+    exam = document.getElementById("questions"); // Gets the exam.
+    // points = 0;
+    points_list = exam.getElementsByClassName("points");
+    // alert(points_list[0].value);
+
+    for (var i = 0; i < points_list.length; i++)
+    {
+        num += parseInt(points_list[i].value);
+    }
+    point_count.value = num;
+    // points_list.forEach(addPoints);
+    
+    // function addPoints(item)
+    // {
+    //     alert(item);
+    //     point_count += item.value;
+    // }
 }

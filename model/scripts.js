@@ -45,7 +45,8 @@ function getUsername()
         {
             if (this.response)
             {
-                try {
+                try 
+                {
                     username = JSON.parse(this.response).username;
                     document.getElementById("username_display").innerText = username;
                 }
@@ -60,7 +61,6 @@ function getUsername()
 
 function createXMLRequest(data, url) // Takes an array of strings in, and returns a parsed JSON
 {
-    var response;
     data.append('username', document.getElementById("username_display").innerHTML);
     var xml_request = new XMLHttpRequest();
     xml_request.open('POST', "../model/send_data.php", true);

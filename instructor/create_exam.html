@@ -9,7 +9,7 @@
 	<script type='text/javascript' src='../model/scripts.js'></script>
 	<script type='text/javascript' src='../model/create_exam.js'></script>
 </head>
-<body onload="getUsername(), listExams()">
+<body onload="getUsername(), listExams(), getQuestions()">
 	<header><h1>CS490 Project 1</h1></header>
 	<div id='div-nav2'>
 		<h4 id='username_display' onload="return getUsername()"></h4>
@@ -29,19 +29,18 @@
 	<input type='hidden' id='debug'>
 	<div style="padding-left: 3em">
 		<h4>Exam(s) Available:</h4>
-		<ul id='exam_list'></ul>
+		<span id='exam_list'></span>
 	</div>
 	<div id='div-split'>
 		<div class='div-page'>
 			<h2>Create an Exam below</h2>
+			<br>
 			<form id='questions' method='post' onsubmit="createExam()">
-				<label><h4>Exam Name</h4></label>
-				<input type='text' id='exam_name' required>
 				<button type='submit'>Create Exam</button>
-				<br>
+				<input type='text' id='exam_name' placeholder="Exam name" required>
 				<span>
 					<strong>Total Points: </strong>
-					<input id="point_count" type="number"></input>
+					<input id="point_count" type="number" readonly></input>
 				</span>
 				<h4>Drop Questions below</h4>
 				<div class='question_list' ondrop="drop(event)" ondragover="allowDrop(event)"></div>
@@ -53,12 +52,14 @@
 			<div id='filter'>
 				<span>
 					<label>Topic</label>
+					<br>
 					<select id='filter_topic' onchange='getQuestions()'>
 						<option>Any</option>
 					</select>
 				</span>
 				<span>
 					<label>Difficulty</label>
+					<br>
 					<select id='filter_difficulty' onchange='getQuestions()'>
 						<option>Any</option>
 						<option>Easy</option>
@@ -68,13 +69,15 @@
 				</span>
 				<span>
 					<label>Constraint</label>
+					<br>
 					<select id='filter_constraint' onchange='getQuestions()'>
 						<option>Any</option>
 					</select>
 				</span>
 				<span>
 					<label>Keyword</label>
-					<input id='filter_keyword' onchange='getQuestions()' placeholder='Any'></input>
+					<br>
+					<input id='filter_keyword' onchange='getQuestions()' placeholder='word(s) / ID'></input>
 				</span>
 			</div>
 			<div id='bank' class='question_list' ondrop="drop(event)" ondragover="allowDrop(event)"></div>

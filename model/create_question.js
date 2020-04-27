@@ -54,16 +54,20 @@ function addTestCase()
 
 
 // Submit a new question to the database:
-// "add_question" - takes ($questionID, $questionName, $questionLevel, $questionDescription,$testcase1,$testcase2,$testcase1Answer,$testcase2Answer,$keyword)
+// "add_question" - takes ($questionName, $questionLevel, $questionDescription,$testcase1,$testcase2,$testcase1Answer,$testcase2Answer,$keyword)
 // {This will add a question to the question bank}
 function createQuestion() 
 {   // TODO Build the data set:
     var data = new FormData();
     data.append('message_type', 'create_question');
     data.append('questionTopic', document.getElementById("topic").value);
-    data.append('questionDescription', document.getElementById("description").value);
     data.append('questionLevel', document.getElementById("difficulty").value);
     data.append('testcaseNum', document.getElementById("case_num").value);
+    data.append('questionConstraint', document.getElementById("constraint").value);
+
+    data.append('questionDescription', "Write a function named " + document.getElementById("questionName").value
+    + " that takes in " + document.getElementById("argnum").value + " argument(s) and then "
+    + document.getElementById("description").value);
 
     var testCasesInputs = "";
     var testCasesOutputs = "";
@@ -90,7 +94,7 @@ function createQuestion()
         if (xml_request.status == 200) // If the response is good (HTML code 200)
         {
             res = JSON.parse(this.response)
-            if (res.message_type == "New question created successfully")
+            if (res.message_type == "success")
                 alert("Question Created.");
             else
                 alert("Question Creation failed, please check your input and try again.");

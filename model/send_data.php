@@ -13,7 +13,7 @@ switch ($_POST["message_type"])
         echo json_encode(array('username' => $_SESSION['username'])); 
         return;
     break;
-    case "logout": // 
+    case "logout":
         logout();
         return;
     break;
@@ -31,7 +31,7 @@ switch ($_POST["message_type"])
             $data[$key] = $value;
     break;
 }
-
+// echo json_encode($data);
 
 // Sends the login request:
 function sendRequest($data, $url)
@@ -43,15 +43,17 @@ function sendRequest($data, $url)
     $res = curl_exec($curl); // Recieve the JSON response
     curl_close ($curl); // Close the connection
     
+    
+    // Write log:
+    $log = fopen("log.txt", "a") or die("Unable to open Log File");
+    // fwrite($log,$data.PHP_EOL);
+    fwrite($log,$res.PHP_EOL);
+    fclose($log);
+
     if ($res != null)
         echo $res; // Echo the response back
     else
         echo json_encode(array('message_type' => 'no_response'));
-
-    // Write log:
-    $log = fopen("log.txt", "a") or die("Unable to open Log File");
-    fwrite($log,$res.PHP_EOL);
-    fclose($log);
 }
 if ($data != null)
 {

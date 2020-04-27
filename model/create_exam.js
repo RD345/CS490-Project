@@ -93,13 +93,40 @@ function addQuestion()
 
 
 function createExam() 
-{
-    var exam_id = document.getElementById("exam_id").value;
-    var exam_name = document.getElementById("exam_name").value;
-    var topic = document.getElementById("exam_name").value;
+{   // TODO Build the data set:
+    var data = new FormData();
+    data.append('message_type', 'create_exam');
+    data.append('examName', document.getElementById("exam_name").value);
 
-    var response = process("create_exam", Array("message_type", "exam_id", "exam_name"));
-    alert(response.exam_id);
+    var questionAndPoints = [];
+    form = Array.from(document.forms["questions"].getElementsByClassName("question-div")); // Gets the questions
+    form.forEach(addQuestion);
+    
+    
+    function addQuestion(questionDiv)
+    {
+        var points = questionDiv.childNodes[5].childNodes[1].value;
+     
+        questionAndPoints.push(("questionID", questionDiv.id), ("points", points));
+        // questionAndPoints.push({});
+    }
+    data.append("examQuestionsAndPoints", questionAndPoints);
+
+    // Create and handle xml request:
+    var xml_request = createXMLRequest(data);
+    xml_request.onload = function() 
+    {
+        if (xml_request.status == 200) // If the response is good (HTML code 200)
+        {
+            res = JSON.parse(this.response)
+            if (res.message_type == "success")
+                alert("Question Created.");
+            else
+                alert("Question Creation failed, please check your input and try again.");
+        } else 
+        alert("Server error!");
+    }
+    xml_request.send(data);
 }
 
 

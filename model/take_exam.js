@@ -90,7 +90,23 @@ function loadQuestion(question)
     var student_answer = document.createElement("textarea");
     student_answer.placeholder = "Answer here";
     student_answer.className = "answer";
-    // student_answer.id = 'input_label';
+    student_answer.onkeydown = function(e) {
+        if (e.keyCode === 9) { // tab was pressed
+
+            // get caret position/selection
+            var val = this.value;
+ 
+            // set textarea value to: text before caret + tab + text after caret
+            this.value = val.substring(0, this.selectionStart) + '\t' + val.substring(this.selectionEnd);
+
+            // put caret at right position again
+            this.selectionStart = this.selectionEnd = this.selectionStart + 1;
+
+            // prevent the focus lose
+            return false;
+
+        }
+    };
     exam_question.appendChild(student_answer);
 
     page.appendChild(exam_question);
@@ -156,3 +172,30 @@ function submitExam()
     }
     // location.href = 'student_home.html';
 }
+
+function enableTab() {
+    var el = document.getElementsByClassName('answer');
+    el.onkeydown = function(e) {
+        if (e.keyCode === 9) { // tab was pressed
+
+            // get caret position/selection
+            var val = this.value,
+                start = this.selectionStart,
+                end = this.selectionEnd;
+
+            // set textarea value to: text before caret + tab + text after caret
+            this.value = val.substring(0, start) + '\t' + val.substring(end);
+
+            // put caret at right position again
+            this.selectionStart = this.selectionEnd = start + 1;
+
+            // prevent the focus lose
+            return false;
+
+        }
+    };
+}
+
+// Enable the tab character onkeypress (onkeydown) inside textarea...
+// ... for a textarea that has an `id="my-textarea"`
+enableTab('answer'); 

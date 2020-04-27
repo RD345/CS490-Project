@@ -71,19 +71,20 @@ nav a
 #div-nav2
 {
     position: fixed;
-    right: 78px;
+    right: 0px;
     object-fit: contain;
-    top: 1px;
+    top: 0px;
     z-index: 4;
-    display: inline-flexbox;
+    display: inline-flex;
     font-size: x-large;
     justify-content: center;
-    margin-right: 16px;
+    margin-right: 2px;
+    height: 42px;
 }
     #div-nav2 > h4
     {
         font-size: xx-large;
-        justify-content: center;
+        margin: auto;
     }
 
 *::selection
@@ -112,7 +113,7 @@ h2
 
 #logout
 {
-    position: inherit;
+    /* position: inherit; */
     /* right: 10px;
     top: 10px; */
     font-size: 120%;
@@ -156,6 +157,10 @@ header
     z-index: 3;
     border-bottom: 1px solid  rgba(255, 255, 255, 0.315);
 }
+    header > h1
+    {
+        padding-bottom: 5px;
+    }
 
 footer
 {
@@ -335,7 +340,7 @@ select
 .answer
 {
     min-width: 80%;
-    /* min-height: 8em; */
+    min-height: 3.5em;
 }
 
 button:hover
@@ -480,4 +485,19 @@ nav a:visited
 {
     color: aqua;
     width: 2.5em;
+}
+.span-button
+{
+    display: flex;
+    justify-content: center;
+}
+    .span-button > button
+    {
+        flex: 1;
+    }
+#exam_list span
+{
+    border: solid 1px white;
+    padding: 1em;
+    background-color: rgba(0, 0, 0, 0.274);
 }

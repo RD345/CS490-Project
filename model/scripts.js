@@ -344,13 +344,11 @@ function getQuestions(src)
 
 
 var autoExpand = function (field, type) 
-{   
+{   // Resize textareas:
     if (type == 'textarea')
-    {   // Reset field height:
-        field.style.height = 'inherit';
-
-        // Get the computed styles for the element:
-        var computed = window.getComputedStyle(field);
+    {   
+        field.style.height = 'inherit'; // Resets field height.
+        var computed = window.getComputedStyle(field); // Gets the computed styles for the element.
 
         // Calculate the height:
         var height = parseInt(computed.getPropertyValue('border-top-width'), 10)
@@ -361,26 +359,21 @@ var autoExpand = function (field, type)
 
         field.style.height = height + 'px';
     }
+    // Resize inputs:
     else
-    {   // Reset field height:
-        field.style.width = 'inherit';
-        
-        // Get the computed styles for the element:
-        var computed = window.getComputedStyle(field);
+    {   
+        field.style.width = 'inherit'; // Resets field height.
+        var computed = window.getComputedStyle(field); // Gets the computed styles for the element.
 
-        
-            // Calculate the width:
-            var width = parseInt(computed.getPropertyValue('border-left-width'), 10)
-                + parseInt(computed.getPropertyValue('padding-left'), 10)
-                + field.value.length * 10
-                + parseInt(computed.getPropertyValue('padding-right'), 10)
-                + parseInt(computed.getPropertyValue('border-right-width'), 10);
+        // Calculate the width:
+        var width = parseInt(computed.getPropertyValue('border-left-width'), 10)
+            + parseInt(computed.getPropertyValue('padding-left'), 10)
+            + field.value.length * 10
+            + parseInt(computed.getPropertyValue('padding-right'), 10)
+            + parseInt(computed.getPropertyValue('border-right-width'), 10);
 
-                // field.value = field.style.width;
-        if (field.style.width > width + 'px')
-        {
+        if (width > 219)
             field.style.width = width + 'px';
-        }
     }
 };
 

@@ -93,7 +93,7 @@ function listExams(role)
                        
                         var link = document.createElement("a");
                         link.href = "exam.html";
-                        link.onclick = takeExam(obj.examID);
+                        link.onclick = "takeExam(obj.examID)";
                         link.innerHTML = obj.examName;
                         exam_box.appendChild(link); 
                     }

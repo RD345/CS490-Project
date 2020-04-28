@@ -13,16 +13,12 @@ function takeExam()
     {
         if (xml_request.status == 200) // If the response is good (HTML code 200)
         {
-            // debug(this.response);
-            // document.getElementById("exam_list").innerHTML = "";
             if (this.response)
             {
                 response = JSON.parse(this.response);
                 document.getElementsByTagName("h2")[0].innerHTML = "Exam " + response[0].examID;
                 for(var i = 0; i < response.length; i++) 
-                {
-                    loadQuestion(response[i]);
-                }
+                    loadQuestion(response[i], i + 1);
             }
         } else 
             alert("Server error!");
@@ -37,21 +33,16 @@ function gotoExam(examID)
     data.append('message_type', 'goto_exam');
     data.append("examID", examID);
     var xml_request = createXMLRequest(data);
-    // alert("You are now taking the exam");
 
     xml_request.onload = function() 
     {
         if (xml_request.status == 200) // If the response is good (HTML code 200)
         {
-            // debug(this.response);
-            // document.getElementById("exam_list").innerHTML = "";
             if (this.response)
             {
                 response = JSON.parse(this.response);
                 for(var i = 0; i < response.length; i++) 
-                {
-                    loadQuestion(response[i]);
-                }
+                    loadQuestion(response[i], i + 1);
             }
         } else 
             alert("Server error!");
@@ -60,19 +51,17 @@ function gotoExam(examID)
 }
 
 // Load a question:
-function loadQuestion(question)
+function loadQuestion(question, number)
 {
     var page = document.getElementById("question_list");
-    // examID, points, description, student_answer
-    exam_question = document.createElement("div");
+    var exam_question = document.createElement("div");
     exam_question.className = "exam_question";
 
     // Create a label for 'Question':
     var p = document.createElement("p");
-    p.textContent = "Question: " + question.questionID + "  (" + question.points + " points)";
+    p.innerHTML = "<h4><strong>" + number + ") </strong>  (" + question.points + " points)</h4>";
     p.id = 'input_label';
     exam_question.appendChild(p);
-    // exam_question.appendChild(document.createElement("br"));
 
     var hidden = document.createElement("input");
     hidden.type = "hidden";
@@ -122,7 +111,6 @@ function getExams(role)
     {
         if (xml_request.status == 200) // If the response is good (HTML code 200)
         {
-            // debug(this.response);
             document.getElementById("exam_list").innerHTML = "";
             if (this.response)
             {
@@ -130,7 +118,8 @@ function getExams(role)
 
                 for(var i = 0; i < response.length; i++) 
                 {
-                    document.getElementById("exam_list").innerHTML += ("<li>" + "<a onclick=gotoExam(" + response[i].examID + ") href='exam.html'>" + response[i].examName + "</a>" + "</li>");
+                    document.getElementById("exam_list").innerHTML += 
+                    ("<li>" + "<a onclick=gotoExam(" + response[i].examID + ") href='exam.html'>" + response[i].examName + "</a>" + "</li>");
                 }
             }
         } else 
@@ -151,8 +140,8 @@ function submitExam()
         var data = new FormData();
         data.append('message_type', 'add_student_answer');
         data.append('questionID', item.getElementsByClassName("question_id")[0].value); 
+        data.append('username', document.getElementById('username_display').value);
         data.append('studentAnswer', item.getElementsByClassName("answer")[0].value);    
-        data.append('question_num', question_num);          
 
 
         xml_request = createXMLRequest(data);
@@ -170,7 +159,7 @@ function submitExam()
         }
         xml_request.send(data);
     }
-    // location.href = 'student_home.html';
+    location.href = 'student_home.html';
 }
 
 function enableTab() {
@@ -199,3 +188,12 @@ function enableTab() {
 // Enable the tab character onkeypress (onkeydown) inside textarea...
 // ... for a textarea that has an `id="my-textarea"`
 enableTab('answer'); 
+
+// Enable navigation prompt
+window.onbeforeunload = function() 
+{
+    alert("Are you sure about that?");
+    return true;
+};
+// Remove navigation prompt
+window.onbeforeunload = null;

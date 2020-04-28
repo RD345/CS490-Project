@@ -34,7 +34,7 @@ nav
     width: 100%;
     position: fixed;
 }
-nav a
+a
 {
     text-decoration: none;
 }
@@ -385,6 +385,11 @@ button:hover
     padding: 1em;
     margin-bottom: 2em;
 }
+    .exam_question strong
+    {
+        color: aqua;
+        font-size: xx-large;
+    }
 
 nav a,
 nav a:visited

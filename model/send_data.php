@@ -46,7 +46,7 @@ function sendRequest($data, $url)
     
     // Write log:
     $log = fopen("log.txt", "a") or die("Unable to open Log File");
-    // fwrite($log,$data.PHP_EOL);
+    fwrite($log, "\n\n".PHP_EOL);
     fwrite($log,$res.PHP_EOL);
     fclose($log);
 

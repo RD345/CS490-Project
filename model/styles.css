@@ -390,6 +390,11 @@ button:hover
         color: aqua;
         font-size: xx-large;
     }
+    .exam_question textarea
+    {
+        width: 95%;
+        height: 10em;
+    }
 
 nav a,
 nav a:visited
@@ -533,4 +538,14 @@ nav a:visited
         padding: .5em;
         margin-top: 1em;
         margin-bottom: 1em;
+    }
+#test_case_table
+{
+    margin-top: 1em;
+    margin-bottom: 1em;
+}
+    #test_case_table td
+    {
+        background-color: rgba(0, 0, 0, 0.274);
+        border: solid 1px white;
     }

@@ -156,12 +156,12 @@ function playSound(src)
         this.sound.play();
     }
 
-
     this.stop = function()
     {
         this.sound.pause();
     }
 }
+
 
 function allowDrop(ev) {ev.preventDefault();}
   
@@ -420,7 +420,7 @@ function veiwResults(examID, role)
 
                 results.appendChild(score_label);
 
-                debug(this.response);
+                console.log(this.response);
                
                 for (index1 = 0; index1 < response.length; index1++)
                 {
@@ -428,7 +428,7 @@ function veiwResults(examID, role)
                     var question_points = 0;
                     question_result.className = "question-result";
                     question_result.innerHTML += "Question <strong>" + (index1 + 1) + '</strong>:<br>';
-                    // results.innerHTML += response[index1];
+
                     if (response[index1].comments != null)
                         question_result.innerHTML += '<br><strong>Comments:</strong> ' + response[index1].comments;
                     else
@@ -474,7 +474,6 @@ function veiwResults(examID, role)
                         question_result.appendChild(testcase_result);
                         results.appendChild(question_result);
                     }
-                    // var total = parseFloat(document.getElementById("score").value);
                     total += parseFloat(question_points);
                     document.getElementById("score").value = Math.round((total + Number.EPSILON) * 100) / 100;
                 }   

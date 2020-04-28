@@ -19,12 +19,15 @@ switch ($_POST["message_type"])
     break;
     case "goto_exam":
         $_SESSION['current_exam'] = $_POST["examID"];
+        $_SESSION['current_exam_name'] = $_POST["examName"];
         return;
     break;
     case "take_exam":
         foreach($_POST as $key => $value)
             $data[$key] = $value;
         $data = array_merge($data, array('examID' => $_SESSION['current_exam']));
+        if(isset($_SESSION['current_exam_name']))
+            $data = array_merge($data, array('examName' => $_SESSION['current_exam_name']));
     break;
     case "add_student_answer":
         foreach($_POST as $key => $value)

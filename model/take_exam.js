@@ -26,11 +26,12 @@ function takeExam()
 }
 
 // Build the exam:
-function gotoExam(examID)
+function gotoExam(examID, examName)
 {
     var data = new FormData();
     data.append('message_type', 'goto_exam');
     data.append("examID", examID);
+    data.append("examName", examName);
     var xml_request = createXMLRequest(data);
 
     xml_request.onload = function() 
@@ -95,9 +96,9 @@ function loadQuestion(question, number)
 function getExams(role)
 {
     var data = new FormData();
-    data.append('message_type', 'list_exams');
+    data.append('message_type', 'list_exams'); // Was list_exams
     var xml_request = createXMLRequest(data);
-
+ 
     xml_request.onload = function() 
     {
         if (xml_request.status == 200) // If the response is good (HTML code 200)
@@ -110,6 +111,24 @@ function getExams(role)
                 for(var i = 0; i < response.length; i++) 
                 {
                     var exam_box = document.createElement("span");
+                    var str = "<a onclick=gotoExam(";
+                    str.innerHTML += response[i].examID; 
+                    str.innerHTML += ") href='exam.html'>";
+                    str.innerHTML += response[i].examName;
+                    str.innerHTML += "</a>";
+
+                    str = "<a onclick=gotoExam(" + response[i].examID + "," + String(response[i].examName) + ") href='exam.html'>" + response[i].examName + "</a>";
+                    exam_box.innerHTML = str;
+                    // var a = document.createElement("a");
+                    // a.href = 'exam.html';
+                    // a.innerText = response[i].examName + " ID:" + response[i].examID;
+                    // a.onclick = function ()
+                    // {
+                    //     console.log(i);
+                    //     gotoExam(response[i].examID, response[i].examName);
+                    // };
+                    // exam_box.appendChild(a);
+                    
 
                     if(role == 'student')
                         exam_box.innerHTML = "<a onclick=gotoExam(" + response[i].examID + ") href='exam.html'>" + response[i].examName + "</a>"; 
@@ -145,6 +164,7 @@ function submitExam()
         xml_request = createXMLRequest(data);
         xml_request.onload = function() 
         {
+            console.log(this.response);
             if (xml_request.status == 200) // If the response is good (HTML code 200)
             {
                 if (JSON.parse(this.response).message_type != "New question created successfully")
@@ -153,7 +173,9 @@ function submitExam()
                 alert("Server error!");
         }
         xml_request.send(data);
+        setTimeout(() => {   }, 300);
     }
+    // status === true ? alert("Successfully submitted") : alert("Submission Failed");
     if(status)
         alert("Successfully submitted");
     else

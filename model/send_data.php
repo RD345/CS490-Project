@@ -63,7 +63,8 @@ function sendRequest($data, $url)
 // If there is data to send, add the username and send it:
 if ($data != null)
 {
-    $data = array_merge($data, array('username' => $_SESSION['username'])); // Adds username
+    if (!isset($data['username']))
+        $data = array_merge($data, array('username' => $_SESSION['username'])); // Adds username
     sendRequest($data, $middle_url);
 }
 ?>

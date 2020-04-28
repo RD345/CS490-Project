@@ -7,27 +7,37 @@
     <link rel="shortcut icon" href='../source/favicon.ico'>
 	<input type='hidden' id='debug'>
 	<script type='text/javascript' src='../model/scripts.js'></script>
-	<script type='text/javascript' src='../model/release_scores.js'></script>
+	<script type='text/javascript' src='../model/review_exam.js'></script>
 </head>
-<body onload="getUsername(), listExamsToRelease()">
-	<header><h1>CS490 Project 1</h1></header>
-	<div id='div-nav2'>
-		<h4 id='username_display' onload="return getUsername()"></h4>
-		<button id='logout' onclick="logout()">Logout</button>
-	</div>
-	<nav>
-		<div id='div-nav1'>
-			<ul>
-				<li><a href=create_exam.html>Create an Exam</a></li>
-				<li><a href=create_question.html>Create a question</a></li>
-				<li><a href=instructor_home.html>Home</a></li>
-				<li id='li-nav1-active'>Review submissions</li>
-				<li><a href=release_scores.html>Release scores</a></li>
-			</ul>
-		</div>
-	</nav>
-	<footer id='credits'>
-		<p class='p-1'>Created by Group 10: Ryan Doherty, Matt Stepnowski and Feiyang Wang</p>
-	</footer>
-</body>
+<body onload="getUsername(), listExamsToReview()">
+    <header><h1>CS490 Project 1</h1></header>
+    <div id="div-nav2">
+      <h4 id="username_display" onload="return getUsername()"></h4>
+      <button id="logout" onclick="logout()">Logout</button>
+    </div>
+    <nav>
+      <div id="div-nav1">
+        <ul>
+          <li><a href="create_exam.html">Create an Exam</a></li>
+          <li><a href="create_question.html">Create a question</a></li>
+          <li><a href="instructor_home.html">Home</a></li>
+          <li id="li-nav1-active">Review submissions</li>
+          <li><a href="release_scores.html">Release scores</a></li>
+        </ul>
+      </div>
+    </nav>
+    <h2 id="h2Title">Select an Exam to review for below</h2>
+    <div class="div-page">
+      <form method="post">
+        <h4 id="h4Title">Exam(s) Available:</h4>
+        <ul id="exam_list"></ul>
+      </form>
+      <div id="question_list" class="div-page"></div>
+    </div>
+    <footer id="credits">
+      <p class="p-1">
+        Created by Group 10: Ryan Doherty, Matt Stepnowski and Feiyang Wang
+      </p>
+    </footer>
+  </body>
 </html>

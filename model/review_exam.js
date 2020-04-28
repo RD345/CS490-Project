@@ -105,8 +105,9 @@ function reviewExam(studentUsername, exam_id)
           totalScore = 0;
           document.getElementById("results").innerHTML = "";
 
+          tcg = JSON.parse(response[0].grade);
           for (var i = 0; i < response.length; i++) 
-            loadQuestionAnswer(response[i], studentUsername, exam_id, i + 1);
+            loadQuestionAnswer(response[i], studentUsername, exam_id, i + 1, tcg);
           
           document.getElementById("h2Title").innerHTML =
             "Exam Total Score: " + totalScore + "%";
@@ -119,7 +120,7 @@ function reviewExam(studentUsername, exam_id)
 }
 
 // Load a question:
-function loadQuestionAnswer(question, studentUsername, exam_id, question_id) 
+function loadQuestionAnswer(question, studentUsername, exam_id, question_id, tcg) 
 {
   var page = document.getElementById("question_list");
   exam_question = document.createElement("div");
@@ -142,11 +143,11 @@ function loadQuestionAnswer(question, studentUsername, exam_id, question_id)
   p.innerHTML = question.studentAnswer;
   exam_question.appendChild(p);
 
-  grade.push(question.grade);
+  // grade.push(question.grade);
   // Result for test case and constraints
   // console.log(question.grade);
   tcGrade = JSON.parse(question.grade);
-  console.log(tcGrade);
+  // console.log(tcGrade); 
   tcTable = document.createElement("TABLE");
   tcTable.setAttribute("id", "test_case_table");
 
@@ -171,6 +172,7 @@ function loadQuestionAnswer(question, studentUsername, exam_id, question_id)
   cell7.innerHTML = "Out of";
 
   var i = 0;
+  // console.log(tcGrade);
   for (var test_case in tcGrade) 
   {
     p = document.createElement("p");
@@ -180,7 +182,7 @@ function loadQuestionAnswer(question, studentUsername, exam_id, question_id)
       // TODO add the total
       break;
     }
-      
+      // console.log(tcGrade);
     row = tcTable.insertRow(++i);
     cell1 = row.insertCell(0);
     cell2 = row.insertCell(1);
@@ -246,13 +248,15 @@ function loadQuestionAnswer(question, studentUsername, exam_id, question_id)
 
   submit_button.onclick = function() 
   {
-    submitReviewQuestion(studentUsername, exam_id, question_id, tcGrade);
+    submitReviewQuestion(studentUsername, exam_id, question_id, tcg);
   };
-  console.log(tcGrade);
+  console.log(tcg);
   exam_question.appendChild(submit_button);
   page.appendChild(exam_question);
 }
 
+
+// Problem Not here:
 function submitReviewQuestion(studentUsername, exam_id, question_id, tcGrade) 
 { //Build the dataset:
   var data = new FormData();
@@ -264,21 +268,26 @@ function submitReviewQuestion(studentUsername, exam_id, question_id, tcGrade)
   var curr_question = document.getElementById(question_id);
   var j = 0;
   // alert("RIght here" + tcGrade);
-  console.log(tcGrade);
+  // console.log("j:", j, "TcGrade", tcGrade);
   for (var test_case in tcGrade) 
   {
     // var pointz = curr_question.getElementsByClassName("question_score");
-    console.log("curr j:", j);
-
-    tcGrade[test_case].points = curr_question.getElementsByClassName("question_score")[j];
-    tcGrade[test_case].totalPoints = curr_question.getElementsByClassName("total_points")[j];
+    
+    points = curr_question.getElementsByClassName("question_score");
+    total_points = curr_question.getElementsByClassName("total_points");
+    console.log("curr j:", points);
+    if (j < tcGrade.length)
+    {
+      tcGrade[test_case].points = parseFloat(points[j].value);
+      tcGrade[test_case].totalPoints = parseFloat(total_points[j].value);
+    }
     j++;
   }
   data.append("grade", JSON.stringify(tcGrade));
   data.append("comments", curr_question.getElementsByClassName("comment")[0].value);
 
-  for (var pair of data.entries()) 
-    console.log(pair[0] + ", " + pair[1]);
+  // for (var pair of data.entries()) 
+  //   console.log(pair[0] + ", " + pair[1]);
   
 
   var xml_request = createXMLRequest(data);

@@ -114,12 +114,20 @@ function getExams(role)
             document.getElementById("exam_list").innerHTML = "";
             if (this.response)
             {
-                response = JSON.parse(this.response);
-
+                var response = JSON.parse(this.response);
+                
                 for(var i = 0; i < response.length; i++) 
                 {
-                    document.getElementById("exam_list").innerHTML += 
-                    ("<li>" + "<a onclick=gotoExam(" + response[i].examID + ") href='exam.html'>" + response[i].examName + "</a>" + "</li>");
+                    var exam_box = document.createElement("span");
+
+                    if(role == 'student')
+                    {
+                        exam_box.innerHTML = "<a onclick=gotoExam(" + response[i].examID + ") href='exam.html'>" + response[i].examName + "</a>"; 
+                    }
+                    else
+                        exam_box.innerText = response[i].examName;
+
+                    exam_list.appendChild(exam_box);
                 }
             }
         } else 
@@ -133,14 +141,13 @@ function submitExam()
     var question_num = 1;
     exam = Array.from(document.forms["exam"].getElementsByClassName("exam_question")); // Gets the questions
     exam.forEach(submitQuestion);
-    
+    window.onbeforeunload = null; // Allows user to leave page.
     
     function submitQuestion(item)
     {
         var data = new FormData();
         data.append('message_type', 'add_student_answer');
         data.append('questionID', item.getElementsByClassName("question_id")[0].value); 
-        data.append('username', document.getElementById('username_display').value);
         data.append('studentAnswer', item.getElementsByClassName("answer")[0].value);    
 
 
@@ -164,10 +171,10 @@ function submitExam()
 
 function enableTab() {
     var el = document.getElementsByClassName('answer');
-    el.onkeydown = function(e) {
-        if (e.keyCode === 9) { // tab was pressed
-
-            // get caret position/selection
+    el.onkeydown = function(e) 
+    {
+        if (e.keyCode === 9) // Tab was pressed:
+        {   // get caret position/selection
             var val = this.value,
                 start = this.selectionStart,
                 end = this.selectionEnd;
@@ -180,20 +187,6 @@ function enableTab() {
 
             // prevent the focus lose
             return false;
-
         }
     };
 }
-
-// Enable the tab character onkeypress (onkeydown) inside textarea...
-// ... for a textarea that has an `id="my-textarea"`
-enableTab('answer'); 
-
-// Enable navigation prompt
-window.onbeforeunload = function() 
-{
-    alert("Are you sure about that?");
-    return true;
-};
-// Remove navigation prompt
-window.onbeforeunload = null;

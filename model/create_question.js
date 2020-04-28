@@ -58,6 +58,7 @@ function addTestCase()
 // {This will add a question to the question bank}
 function createQuestion() 
 {   // TODO Build the data set:
+    window.onbeforeunload = alert("Question submitted!"); // Allows user to leave page.
     var data = new FormData();
     data.append('message_type', 'create_question');
     data.append('questionTopic', document.getElementById("topic").value);

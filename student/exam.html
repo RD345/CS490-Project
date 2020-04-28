@@ -8,6 +8,13 @@
 	<input type='hidden' id='debug'>
 	<script type='text/javascript' src='../model/scripts.js'></script>
 	<script type='text/javascript' src='../model/take_exam.js'></script>
+	<script>
+		// Stop user from leaving by accident:
+		window.onbeforeunload = function() 
+		{
+			return true;
+		};
+	</script>
 </head>
 <body onload="getUsername(), takeExam()">
 	<header><h1>CS490 Project 1</h1></header>

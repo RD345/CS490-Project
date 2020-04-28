@@ -97,6 +97,7 @@ function createExam()
     var data = new FormData();
     data.append('message_type', 'create_exam');
     data.append('examName', document.getElementById("exam_name").value);
+    window.onbeforeunload = alert("Exam submitted!"); // Allows user to leave page.
 
     var questionAndPoints = [];
     form = Array.from(document.forms["questions"].getElementsByClassName("question-div")); // Gets the questions
@@ -141,5 +142,4 @@ function calculatePoints()
         num += parseInt(points_list[i].value);
     
     point_count.value = num;
-
 }

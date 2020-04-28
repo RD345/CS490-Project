@@ -502,9 +502,35 @@ nav a:visited
     {
         flex: 1;
     }
-#exam_list span
+
+#exam_list
+{
+    display: flex;
+    flex-wrap: wrap;
+}
+    #exam_list span
+    {
+        border: solid 1px white;
+        padding: 1em;
+        background-color: rgba(0, 0, 0, 0.274);
+    }
+.question-result
 {
     border: solid 1px white;
     padding: 1em;
     background-color: rgba(0, 0, 0, 0.274);
+    margin-top: 1em;
+    margin-bottom: 1em;
 }
+    .question-result strong
+    {
+        color: aqua;
+    }
+    .question-result .testcase_result
+    {
+        border: solid 1px white;
+        background-color: rgba(0, 0, 0, 0.274);
+        padding: .5em;
+        margin-top: 1em;
+        margin-bottom: 1em;
+    }

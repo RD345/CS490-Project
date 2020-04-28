@@ -8,7 +8,7 @@
 	<input type='hidden' id='debug'>
 	<script type='text/javascript' src='../model/scripts.js'></script>
 </head>
-<body onload="getUsername()">
+<body onload="getUsername(), veiwResults(1, 'student')">
 	<header><h1>CS490 Project 1</h1></header>
 	<div id='div-nav2'>
 		<h4 id='username_display' onload="return getUsername()"></h4>
@@ -22,6 +22,9 @@
 			</ul>
 		</div>
 	</nav>
+	<div class='div-page' id='results'>
+
+	</div>
 	<footer id='credits'>
 		<p class='p-1'>Created by Group 10: Ryan Doherty, Matt Stepnowski and Feiyang Wang</p>
 	</footer>

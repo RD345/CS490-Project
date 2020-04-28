@@ -381,3 +381,106 @@ document.addEventListener
     function (event) {autoExpand(event.target, event.target.tagName.toLowerCase());}, 
     false
 );
+
+function veiwResults(examID, role)
+{
+    var data = new FormData();
+    data.append('examID', examID);
+
+    if(role = "student")
+        data.append('message_type', 'view_results_student'); 
+    else if (role = "teacher")
+        data.append('message_type', 'view_results'); 
+
+    // Create and handle the xml request:
+    var xml_request = createXMLRequest(data);
+    xml_request.onload = function() 
+    {
+        if (xml_request.status == 200) // If the response is good (HTML code 200)
+        {
+            if (this.response)
+            {
+                var total = 0.0;
+                var response = JSON.parse(this.response);
+                var results = document.getElementById("results");
+                var title = document.createElement("h3");
+                title.innerText = "Results for Exam " + examID;
+                results.appendChild(title);
+
+                // Score:
+                var score_label = document.createElement("span");
+                score_label.innerText = "Your score: ";
+                score_label.id = "scorelabel"
+
+                var score = document.createElement("input");
+                score.id = "score";
+                score.readOnly = true;
+                score.type = "number";
+                score_label.appendChild(score);
+
+                results.appendChild(score_label);
+
+                debug(this.response);
+               
+                for (index1 = 0; index1 < response.length; index1++)
+                {
+                    var question_result = document.createElement("div");
+                    var question_points = 0;
+                    question_result.className = "question-result";
+                    question_result.innerHTML += "Question <strong>" + (index1 + 1) + '</strong>:<br>';
+                    // results.innerHTML += response[index1];
+                    if (response[index1].comments != null)
+                        question_result.innerHTML += '<br><strong>Comments:</strong> ' + response[index1].comments;
+                    else
+                        question_result.innerHTML += '<br><strong>Comments:</strong> None';
+                    question_result.innerHTML += '<br><strong>Description:</strong> ' + response[index1].description;
+
+                    // Constraint:
+                    if (response[index1].questionConstraint != null)
+                        question_result.innerHTML += '<br><strong>Constraint:</strong> ' + response[index1].questionConstraint;
+                    else
+                        question_result.innerHTML += '<br><strong>Constraint:</strong> None';
+
+                    // Student answer:
+                    question_result.innerHTML += '<br><strong>Your Answer:</strong> ' + response[index1].studentAnswer;  
+
+                    // Test Cases:                    
+                    var result = JSON.parse(response[index1].grade);
+                    
+                    if(result.TC1Grade)
+                        addCaseResults(result.TC1Grade, 1);
+                    if(result.TC2Grade)
+                        addCaseResults(result.TC1Grade, 2);
+                    if(result.TC3Grade)
+                        addCaseResults(result.TC1Grade, 3);
+                    if(result.TC4Grade)
+                        addCaseResults(result.TC1Grade, 4);
+                    if(result.TC5Grade)
+                        addCaseResults(result.TC1Grade, 5);
+                    if(result.TC6Grade)
+                        addCaseResults(result.TC1Grade, 6);
+
+                    function addCaseResults(testcase, index)
+                    {
+                        var testcase_result = document.createElement("div");
+                        testcase_result.className = "testcase_result";
+                        testcase_result.innerHTML += "Test Case " + index;
+                        testcase_result.innerHTML += '<br><strong>Colon Present:</strong> ' + testcase.hadColon;
+                        testcase_result.innerHTML += '<br><strong>Correct Output:</strong> ' + testcase.correctOutput;
+                        testcase_result.innerHTML += '<br><strong>Matched Constraint:</strong> ' + testcase.hadConstraint;
+                        testcase_result.innerHTML += '<br><strong>Correct Name:</strong> ' + testcase.correctName;
+                        testcase_result.innerHTML += '<br><strong>Total Points:</strong> ' + testcase.points;
+                        question_points += testcase.points;
+                        question_result.appendChild(testcase_result);
+                        results.appendChild(question_result);
+                    }
+                    // var total = parseFloat(document.getElementById("score").value);
+                    total += parseFloat(question_points);
+                    document.getElementById("score").value = Math.round((total + Number.EPSILON) * 100) / 100;
+                }   
+            }
+        } else 
+            alert("Server error!");
+    }
+    xml_request.send(data);
+}

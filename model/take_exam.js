@@ -132,6 +132,7 @@ function submitExam()
     exam = Array.from(document.forms["exam"].getElementsByClassName("exam_question")); // Gets the questions
     exam.forEach(submitQuestion);
     window.onbeforeunload = null; // Allows user to leave page.
+    status = true;
     
     function submitQuestion(item)
     {   // Build the dataset:
@@ -146,14 +147,17 @@ function submitExam()
         {
             if (xml_request.status == 200) // If the response is good (HTML code 200)
             {
-                if (JSON.parse(this.response).message_type == "New question created successfully")
-                    alert("Exam Submitted.");
-                else
-                    alert("Submission Failed!");
+                if (JSON.parse(this.response).message_type != "New question created successfully")
+                    status = false;
             } else 
                 alert("Server error!");
         }
         xml_request.send(data);
     }
+    if(status)
+        alert("Successfully submitted");
+    else
+        alert("Submission Failed");
+
     location.href = 'student_home.html';
 }

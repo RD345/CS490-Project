@@ -5,7 +5,6 @@ function takeExam()
 {   
     var data = new FormData();
     data.append('message_type', 'take_exam');
-    // data.append("examID", exam_id);
     var xml_request = createXMLRequest(data);
     alert("You are now taking the exam");
 
@@ -50,7 +49,7 @@ function gotoExam(examID)
     xml_request.send(data);
 }
 
-// Load a question:
+// Load a question into the exam:
 function loadQuestion(question, number)
 {
     var page = document.getElementById("question_list");
@@ -74,33 +73,25 @@ function loadQuestion(question, number)
     p.innerHTML = question.description;
     exam_question.appendChild(p);
 
-
     // Student answer:
     var student_answer = document.createElement("textarea");
     student_answer.placeholder = "Answer here";
     student_answer.className = "answer";
-    student_answer.onkeydown = function(e) {
-        if (e.keyCode === 9) { // tab was pressed
-
-            // get caret position/selection
-            var val = this.value;
- 
-            // set textarea value to: text before caret + tab + text after caret
-            this.value = val.substring(0, this.selectionStart) + '\t' + val.substring(this.selectionEnd);
-
-            // put caret at right position again
-            this.selectionStart = this.selectionEnd = this.selectionStart + 1;
-
-            // prevent the focus lose
-            return false;
-
+    student_answer.onkeydown = function(e) 
+    {
+        if (e.keyCode === 9) // tab was pressed
+        {
+            var val = this.value; // get caret position/selection
+            this.value = val.substring(0, this.selectionStart) + '\t' + val.substring(this.selectionEnd); // Sets textarea value to: text before caret + tab + text after caret
+            this.selectionStart = this.selectionEnd = this.selectionStart + 1;  // Puts caret back to the right.
+            return false; // Prevents focus loss.
         }
     };
     exam_question.appendChild(student_answer);
-
     page.appendChild(exam_question);
 }
 
+// Gets the exams and returns them with a link to start them:
 function getExams(role)
 {
     var data = new FormData();
@@ -121,9 +112,7 @@ function getExams(role)
                     var exam_box = document.createElement("span");
 
                     if(role == 'student')
-                    {
                         exam_box.innerHTML = "<a onclick=gotoExam(" + response[i].examID + ") href='exam.html'>" + response[i].examName + "</a>"; 
-                    }
                     else
                         exam_box.innerText = response[i].examName;
 
@@ -131,11 +120,12 @@ function getExams(role)
                 }
             }
         } else 
-        alert("Server error!");
+            alert("Server error!");
     }
     xml_request.send(data);
 }
 
+// Submits the student answers:
 function submitExam()
 {
     var question_num = 1;
@@ -144,20 +134,19 @@ function submitExam()
     window.onbeforeunload = null; // Allows user to leave page.
     
     function submitQuestion(item)
-    {
+    {   // Build the dataset:
         var data = new FormData();
         data.append('message_type', 'add_student_answer');
         data.append('questionID', item.getElementsByClassName("question_id")[0].value); 
         data.append('studentAnswer', item.getElementsByClassName("answer")[0].value);    
 
-
+        // Create and handle the request:
         xml_request = createXMLRequest(data);
         xml_request.onload = function() 
         {
             if (xml_request.status == 200) // If the response is good (HTML code 200)
             {
-                res = JSON.parse(this.response)
-                if (res.message_type == "New question created successfully")
+                if (JSON.parse(this.response).message_type == "New question created successfully")
                     alert("Exam Submitted.");
                 else
                     alert("Submission Failed!");
@@ -167,26 +156,4 @@ function submitExam()
         xml_request.send(data);
     }
     location.href = 'student_home.html';
-}
-
-function enableTab() {
-    var el = document.getElementsByClassName('answer');
-    el.onkeydown = function(e) 
-    {
-        if (e.keyCode === 9) // Tab was pressed:
-        {   // get caret position/selection
-            var val = this.value,
-                start = this.selectionStart,
-                end = this.selectionEnd;
-
-            // set textarea value to: text before caret + tab + text after caret
-            this.value = val.substring(0, start) + '\t' + val.substring(end);
-
-            // put caret at right position again
-            this.selectionStart = this.selectionEnd = start + 1;
-
-            // prevent the focus lose
-            return false;
-        }
-    };
 }

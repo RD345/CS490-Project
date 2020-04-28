@@ -90,7 +90,6 @@ function listExams(role)
 
                     if(role == 'student')
                     {
-                       
                         var link = document.createElement("a");
                         link.href = "exam.html";
                         link.onclick = "takeExam(obj.examID)";
@@ -124,7 +123,6 @@ function getStudents()
     {
         if (xml_request.status == 200) // If the response is good (HTML code 200)
         {
-            // debug(this.response);
             if (this.response)
             {
                 response = JSON.parse(this.response);

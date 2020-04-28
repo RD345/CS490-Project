@@ -54,8 +54,6 @@ function addTestCase()
 
 
 // Submit a new question to the database:
-// "add_question" - takes ($questionName, $questionLevel, $questionDescription,$testcase1,$testcase2,$testcase1Answer,$testcase2Answer,$keyword)
-// {This will add a question to the question bank}
 function createQuestion() 
 {   // TODO Build the data set:
     window.onbeforeunload = alert("Question submitted!"); // Allows user to leave page.

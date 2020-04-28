@@ -38,12 +38,10 @@ function releaseScores(exam_id)
     {
         if (xml_request.status == 200) // If the response is good (HTML code 200)
         {
-            if (this.response)
-            {
-                // debug(this.response);
+            if (JSON.parse(this.response).message_type = "success")
                 alert("Scores released!");
-                // alert(JSON.parse(this.response));
-            }
+            else
+                alert("Release failed!");
         } else 
             alert("Server error!"); 
     }

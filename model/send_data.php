@@ -26,12 +26,16 @@ switch ($_POST["message_type"])
             $data[$key] = $value;
         $data = array_merge($data, array('examID' => $_SESSION['current_exam']));
     break;
+    case "add_student_answer":
+        foreach($_POST as $key => $value)
+            $data[$key] = $value;
+        $data = array_merge($data, array('examID' => $_SESSION['current_exam']));
+    break;
     default: // Default handler, add the post variables to the request:
         foreach($_POST as $key => $value)
             $data[$key] = $value;
     break;
 }
-// echo json_encode($data);
 
 // Sends the login request:
 function sendRequest($data, $url)
@@ -44,17 +48,19 @@ function sendRequest($data, $url)
     curl_close ($curl); // Close the connection
     
     
-    // Write log:
+    // Write to the log:
     $log = fopen("log.txt", "a") or die("Unable to open Log File");
     fwrite($log, "\n\n".PHP_EOL);
     fwrite($log,$res.PHP_EOL);
     fclose($log);
 
+    // Echos the response back if present, and no_repsone if not:
     if ($res != null)
-        echo $res; // Echo the response back
+        echo $res; 
     else
         echo json_encode(array('message_type' => 'no_response'));
 }
+// If there is data to send, add the username and send it:
 if ($data != null)
 {
     $data = array_merge($data, array('username' => $_SESSION['username'])); // Adds username

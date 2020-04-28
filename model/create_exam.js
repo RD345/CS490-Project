@@ -1,5 +1,4 @@
-// Scripts for creating exams.
-
+// Adds a question to the question bank:
 function addQuestion()
 {
     var data = new FormData();
@@ -12,7 +11,6 @@ function addQuestion()
         {
             if (this.response)
             {
-                // debug(this.response);
                 question_list = JSON.parse(this.response); // array of all questions
                 var topics = [];
                 var questions = document.getElementsByClassName("question_list")[0]; // Gets the first question list div.
@@ -82,16 +80,16 @@ function addQuestion()
                 description.innerText = question_list[0].description
                 question.appendChild(description);
                 question.appendChild(document.createElement("br"));
-
                 questions.appendChild(question); // Adds the question to the form.
             }
         } else 
-        alert("Server error!");
+            alert("Server error!");
     }
     xml_request.send(data); // Sends the request for the questions.
 }
 
 
+// Submits the exam to the database:
 function createExam() 
 {   // TODO Build the data set:
     var data = new FormData();
@@ -101,15 +99,12 @@ function createExam()
 
     var questionAndPoints = [];
     form = Array.from(document.forms["questions"].getElementsByClassName("question-div")); // Gets the questions
+
     form.forEach(addQuestion);
-    
-    
     function addQuestion(questionDiv)
     {
         var points = questionDiv.childNodes[5].childNodes[1].value;
-     
         questionAndPoints.push(("questionID", questionDiv.id), ("points", points));
-        // questionAndPoints.push({});
     }
     data.append("examQuestionsAndPoints", questionAndPoints);
 
@@ -131,6 +126,7 @@ function createExam()
 }
 
 
+// Calculates and updates the running point tally for the exam:
 function calculatePoints()
 {
     point_count = document.getElementById("point_count"); 

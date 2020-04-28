@@ -136,6 +136,7 @@ function loadQuestionAnswer(question, studentUsername, exam_id, question_id)
   p = document.createElement("p");
   p.innerHTML = "Student Answer: ";
   exam_question.appendChild(p);
+
   var p = document.createElement("textarea");
   p.readOnly = true;
   p.innerHTML = question.studentAnswer;
@@ -262,17 +263,15 @@ function submitReviewQuestion(studentUsername, exam_id, question_id, tcGrade)
 
   var curr_question = document.getElementById(question_id);
   var j = 0;
-  alert("RIght here" + tcGrade);
+  // alert("RIght here" + tcGrade);
+  console.log(tcGrade);
   for (var test_case in tcGrade) 
   {
     // var pointz = curr_question.getElementsByClassName("question_score");
-
-    var curr_points = curr_question.getElementsByClassName("question_score")[j];
-    var curr_total_points = curr_question.getElementsByClassName("total_points")[j];
     console.log("curr j:", j);
 
-    tcGrade[test_case].points = curr_points.value;
-    tcGrade[test_case].totalPoints = curr_total_points.value;
+    tcGrade[test_case].points = curr_question.getElementsByClassName("question_score")[j];
+    tcGrade[test_case].totalPoints = curr_question.getElementsByClassName("total_points")[j];
     j++;
   }
   data.append("grade", JSON.stringify(tcGrade));

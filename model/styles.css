@@ -549,3 +549,14 @@ nav a:visited
         background-color: rgba(0, 0, 0, 0.274);
         border: solid 1px white;
     }
+
+.exam_box
+{
+    text-align: center;
+}
+
+.student_answer
+{
+    height: 10em;
+    width: 50%;
+}

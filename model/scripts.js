@@ -403,6 +403,7 @@ function veiwResults(examID, role)
                 var total = 0.0;
                 var response = JSON.parse(this.response);
                 var results = document.getElementById("results");
+                results.innerText = "";
                 var title = document.createElement("h3");
                 title.innerText = "Results for Exam " + examID;
                 results.appendChild(title);
@@ -442,7 +443,7 @@ function veiwResults(examID, role)
                         question_result.innerHTML += '<br><strong>Constraint:</strong> None';
 
                     // Student answer:
-                    question_result.innerHTML += '<br><strong>Your Answer:</strong> ' + response[index1].studentAnswer;  
+                    question_result.innerHTML += '<br><strong>Your Answer:</strong><br><textarea class=student_answer>' + response[index1].studentAnswer + '</textarea>';  
 
                     // Test Cases:                    
                     var result = JSON.parse(response[index1].grade);

@@ -183,3 +183,70 @@ function submitExam()
 
     location.href = 'student_home.html';
 }
+
+
+// Gets the exams withj grades:
+function getGradedExams(overview)
+{
+    var data = new FormData();
+    data.append('message_type', 'list_exams'); // Was list_exams
+    var xml_request = createXMLRequest(data);
+ 
+    console.log(JSON.parse(overview));
+    overview = JSON.parse(overview);
+    
+    xml_request.onload = function() 
+    {
+        if (xml_request.status == 200) // If the response is good (HTML code 200)
+        {
+            document.getElementById("exam_list").innerHTML = "";
+            if (this.response)
+            {
+                var response = JSON.parse(this.response);
+                
+                for(var i = 0; i < response.length; i++) 
+                {
+                    if(overview[response[i].examID])
+                    {
+                        var exam_box = document.createElement("span");
+                        exam_box.className = "exam_box";
+
+                        if(overview[response[i].examID] === "Not Released")
+                            exam_box.innerHTML = "<h3>" + response[i].examName + "</h3><h4>Grade Pending</strong></h4></p>" ; 
+                        else
+                            exam_box.innerHTML = "<h3><a onclick=veiwResults(" + response[i].examID + ',' + "'" + 'student' + "'" + ")>" + response[i].examName + "</a></h3><h4>" + overview[response[i].examID] + "%</h4>"; 
+                        
+
+                        exam_list.appendChild(exam_box);
+                    }
+                }
+            }
+        } else 
+            alert("Server error!");
+    }
+    xml_request.send(data);
+}
+
+
+
+// Gets the exams with grades:
+function overview()
+{
+    var data = new FormData();
+    data.append('message_type', 'student_overview'); // Was list_exams
+    var xml_request = createXMLRequest(data);
+ 
+    xml_request.onload = function() 
+    {
+        if (xml_request.status == 200) // If the response is good (HTML code 200)
+        {
+            if (this.response)
+            {
+                // alert(this.response);
+                getGradedExams(this.response);
+            }
+        } else 
+            alert("Server error!");
+    }
+    xml_request.send(data);
+}

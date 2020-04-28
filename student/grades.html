@@ -7,8 +7,9 @@
     <link rel="shortcut icon" href='../source/favicon.ico'>
 	<input type='hidden' id='debug'>
 	<script type='text/javascript' src='../model/scripts.js'></script>
+	<script type='text/javascript' src='../model/take_exam.js'></script>
 </head>
-<body onload="getUsername(), veiwResults(1, 'student')">
+<body onload="getUsername(), overview()">
 	<header><h1>CS490 Project 1</h1></header>
 	<div id='div-nav2'>
 		<h4 id='username_display' onload="return getUsername()"></h4>
@@ -18,11 +19,16 @@
 		<div id='div-nav1'>
 			<ul>
 				<li><a href='student_home.html'>Home</a></li>
-				<li id='li-nav1-active'>Grades</li>
+				<li id='li-nav1-active'><a href='grades.html'>Grades</a></li>
 			</ul>
 		</div>
 	</nav>
+	<div class='div-page'>
+	<h4>Exam(s) Taken:</h4>
+		<span id='exam_list' onloadstart="listExams()"></span>
+	</div>
 	<div class='div-page' id='results'>
+	
 	</div>
 	<footer id='credits'>
 		<p class='p-1'>Created by Group 10: Ryan Doherty, Matt Stepnowski and Feiyang Wang</p>
